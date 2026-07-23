@@ -1,0 +1,9 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="60" cy="60" r="58" fill="#12161c" stroke="#e0a542" stroke-width="2"/>
+  <path d="M60 14 A46 46 0 1 1 14 60" fill="none" stroke="#3b6d11" stroke-width="6" stroke-linecap="round"/>
+  <path d="M60 14 A46 46 0 0 1 106 60" fill="none" stroke="#e0a542" stroke-width="6" stroke-linecap="round"/>
+  <path d="M106 60 A46 46 0 0 1 60 106" fill="none" stroke="#9c3b2b" stroke-width="6" stroke-linecap="round"/>
+  <path d="M60 106 A46 46 0 0 1 14 60" fill="none" stroke="#2c5a8a" stroke-width="6" stroke-linecap="round" opacity="0"/>
+  <text x="60" y="53" font-family="Georgia, serif" font-size="26" fill="#f7f4ec" text-anchor="middle" font-weight="bold">PS</text>
+  <text x="60" y="79" font-family="Georgia, serif" font-size="26" fill="#f7f4ec" text-anchor="middle" font-weight="bold">PO</text>
+</svg>

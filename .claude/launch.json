@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "pspo-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5173", "--directory", "C:/Users/arnau/Documents/git/PSPO_CertificactionsTest-Study/app"],
+      "port": 5173
+    }
+  ]
+}
