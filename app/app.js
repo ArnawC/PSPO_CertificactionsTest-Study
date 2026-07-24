@@ -55,6 +55,238 @@ function activeErrors(){
   return loadErrorLog().filter(e=>!e.masteredAt);
 }
 
+// ---------------- SPECIAL MODES ----------------
+const TRAP_KEYWORDS = ["sempre","mai ","únicament","únic ","única ","exclusivament","només","tots els","totes les","cap ","l'única","l'únic","immediatament","obligatòriament","en cap cas"];
+function detectTrapQuestions(pool){
+  return pool.filter(q=>{
+    const haystack = ((q.trap||"") + " " + q.opts.join(" ")).toLowerCase();
+    return TRAP_KEYWORDS.some(k=>haystack.includes(k));
+  });
+}
+
+function buildTfMassivePool(count, topicId){
+  let base = getAllQuestionsPool().filter(q=>q.type!=="tf");
+  if(topicId && topicId!=="all") base = base.filter(q=>q.topicId===topicId);
+  let items = [];
+  base.forEach(q=>{
+    const correctSet = Array.isArray(q.correct) ? q.correct : [q.correct];
+    q.opts.forEach((opt,i)=>{
+      const isCorrectOpt = correctSet.includes(i);
+      items.push({
+        type:"tf",
+        q: `Vertader o fals: "${opt}" és una resposta correcta per a — ${q.q}`,
+        opts: ["Vertader","Fals"],
+        correct: [isCorrectOpt?0:1],
+        exp: [
+          isCorrectOpt ? (q.exp[i]||"Correcte.") : "Aquesta opció no és una resposta correcta a la pregunta original.",
+          !isCorrectOpt ? (q.exp[i]||"Incorrecte.") : "Aquesta opció sí és una resposta correcta a la pregunta original."
+        ],
+        trap: q.trap, topicId: q.topicId, topicName: q.topicName
+      });
+    });
+  });
+  return shuffle(items).slice(0, count);
+}
+
+function startRedemptionMode(){
+  const pool = activeErrors().map(e=>({type:e.type, q:e.q, opts:e.opts, exp:e.exp, correct:e.correct, trap:e.trap, topicId:e.topicId, topicName:e.topicName}));
+  if(!pool.length){ alert("No tens preguntes pendents al registre d'errors."); return; }
+  const questions = shuffle(pool).map(prepareQuestion);
+  startQuiz(questions, {mode:"redemption", label:"Test de redempció"}, null);
+}
+
+function startTfMassiveMode(){
+  const countInput = document.getElementById("tfmassive-count");
+  const count = countInput ? (parseInt(countInput.value,10)||20) : 20;
+  const items = buildTfMassivePool(count, "all");
+  if(!items.length){ alert("No hi ha prou preguntes d'opció única/múltiple per generar aquest mode."); return; }
+  const questions = items.map(prepareQuestion);
+  startQuiz(questions, {mode:"tfmassive", label:"Vertader/Fals massiu"}, null);
+}
+
+function startTrapMode(){
+  const pool = detectTrapQuestions(getAllQuestionsPool());
+  if(!pool.length){ alert("No s'han detectat preguntes trampa al banc actual."); return; }
+  const questions = shuffle(pool).map(prepareQuestion);
+  startQuiz(questions, {mode:"trap", label:"Preguntes trampa"}, null);
+}
+
+function renderSpecialModes(){
+  const activeErr = activeErrors();
+  const mcPool = getAllQuestionsPool().filter(q=>q.type!=="tf");
+  const tfMax = mcPool.reduce((s,q)=>s+q.opts.length,0);
+  const trapPool = detectTrapQuestions(getAllQuestionsPool());
+
+  return `
+    <h1>Modes especials</h1>
+    <p class="subtitle">Estratègies de repàs pensades per reforçar exactament el que et falta.</p>
+    <div class="special-grid">
+      <div class="special-card">
+        <h3>Bucle de fallada contínua</h3>
+        <p>Repeteix només les preguntes que has fallat, en bucle, fins que les encertis 3 vegades seguides.</p>
+        <div class="special-meta">${activeErr.length} pregunta${activeErr.length===1?"":"es"} activa${activeErr.length===1?"":"es"} al registre d'errors</div>
+        <button class="btn amber" data-action="start-loop-mode" ${activeErr.length===0?"disabled":""}>Començar bucle ↗</button>
+      </div>
+
+      <div class="special-card">
+        <h3>Test de redempció</h3>
+        <p>Un test normal, d'una sola volta, amb totes les preguntes que actualment tens pendents al registre d'errors.</p>
+        <div class="special-meta">${activeErr.length} pregunta${activeErr.length===1?"":"es"} disponible${activeErr.length===1?"":"s"}</div>
+        <button class="btn amber" data-action="start-redemption-mode" ${activeErr.length===0?"disabled":""}>Començar redempció ↗</button>
+      </div>
+
+      <div class="special-card">
+        <h3>Vertader / Fals massiu</h3>
+        <p>Transforma cada opció de les preguntes d'opció única i múltiple en una pregunta independent de Vertader/Fals. Processa el triple de conceptes en menys temps.</p>
+        <div class="special-meta">${mcPool.length} preguntes base · fins a ${tfMax} ítems V/F possibles</div>
+        <div class="config-row">
+          <label>Nombre d'ítems</label>
+          <input type="number" min="5" max="${Math.max(tfMax,5)}" value="${Math.min(20,tfMax)||5}" id="tfmassive-count"/>
+        </div>
+        <button class="btn amber" data-action="start-tfmassive-mode" ${tfMax===0?"disabled":""}>Començar ↗</button>
+      </div>
+
+      <div class="special-card">
+        <h3>Preguntes trampa</h3>
+        <p>Agrupa preguntes amb paraules típiques de trampa d'examen ("sempre", "mai", "únicament"...) o opcions molt semblants, per entrenar l'atenció.</p>
+        <div class="special-meta">${trapPool.length} pregunta${trapPool.length===1?"":"es"} detectada${trapPool.length===1?"":"es"}</div>
+        <button class="btn amber" data-action="start-trap-mode" ${trapPool.length===0?"disabled":""}>Començar ↗</button>
+      </div>
+    </div>
+  `;
+}
+
+// ---------------- LOOP MODE (bucle de fallada contínua) ----------------
+let loopQuiz = null;
+
+function currentLoopEntry(){
+  if(!loopQuiz || !loopQuiz.queue.length) return null;
+  const uid = loopQuiz.queue[0];
+  return loadErrorLog().find(e=>e.uid===uid) || null;
+}
+
+function advanceLoop(){
+  while(loopQuiz.queue.length){
+    const entry = currentLoopEntry();
+    if(entry && !entry.masteredAt) break;
+    loopQuiz.queue.shift();
+  }
+  if(!loopQuiz.queue.length){ loopQuiz.current = null; return; }
+  const entry = currentLoopEntry();
+  loopQuiz.current = prepareQuestion({
+    type:entry.type, q:entry.q, opts:entry.opts, exp:entry.exp,
+    correct:entry.correct, trap:entry.trap, topicId:entry.topicId, topicName:entry.topicName
+  });
+  loopQuiz.selected = [];
+  loopQuiz.locked = false;
+}
+
+function startLoopMode(){
+  const active = activeErrors();
+  if(!active.length){ alert("No tens preguntes pendents al registre d'errors."); return; }
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  loopQuiz = {
+    queue: shuffle(active.map(e=>e.uid)),
+    current: null, selected:[], locked:false,
+    correctCount:0, wrongCount:0, startedAt: Date.now()
+  };
+  advanceLoop();
+  setView("loop-quiz");
+}
+
+function pickLoopOption(i){
+  if(loopQuiz.locked) return;
+  const q = loopQuiz.current;
+  if(q.type==="multi"){
+    const pos = loopQuiz.selected.indexOf(i);
+    if(pos>=0) loopQuiz.selected.splice(pos,1); else loopQuiz.selected.push(i);
+  } else {
+    loopQuiz.selected = [i];
+  }
+  render();
+}
+
+function loopCheckAnswer(){
+  const q = loopQuiz.current;
+  const isRight = loopQuiz.selected.length===q.correct.length && loopQuiz.selected.every(s=>q.correct.includes(s));
+  loopQuiz.locked = true;
+  loopQuiz.lastResult = isRight;
+  recordAnswerResult(q, isRight);
+  if(isRight) loopQuiz.correctCount++; else loopQuiz.wrongCount++;
+  render();
+}
+
+function loopNext(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  const uid = loopQuiz.queue.shift();
+  const entry = loadErrorLog().find(e=>e.uid===uid);
+  if(entry && !entry.masteredAt) loopQuiz.queue.push(uid);
+  advanceLoop();
+  if(!loopQuiz.current){ setView("loop-score"); } else { render(); }
+}
+
+function renderLoopQuiz(){
+  if(!loopQuiz || !loopQuiz.current) return "";
+  const q = loopQuiz.current;
+  const entry = currentLoopEntry();
+  let optsHtml = q.opts.map((o,i)=>{
+    let cls="opt";
+    if(loopQuiz.locked){
+      cls+=" locked";
+      const isCorrect = q.correct.includes(i);
+      const wasSelected = loopQuiz.selected.includes(i);
+      if(isCorrect) cls+=" correct";
+      else if(wasSelected) cls+=" incorrect";
+    } else if(loopQuiz.selected.includes(i)){
+      cls+=" selected";
+    }
+    return `<button class="${cls}" data-loop-pick="${i}" ${loopQuiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}</button>`;
+  }).join("");
+  let hint = q.type==="multi" ? '<div class="hint">Selecciona totes les que corresponguin</div>' : "";
+  let feedbackHtml = "";
+  if(loopQuiz.locked){
+    feedbackHtml = `<div class="feedback ${loopQuiz.lastResult?'ok':'bad'}">
+      <strong>${loopQuiz.lastResult?"Correcte.":"Incorrecte."}</strong>
+      <ul class="explist">${q.exp.map((e,i)=>`<li><b>${String.fromCharCode(65+i)}.</b> ${e}</li>`).join("")}</ul>
+      <span class="trap">Nota d'examen: ${q.trap}</span>
+    </div>`;
+  }
+  return `
+    <div class="topbar-quiz">
+      <span>Bucle de fallada contínua · queden ${loopQuiz.queue.length} preguntes actives</span>
+      <span class="timer">Ratxa: ${entry?entry.streak:0}/3</span>
+    </div>
+    <div class="card">
+      <span class="block-tag">${q.type==="multi"?"Resposta múltiple":q.type==="tf"?"Vertader / Fals":"Opció única"} · ${q.topicName}</span>
+      <div class="quiz-toolbar">
+        <button type="button" class="icon-btn" data-action="speak-loop-question" title="Escolta la pregunta">${ICON_SPEAKER}Escolta</button>
+      </div>
+      <p class="qtext">${q.q}</p>
+      ${hint}
+      ${optsHtml}
+      ${feedbackHtml}
+      <div class="actions">
+        <button class="btn secondary" data-action="quit-loop">Abandonar</button>
+        <button class="btn" id="btn-loop-next" ${(!loopQuiz.locked && loopQuiz.selected.length===0)?"disabled":""}>${loopQuiz.locked?"Següent":"Comprovar"}</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderLoopScore(){
+  return `
+    <div class="score-screen">
+      <div class="score-lbl">Bucle de fallada contínua completat</div>
+      <div class="score-num">✓</div>
+      <div class="score-lbl">Has dominat totes les preguntes actives (3 encerts seguits cadascuna)</div>
+      <div style="display:flex; gap:10px; justify-content:center; margin-top:18px;">
+        <button class="btn secondary" data-nav="dashboard">Tornar a l'inici</button>
+        <button class="btn amber" data-nav="special-modes">Tornar als modes especials</button>
+      </div>
+    </div>
+  `;
+}
+
 // ---------------- THEME ----------------
 function loadTheme(){
   try{ return localStorage.getItem(THEME_KEY) || "dark"; }catch(e){ return "dark"; }
@@ -192,6 +424,7 @@ function render(){
       <div class="nav-sep"></div>
       ${navItem("test-general-config","Test general")}
       ${navItem("test-final-config","Test final (examen)")}
+      ${navItem("special-modes","Modes especials")}
       <div class="nav-sep"></div>
       ${navItem("custom-questions","Preguntes pròpies")}
       <div class="nav-sep"></div>
@@ -237,6 +470,7 @@ const NAV_ICONS = {
   "test-topic-config": '<circle cx="8" cy="8" r="5.2"/><circle cx="8" cy="8" r="2.1"/>',
   "test-general-config": '<path d="M2.5 5h3.4l2 2.2"/><path d="M2.5 11h3.4l6.6-7.4h1"/><path d="M9.9 9.8l2.6 3.2h1"/><path d="M11.5 2.7 13.5 3.6l-2 1"/><path d="M11.5 13.3 13.5 12.4l-2-1"/>',
   "test-final-config": '<path d="M3.5 2.5v11"/><path d="M3.5 3.2h8l-1.6 2.4 1.6 2.4h-8Z"/>',
+  "special-modes": '<path d="M8.7 2.2 3.8 8.6h3.1l-1 5.2 5.4-6.9H8.3Z"/>',
   "custom-questions": '<path d="M9.8 2.9a1.4 1.4 0 0 1 2 2L5.4 11.3l-2.7.6.6-2.7Z"/><path d="M8.7 4l1.9 1.9"/>',
   "stats": '<path d="M3 13V6.5"/><path d="M7.5 13V3"/><path d="M12 13V9"/><path d="M2 13.5h12"/>'
 };
@@ -257,6 +491,9 @@ function renderMain(){
     case "test-final-config": return renderFinalConfig();
     case "quiz": return renderQuiz();
     case "score": return renderScore();
+    case "special-modes": return renderSpecialModes();
+    case "loop-quiz": return renderLoopQuiz();
+    case "loop-score": return renderLoopScore();
     case "custom-questions": return renderCustom();
     case "stats": return renderStats();
     default: return "";
@@ -694,7 +931,8 @@ function renderCustomForm(d){
 }
 
 // ---------------- STATS ----------------
-const MODE_LABELS = {topic:"Test per tema", general:"Test general", final:"Test final"};
+const MODE_LABELS = {topic:"Test per tema", general:"Test general", final:"Test final", redemption:"Test de redempció", tfmassive:"V/F massiu", trap:"Preguntes trampa"};
+const CORE_MODES = ["topic","general","final"];
 const TYPE_LABELS = {single:"Opció única", multi:"Resposta múltiple", tf:"Vertader / Fals"};
 const DAYS_LABELS = {"all":"Tot", "7":"7 dies", "30":"30 dies", "90":"90 dies"};
 
@@ -734,7 +972,7 @@ function aggregateByType(hist){
 }
 
 function modeBreakdown(hist){
-  const agg = {topic:{n:0,sum:0}, general:{n:0,sum:0}, final:{n:0,sum:0}};
+  const agg = {};
   hist.forEach(h=>{
     if(!agg[h.mode]) agg[h.mode] = {n:0,sum:0};
     agg[h.mode].n++; agg[h.mode].sum += h.pct;
@@ -829,11 +1067,12 @@ function renderStats(){
     </div>`;
   }).join("");
 
-  const modeCards = ["topic","general","final"].map(m=>{
+  const specialModesUsed = Object.keys(modeAgg).filter(m=>!CORE_MODES.includes(m) && modeAgg[m].n>0);
+  const modeCards = CORE_MODES.concat(specialModesUsed).map(m=>{
     const d = modeAgg[m] || {n:0,sum:0};
     const avg = d.n ? Math.round(d.sum/d.n) : null;
     return `<div class="mode-card">
-      <div class="mlbl">${MODE_LABELS[m]}</div>
+      <div class="mlbl">${MODE_LABELS[m]||m}</div>
       <div class="mval">${avg===null?"—":avg+"%"}</div>
       <div class="msub">${d.n} test${d.n===1?"":"s"}</div>
     </div>`;
@@ -996,6 +1235,51 @@ function attachHandlers(){
   const flagBtn = root.querySelector('[data-action="toggle-flag"]');
   if(flagBtn){
     flagBtn.addEventListener("click", toggleFlag);
+  }
+
+  const startLoopBtn = root.querySelector('[data-action="start-loop-mode"]');
+  if(startLoopBtn){ startLoopBtn.addEventListener("click", startLoopMode); }
+
+  const startRedemptionBtn = root.querySelector('[data-action="start-redemption-mode"]');
+  if(startRedemptionBtn){ startRedemptionBtn.addEventListener("click", startRedemptionMode); }
+
+  const startTfMassiveBtn = root.querySelector('[data-action="start-tfmassive-mode"]');
+  if(startTfMassiveBtn){ startTfMassiveBtn.addEventListener("click", startTfMassiveMode); }
+
+  const startTrapBtn = root.querySelector('[data-action="start-trap-mode"]');
+  if(startTrapBtn){ startTrapBtn.addEventListener("click", startTrapMode); }
+
+  root.querySelectorAll("[data-loop-pick]").forEach(el=>{
+    el.addEventListener("click", ()=> pickLoopOption(parseInt(el.getAttribute("data-loop-pick"),10)));
+  });
+
+  const loopNextBtn = document.getElementById("btn-loop-next");
+  if(loopNextBtn){
+    loopNextBtn.addEventListener("click", ()=>{ if(!loopQuiz.locked) loopCheckAnswer(); else loopNext(); });
+  }
+
+  const speakLoopBtn = root.querySelector('[data-action="speak-loop-question"]');
+  if(speakLoopBtn){
+    speakLoopBtn.addEventListener("click", ()=>{
+      if(!('speechSynthesis' in window)) return;
+      const q = loopQuiz.current;
+      const parts = [q.q];
+      q.opts.forEach((o,i)=> parts.push(`Opció ${String.fromCharCode(65+i)}: ${o}`));
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(parts.join(". "));
+      utter.lang = "ca-ES";
+      window.speechSynthesis.speak(utter);
+    });
+  }
+
+  const quitLoopBtn = root.querySelector('[data-action="quit-loop"]');
+  if(quitLoopBtn){
+    quitLoopBtn.addEventListener("click", ()=>{
+      if(confirm("Segur que vols abandonar el bucle? El progrés de ratxa ja fet es conserva.")){
+        if(window.speechSynthesis) window.speechSynthesis.cancel();
+        setView("special-modes");
+      }
+    });
   }
 
   const startTopicTest = root.querySelector('[data-action="start-topic-test"]');
