@@ -9,10 +9,15 @@ function createWindow(){
     minHeight: 600,
     title: "PSPO I Trainer",
     autoHideMenuBar: true,
+    show: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true
     }
+  });
+  win.once('ready-to-show', () => {
+    win.maximize();
+    win.show();
   });
   win.loadFile(path.join(__dirname, 'app', 'index.html'));
 }
