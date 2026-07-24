@@ -1,8 +1,59 @@
 const STORAGE_KEY = "pspo_i_trainer_history_v1";
 const CUSTOM_KEY = "pspo_i_trainer_custom_questions_v1";
 const THEME_KEY = "pspo_i_trainer_theme_v1";
+const ERROR_KEY = "pspo_i_trainer_errors_v1";
 const EXAM_TOTAL_Q = 80;
 const EXAM_TOTAL_SEC = 60 * 60;
+
+// ---------------- ERROR LOG ----------------
+function simpleHash(str){
+  let h = 0;
+  for(let i=0;i<str.length;i++){ h = (Math.imul(31,h) + str.charCodeAt(i))|0; }
+  return (h>>>0).toString(36);
+}
+function questionUID(q){
+  return q.id ? q.id : (q.topicId + "::" + simpleHash(q.q));
+}
+function loadErrorLog(){
+  try{
+    const raw = localStorage.getItem(ERROR_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }catch(e){ return []; }
+}
+function saveErrorLog(list){
+  localStorage.setItem(ERROR_KEY, JSON.stringify(list));
+}
+function clearErrorLog(){
+  localStorage.removeItem(ERROR_KEY);
+}
+function recordAnswerResult(q, isCorrect){
+  const uid = questionUID(q);
+  const log = loadErrorLog();
+  let entry = log.find(e=>e.uid===uid);
+  if(!entry){
+    if(isCorrect) return;
+    entry = {
+      uid, topicId:q.topicId, topicName:q.topicName, type:q.type,
+      q:q.q, opts:q.opts.slice(), exp:q.exp.slice(),
+      correct:(Array.isArray(q.correct)?q.correct.slice():[q.correct]), trap:q.trap,
+      failCount:0, streak:0, lastFailedAt:null, masteredAt:null
+    };
+    log.push(entry);
+  }
+  if(isCorrect){
+    entry.streak = (entry.streak||0) + 1;
+    if(entry.streak>=3 && !entry.masteredAt) entry.masteredAt = Date.now();
+  } else {
+    entry.failCount = (entry.failCount||0) + 1;
+    entry.streak = 0;
+    entry.masteredAt = null;
+    entry.lastFailedAt = Date.now();
+  }
+  saveErrorLog(log);
+}
+function activeErrors(){
+  return loadErrorLog().filter(e=>!e.masteredAt);
+}
 
 // ---------------- THEME ----------------
 function loadTheme(){
@@ -154,6 +205,27 @@ function render(){
   `;
   document.getElementById("main").innerHTML = renderMain();
   attachHandlers();
+}
+
+const ICON_SPEAKER = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2h2.4L8 3.2v9.6L4.9 9.8H2.5Z"/><path d="M10.3 5.8a3.4 3.4 0 0 1 0 4.4"/><path d="M12.2 4a6 6 0 0 1 0 8"/></svg>';
+const ICON_FLAG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h8v11l-4-2.6-4 2.6Z"/></svg>';
+
+function speakQuestion(){
+  if(!('speechSynthesis' in window)){ alert("Aquest entorn no admet la lectura en veu alta."); return; }
+  const q = quiz.questions[quiz.idx];
+  const parts = [q.q];
+  q.opts.forEach((o,i)=> parts.push(`Opció ${String.fromCharCode(65+i)}: ${o}`));
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(parts.join(". "));
+  utter.lang = "ca-ES";
+  window.speechSynthesis.speak(utter);
+}
+
+function toggleFlag(){
+  const idx = quiz.idx;
+  const pos = quiz.flagged.indexOf(idx);
+  if(pos>=0) quiz.flagged.splice(pos,1); else quiz.flagged.push(idx);
+  render();
 }
 
 const ICON_SUN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.7M8 12.8v1.7M1.5 8h1.7M12.8 8h1.7M3.6 3.6l1.2 1.2M11.2 11.2l1.2 1.2M3.6 12.4l1.2-1.2M11.2 4.8l1.2-1.2"/></svg>';
@@ -349,8 +421,9 @@ function renderFinalConfig(){
 
 // ---------------- QUIZ ENGINE ----------------
 function startQuiz(questions, meta, timerSec){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
   quiz = {
-    questions, idx:0, selected:[], locked:false, results:[],
+    questions, idx:0, selected:[], locked:false, results:[], flagged:[],
     meta, // {mode, topicId, topicName}
     timerSec: timerSec || null,
     timeLeft: timerSec || null,
@@ -416,6 +489,7 @@ function renderQuiz(){
 
   const timerHtml = quiz.timerSec ? `<span class="timer" id="quiz-timer">${Math.floor(quiz.timeLeft/60)}:${(quiz.timeLeft%60).toString().padStart(2,"0")}</span>` : "";
   const isLast = quiz.idx === quiz.questions.length-1;
+  const isFlagged = quiz.flagged && quiz.flagged.includes(quiz.idx);
 
   return `
     <div class="track">${dots}</div>
@@ -425,6 +499,10 @@ function renderQuiz(){
     </div>
     <div class="card">
       <span class="block-tag">${q.type==="multi"?"Resposta múltiple":q.type==="tf"?"Vertader / Fals":"Opció única"} · ${q.topicName}</span>
+      <div class="quiz-toolbar">
+        <button type="button" class="icon-btn" data-action="speak-question" title="Escolta la pregunta">${ICON_SPEAKER}Escolta</button>
+        <button type="button" class="icon-btn ${isFlagged?'active':''}" data-action="toggle-flag" title="Marca per revisar (Dubte Extrem)">${ICON_FLAG}${isFlagged?"Marcada":"Marca per revisar"}</button>
+      </div>
       <p class="qtext">${q.q}</p>
       ${hint}
       ${optsHtml}
@@ -454,10 +532,12 @@ function checkAnswer(){
   const isRight = quiz.selected.length===q.correct.length && quiz.selected.every(s=>q.correct.includes(s));
   quiz.results[quiz.idx] = isRight;
   quiz.locked = true;
+  recordAnswerResult(q, isRight);
   render();
 }
 
 function nextQuestion(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
   if(quiz.idx === quiz.questions.length-1){
     finishQuiz(false);
     return;
@@ -469,6 +549,7 @@ function nextQuestion(){
 }
 
 function finishQuiz(timedOut){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
   if(quiz.timerHandle) clearInterval(quiz.timerHandle);
   const total = quiz.questions.length;
   const correctCount = quiz.results.filter(r=>r===true).length;
@@ -499,6 +580,18 @@ function renderScore(){
   const weakNames = Object.values(e.byTopic).filter(d=>d.ok<d.total).map(d=>d.name);
   const mins = Math.floor(e.durationSec/60), secs = e.durationSec%60;
 
+  const flaggedIdxs = (quiz && quiz.flagged) || [];
+  const flaggedHtml = flaggedIdxs.length ? `
+    <div class="breakdown" style="margin-top:16px;">
+      <div class="brow"><b>Marcades per revisar (Dubte Extrem)</b><b></b></div>
+      ${flaggedIdxs.map(i=>{
+        const fq = quiz.questions[i];
+        const ok = quiz.results[i];
+        return `<div class="brow"><span>${escapeHtml(fq.q)}</span><span${ok?'':' class="bad-block"'}>${ok?"Encertada":"Fallada"}</span></div>`;
+      }).join("")}
+    </div>
+  ` : "";
+
   return `
     <div class="score-screen">
       <div class="score-lbl">${e.timedOut ? "Temps esgotat — " : ""}Resultat: ${e.label}</div>
@@ -508,6 +601,7 @@ function renderScore(){
         <div class="brow"><b>Tema</b><b>Encerts</b></div>
         ${rows}
       </div>
+      ${flaggedHtml}
       ${weakNames.length ? `<p class="muted">Temes a repassar: ${weakNames.join(", ")}. Queden anotats a l'historial.</p>` : `<p class="muted">100% en tots els temes d'aquest test.</p>`}
       <div style="display:flex; gap:10px; justify-content:center; margin-top:18px;">
         <button class="btn secondary" data-nav="dashboard">Tornar a l'inici</button>
@@ -887,10 +981,21 @@ function attachHandlers(){
   if(quitBtn){
     quitBtn.addEventListener("click", ()=>{
       if(confirm("Segur que vols abandonar el test? Es perdrà el progrés actual.")){
+        if(window.speechSynthesis) window.speechSynthesis.cancel();
         if(quiz && quiz.timerHandle) clearInterval(quiz.timerHandle);
         setView("dashboard");
       }
     });
+  }
+
+  const speakBtn = root.querySelector('[data-action="speak-question"]');
+  if(speakBtn){
+    speakBtn.addEventListener("click", speakQuestion);
+  }
+
+  const flagBtn = root.querySelector('[data-action="toggle-flag"]');
+  if(flagBtn){
+    flagBtn.addEventListener("click", toggleFlag);
   }
 
   const startTopicTest = root.querySelector('[data-action="start-topic-test"]');
