@@ -49,6 +49,9 @@ const STRINGS = {
     "theory.startTopicTest": "Hacer test de este tema ↗",
     "theory.viewAll": "Ver todo el temario completo ↗",
     "theory.viewAllTitle": "Temario completo",
+    "theory.listenTopic": "Escuchar este tema",
+    "theory.listenAll": "Escuchar todo el temario",
+    "theory.stopListening": "Detener lectura",
     "typeLabel.single": "Opción única",
     "typeLabel.multi": "Respuesta múltiple",
     "typeLabel.tf": "Verdadero / Falso",
@@ -299,6 +302,9 @@ const STRINGS = {
     "theory.startTopicTest": "Take this topic's test ↗",
     "theory.viewAll": "View the complete theory ↗",
     "theory.viewAllTitle": "Complete theory",
+    "theory.listenTopic": "Listen to this topic",
+    "theory.listenAll": "Listen to the entire theory",
+    "theory.stopListening": "Stop listening",
     "typeLabel.single": "Single choice",
     "typeLabel.multi": "Multiple choice",
     "typeLabel.tf": "True / False",
@@ -998,6 +1004,14 @@ let customDraft = null; // active custom-question form draft
 const root = document.getElementById("root");
 
 function setView(view, params={}){
+  if(theorySpeechKey !== null){
+    const staying = (view === "theory-detail" && params.topicId === theorySpeechKey) || (view === "theory-all" && theorySpeechKey === "all");
+    if(!staying){
+      window.speechSynthesis.cancel();
+      theorySpeechKey = null;
+      clearTheoryMediaSession();
+    }
+  }
   state = { view, ...params };
   render();
 }
@@ -1048,6 +1062,61 @@ function render(){
 
 const ICON_SPEAKER = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.2h2.4L8 3.2v9.6L4.9 9.8H2.5Z"/><path d="M10.3 5.8a3.4 3.4 0 0 1 0 4.4"/><path d="M12.2 4a6 6 0 0 1 0 8"/></svg>';
 const ICON_FLAG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h8v11l-4-2.6-4 2.6Z"/></svg>';
+const ICON_STOP = '<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="3.5" width="9" height="9" rx="1.5"/></svg>';
+
+let theorySpeechKey = null;
+
+function stripHtml(html){
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  return tmp.textContent || tmp.innerText || "";
+}
+
+function speechLangCode(){
+  return currentLang === "en" ? "en-US" : "es-ES";
+}
+
+// Best effort: shows lock-screen / control-center playback controls so listening can continue with the phone locked.
+// Actual continuation while locked depends on the OS/browser (varies by iOS version) and isn't guaranteed.
+function setupTheoryMediaSession(title){
+  if(!('mediaSession' in navigator)) return;
+  try{
+    navigator.mediaSession.metadata = new MediaMetadata({ title, artist: "PSPO I Trainer" });
+    navigator.mediaSession.playbackState = "playing";
+    navigator.mediaSession.setActionHandler("play", ()=>{ window.speechSynthesis.resume(); navigator.mediaSession.playbackState = "playing"; });
+    navigator.mediaSession.setActionHandler("pause", ()=>{ window.speechSynthesis.pause(); navigator.mediaSession.playbackState = "paused"; });
+    navigator.mediaSession.setActionHandler("stop", ()=>{ stopTheorySpeech(); });
+  }catch(e){}
+}
+
+function clearTheoryMediaSession(){
+  if(!('mediaSession' in navigator)) return;
+  try{
+    navigator.mediaSession.playbackState = "none";
+    ["play","pause","stop"].forEach(a=>{ try{ navigator.mediaSession.setActionHandler(a, null); }catch(e){} });
+  }catch(e){}
+}
+
+function stopTheorySpeech(){
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  theorySpeechKey = null;
+  clearTheoryMediaSession();
+  render();
+}
+
+function toggleTheorySpeech(key, title, html){
+  if(!('speechSynthesis' in window)){ alert(t("quiz.ttsUnsupported")); return; }
+  if(theorySpeechKey === key){ stopTheorySpeech(); return; }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(stripHtml(html));
+  utter.lang = speechLangCode();
+  utter.onend = stopTheorySpeech;
+  utter.onerror = stopTheorySpeech;
+  theorySpeechKey = key;
+  setupTheoryMediaSession(title);
+  window.speechSynthesis.speak(utter);
+  render();
+}
 
 function speakQuestion(){
   if(!('speechSynthesis' in window)){ alert(t("quiz.ttsUnsupported")); return; }
@@ -1176,9 +1245,11 @@ function renderTheoryList(){
 }
 
 function renderTheoryAll(){
+  const speaking = theorySpeechKey === "all";
   return `
     <button class="btn secondary small" data-nav="theory-list" style="margin-bottom:16px;">${t("theory.backToTopics")}</button>
     <h1>${t("theory.viewAllTitle")}</h1>
+    <button type="button" class="icon-btn ${speaking?'active':''}" data-action="speak-theory-all" style="margin-bottom:20px;">${speaking?ICON_STOP:ICON_SPEAKER}${speaking?t("theory.stopListening"):t("theory.listenAll")}</button>
     ${activeTopics.map(tp=>`
       <h2 style="font-size:19px; margin:34px 0 12px;">${tp.name}</h2>
       <div class="theory-box">${tp.theory}</div>
@@ -1188,9 +1259,11 @@ function renderTheoryAll(){
 
 function renderTheoryDetail(topicId){
   const tp = activeTopics.find(x=>x.id===topicId) || activeTopics[0];
+  const speaking = theorySpeechKey === tp.id;
   return `
     <button class="btn secondary small" data-nav="theory-list" style="margin-bottom:16px;">${t("theory.backToTopics")}</button>
     <h1>${tp.name}</h1>
+    <button type="button" class="icon-btn ${speaking?'active':''}" data-action="speak-theory-topic" data-topic="${tp.id}" style="margin-bottom:16px;">${speaking?ICON_STOP:ICON_SPEAKER}${speaking?t("theory.stopListening"):t("theory.listenTopic")}</button>
     <div class="theory-box">${tp.theory}</div>
     <div style="margin-top:20px;">
       <button class="btn amber" data-action="start-topic-test" data-topic="${tp.id}">${t("theory.startTopicTest")}</button>
@@ -1958,6 +2031,23 @@ function attachHandlers(){
   const flagBtn = root.querySelector('[data-action="toggle-flag"]');
   if(flagBtn){
     flagBtn.addEventListener("click", toggleFlag);
+  }
+
+  const speakTopicBtn = root.querySelector('[data-action="speak-theory-topic"]');
+  if(speakTopicBtn){
+    speakTopicBtn.addEventListener("click", ()=>{
+      const topicId = speakTopicBtn.getAttribute("data-topic");
+      const tp = activeTopics.find(x=>x.id===topicId);
+      if(tp) toggleTheorySpeech(tp.id, tp.name, tp.theory);
+    });
+  }
+
+  const speakAllBtn = root.querySelector('[data-action="speak-theory-all"]');
+  if(speakAllBtn){
+    speakAllBtn.addEventListener("click", ()=>{
+      const combinedHtml = activeTopics.map(tp=>`<h2>${tp.name}</h2>${tp.theory}`).join(" ");
+      toggleTheorySpeech("all", t("theory.viewAllTitle"), combinedHtml);
+    });
   }
 
   const startLoopBtn = root.querySelector('[data-action="start-loop-mode"]');
