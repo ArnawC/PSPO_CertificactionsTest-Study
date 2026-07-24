@@ -80,13 +80,24 @@ button, select, input{font-family:'Segoe UI', Georgia, serif;}
 .nav-item.active svg{opacity:1; stroke:var(--amber);}
 .nav-sep{height:1px; background:var(--border-soft); margin:13px 6px;}
 
+.sidebar-bottom{margin-top:auto; display:flex; flex-direction:column; gap:8px;}
+
 .theme-toggle{
   display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:9px;
-  color:var(--text-mute); cursor:pointer; font-size:13px; margin-top:auto;
+  color:var(--text-mute); cursor:pointer; font-size:13px;
   border:1px solid var(--border-soft); transition:background .12s, color .12s;
 }
 .theme-toggle:hover{background:var(--bg-panel-hi); color:var(--text-light);}
 .theme-toggle svg{flex-shrink:0;}
+
+.pomodoro-widget{
+  border:1px solid var(--border-soft); border-radius:10px; padding:12px 14px;
+  background:var(--bg-panel-hi); font-family:'Segoe UI',sans-serif;
+}
+.pomo-label{font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-mute); font-weight:600;}
+.pomo-time{font-size:24px; font-family:'Courier New',monospace; color:var(--amber); margin:4px 0 8px;}
+.pomo-controls{display:flex; gap:6px;}
+.pomo-controls .icon-btn{flex:1; justify-content:center; color:var(--text-light); border-color:var(--border);}
 
 .main{flex:1; overflow-y:auto; padding:32px 42px;}
 .main h1{font-size:25px; margin:0 0 5px; color:var(--text-light); font-family:Georgia,serif; letter-spacing:.01em;}

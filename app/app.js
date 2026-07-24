@@ -304,6 +304,66 @@ function toggleTheme(){
   render();
 }
 
+// ---------------- POMODORO ----------------
+let pomodoro = {
+  running:false, phase:"focus", secondsLeft:25*60,
+  focusMin:25, breakMin:5, handle:null
+};
+
+function fmtTime(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return `${m}:${s.toString().padStart(2,"0")}`;
+}
+
+function playChime(){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.frequency.value = 880;
+    osc.connect(gain); gain.connect(ctx.destination);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    osc.start();
+    osc.stop(ctx.currentTime+0.35);
+  }catch(e){}
+}
+
+function updatePomodoroDisplay(){
+  const el = document.getElementById("pomodoro-time");
+  if(el) el.textContent = fmtTime(pomodoro.secondsLeft);
+}
+
+function pomodoroTick(){
+  pomodoro.secondsLeft--;
+  if(pomodoro.secondsLeft<=0){
+    pomodoro.phase = pomodoro.phase==="focus" ? "break" : "focus";
+    pomodoro.secondsLeft = (pomodoro.phase==="focus"?pomodoro.focusMin:pomodoro.breakMin)*60;
+    playChime();
+    render();
+    return;
+  }
+  updatePomodoroDisplay();
+}
+
+function pomodoroToggle(){
+  if(pomodoro.running){
+    clearInterval(pomodoro.handle);
+    pomodoro.running = false;
+  } else {
+    pomodoro.running = true;
+    pomodoro.handle = setInterval(pomodoroTick, 1000);
+  }
+  render();
+}
+
+function pomodoroReset(){
+  clearInterval(pomodoro.handle);
+  pomodoro.running = false;
+  pomodoro.phase = "focus";
+  pomodoro.secondsLeft = pomodoro.focusMin*60;
+  render();
+}
+
 // ---------------- CUSTOM QUESTIONS ----------------
 function loadCustomQuestions(){
   try{
@@ -429,9 +489,21 @@ function render(){
       ${navItem("custom-questions","Preguntes pròpies")}
       <div class="nav-sep"></div>
       ${navItem("stats","Historial i estadístiques")}
-      <div class="theme-toggle" data-action="toggle-theme" title="Canvia el tema">
-        ${currentTheme==="dark" ? ICON_SUN : ICON_MOON}
-        <span>${currentTheme==="dark" ? "Mode clar" : "Mode fosc"}</span>
+      <div class="nav-sep"></div>
+      ${navItem("info","Sobre l'app")}
+      <div class="sidebar-bottom">
+        <div class="pomodoro-widget">
+          <div class="pomo-label">${pomodoro.phase==="focus"?"Enfocament":"Descans"}</div>
+          <div class="pomo-time" id="pomodoro-time">${fmtTime(pomodoro.secondsLeft)}</div>
+          <div class="pomo-controls">
+            <button type="button" class="icon-btn" data-action="pomodoro-toggle">${pomodoro.running?"Pausa":"Inicia"}</button>
+            <button type="button" class="icon-btn" data-action="pomodoro-reset" title="Reinicia">↺</button>
+          </div>
+        </div>
+        <div class="theme-toggle" data-action="toggle-theme" title="Canvia el tema">
+          ${currentTheme==="dark" ? ICON_SUN : ICON_MOON}
+          <span>${currentTheme==="dark" ? "Mode clar" : "Mode fosc"}</span>
+        </div>
       </div>
     </div>
     <div class="main" id="main"></div>
@@ -472,7 +544,8 @@ const NAV_ICONS = {
   "test-final-config": '<path d="M3.5 2.5v11"/><path d="M3.5 3.2h8l-1.6 2.4 1.6 2.4h-8Z"/>',
   "special-modes": '<path d="M8.7 2.2 3.8 8.6h3.1l-1 5.2 5.4-6.9H8.3Z"/>',
   "custom-questions": '<path d="M9.8 2.9a1.4 1.4 0 0 1 2 2L5.4 11.3l-2.7.6.6-2.7Z"/><path d="M8.7 4l1.9 1.9"/>',
-  "stats": '<path d="M3 13V6.5"/><path d="M7.5 13V3"/><path d="M12 13V9"/><path d="M2 13.5h12"/>'
+  "stats": '<path d="M3 13V6.5"/><path d="M7.5 13V3"/><path d="M12 13V9"/><path d="M2 13.5h12"/>',
+  "info": '<circle cx="8" cy="8" r="5.3"/><path d="M8 7.3v3.7"/><circle cx="8" cy="5" r="0.75" fill="currentColor" stroke="none"/>'
 };
 
 function navItem(view, label){
@@ -496,6 +569,7 @@ function renderMain(){
     case "loop-score": return renderLoopScore();
     case "custom-questions": return renderCustom();
     case "stats": return renderStats();
+    case "info": return renderInfo();
     default: return "";
   }
 }
@@ -844,6 +918,57 @@ function renderScore(){
         <button class="btn secondary" data-nav="dashboard">Tornar a l'inici</button>
         <button class="btn amber" data-action="repeat-same-config">Repetir amb la mateixa configuració ↗</button>
       </div>
+    </div>
+  `;
+}
+
+// ---------------- INFO ----------------
+function renderInfo(){
+  return `
+    <h1>Sobre l'aplicació</h1>
+    <p class="subtitle">Tot el que pots fer amb l'Entrenador PSPO I</p>
+    <div class="theory-box">
+      <h3>Temari</h3>
+      <p>Repassa la teoria de cada tema (basada en la Scrum Guide novembre 2020) abans de fer-ne el test corresponent.</p>
+
+      <h3>Tests estàndard</h3>
+      <ul>
+        <li><b>Test per tema:</b> tria un tema i quantes preguntes de cada tipus vols practicar.</li>
+        <li><b>Test general:</b> preguntes de tots els temes barrejades.</li>
+        <li><b>Test final (examen):</b> simulació completa amb temporitzador fix, igual que l'examen real (${EXAM_TOTAL_Q} preguntes / 60 min).</li>
+      </ul>
+
+      <h3>Modes especials</h3>
+      <ul>
+        <li><b>Bucle de fallada contínua:</b> repeteix només les preguntes que has fallat, en bucle, fins a encertar-les 3 vegades seguides.</li>
+        <li><b>Test de redempció:</b> un test normal, d'una sola volta, amb totes les preguntes pendents del registre d'errors.</li>
+        <li><b>Vertader/Fals massiu:</b> converteix cada opció de les preguntes d'opció única i múltiple en un ítem independent de Vertader/Fals.</li>
+        <li><b>Preguntes trampa:</b> agrupa preguntes amb paraules o patrons típics de trampa d'examen ("sempre", "mai", "únicament"...).</li>
+      </ul>
+
+      <h3>Durant el test</h3>
+      <ul>
+        <li><b>Escolta:</b> lectura en veu alta de la pregunta i les opcions.</li>
+        <li><b>Marca per revisar (Dubte Extrem):</b> senyala preguntes que has encertat per pur atzar, per repassar-les al final del test.</li>
+      </ul>
+
+      <h3>Preguntes pròpies</h3>
+      <p>Crea preguntes personalitzades (opció única, múltiple o Vertader/Fals) amb explicació per opció i nota d'examen. S'integren automàticament al Test per tema, Test general i Test final.</p>
+
+      <h3>Historial i estadístiques</h3>
+      <ul>
+        <li>Resum global, evolució del rendiment, precisió per tipus de pregunta i rendiment per tipus de test.</li>
+        <li><b>Mapa de calor de coneixement:</b> visió ràpida de quins temes domines i quins necessites repassar.</li>
+        <li><b>Predicció de nota:</b> estimació de la nota que trauries a l'examen real, segons el teu progrés actual.</li>
+        <li><b>Historial d'errors:</b> totes les preguntes fallades, amb la seva ratxa d'encerts consecutius.</li>
+        <li>Filtres combinables per tipus de test, tema i rang de dies.</li>
+      </ul>
+
+      <h3>Altres</h3>
+      <ul>
+        <li><b>Mode clar / fosc</b> commutable des del sidebar.</li>
+        <li><b>Pomodoro:</b> temporitzador d'estudi (${pomodoro.focusMin} min d'enfocament / ${pomodoro.breakMin} min de descans) integrat al sidebar.</li>
+      </ul>
     </div>
   `;
 }
@@ -1453,6 +1578,15 @@ function attachHandlers(){
   const themeToggle = root.querySelector('[data-action="toggle-theme"]');
   if(themeToggle){
     themeToggle.addEventListener("click", toggleTheme);
+  }
+
+  const pomodoroToggleBtn = root.querySelector('[data-action="pomodoro-toggle"]');
+  if(pomodoroToggleBtn){
+    pomodoroToggleBtn.addEventListener("click", pomodoroToggle);
+  }
+  const pomodoroResetBtn = root.querySelector('[data-action="pomodoro-reset"]');
+  if(pomodoroResetBtn){
+    pomodoroResetBtn.addEventListener("click", pomodoroReset);
   }
 
   const newCustomBtn = root.querySelector('[data-action="new-custom"]');
