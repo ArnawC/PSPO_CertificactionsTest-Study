@@ -1,26 +1,39 @@
-// ==========================================================================
-// PLANTILLA PENDIENTE DE TRADUCCION (ES)
-// Misma estructura que data.ca.js (mismos ids de tema, mismo numero y orden
-// de preguntas, mismo type/correct por pregunta). Traducir SOLO los campos
-// de texto (name, theory, q, opts, exp, trap) siguiendo la Scrum Guide
-// oficial en castellano (noviembre 2020). No cambiar ids, type ni
-// los indices de correct.
-// ==========================================================================
+// Banco de contenidos PSPO I — basado en la Scrum Guide 2020 (version oficial en castellano)
+// Todas las preguntas estan ancladas en el texto de la Guia (noviembre 2020). No existe "Sprint 0",
+// no se usa "auto-organizado" (termino 2017) ni "priorizar" (se usa "ordenar").
 
 const TOPICS_ES = [
   {
     "id": "empirisme",
-    "name": "[ES PENDIENTE] Empirisme i pensament Lean",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"empirisme\"]</i></p>",
+    "name": "Empirismo y pensamiento Lean",
+    "theory": "<h3>Fundamento: empirismo y pensamiento Lean</h3><p>Scrum se basa en el <b>empirismo</b>: el conocimiento surge de la experiencia y las decisiones se toman a partir de lo que se observa, no de predicciones detalladas hechas por adelantado. Se complementa con el <b>pensamiento Lean</b>, que busca reducir lo superfluo y centrarse en lo esencial para maximizar el valor generado.</p><h3>Los tres pilares del empirismo</h3><ul><li><b>Transparencia</b>: el proceso y el trabajo deben ser visibles tanto para quienes lo realizan como para quienes lo reciben.</li><li><b>Inspección</b>: los artefactos de Scrum y el avance hacia los objetivos acordados deben inspeccionarse con frecuencia y diligencia, para detectar variaciones o problemas indeseados.</li><li><b>Adaptación</b>: cuando un proceso se desvía de los límites aceptables o el resultado no es aceptable, debe ajustarse cuanto antes para minimizar mayores desviaciones.</li></ul><p>Los tres pilares se refuerzan en cadena: sin transparencia, la inspección resulta engañosa y genera desperdicio; sin inspección diligente, la adaptación carece de base real; y la inspección sin adaptación posterior se considera carente de sentido.</p><h3>Los eventos como motor de inspección y adaptación</h3><p>Los eventos prescritos de Scrum (Sprint, Sprint Planning, Daily Scrum, Sprint Review y Sprint Retrospective) crean una cadencia regular que facilita la inspección y adaptación frecuentes, y minimizan la necesidad de reuniones no definidas en el marco de trabajo.</p><h3>Los cinco valores de Scrum</h3><p><b>Compromiso, Enfoque, Apertura, Respeto y Coraje.</b> El Equipo Scrum se compromete a alcanzar sus objetivos y a apoyarse mutuamente; se enfoca en el trabajo del Sprint y en las metas del equipo; es abierto sobre el trabajo y los desafíos que encuentra; sus miembros se respetan entre sí como personas capaces e independientes; y actúan con el coraje de hacer lo correcto y afrontar los problemas difíciles. Estos valores dan dirección al equipo respecto a su trabajo, acciones y comportamiento, y se aprenden y exploran mientras se trabaja con los eventos y artefactos de Scrum, no mediante una formación separada. Cuando se viven de verdad, dan vida a los tres pilares del empirismo y generan confianza.</p><h3>Trampas típicas de examen</h3><ul><li>La \"previsibilidad\" no es un pilar: es un resultado que el empirismo ayuda a optimizar; los pilares son únicamente tres (transparencia, inspección, adaptación).</li><li>La adaptación se vuelve más difícil cuando las personas no están empoderadas o no pueden autogestionarse, no por falta de documentación.</li><li>No existe un \"Sprint 0\" en Scrum: la cadencia de inspección y adaptación empieza desde el primer Sprint.</li><li>Los valores no son un módulo de formación aislado ni una lista decorativa: se aprenden ejerciendo Scrum en el día a día.</li><li>No confundir los cinco valores con cualidades genéricas como \"eficiencia\" o \"calidad\", que no forman parte de la lista de la Guía.</li></ul>",
     "questions": [
       {
-        "type": "multi",
-        "q": "[ES PENDIENTE] Quins són els tres pilars de l'empirisme segons la Guia Scrum?",
+        "type": "single",
+        "q": "Según la Scrum Guide, ¿cuáles son los tres pilares del control de procesos empírico?",
         "opts": [
-          "[ES PENDIENTE] Transparència",
-          "[ES PENDIENTE] Previsibilitat",
-          "[ES PENDIENTE] Inspecció",
-          "[ES PENDIENTE] Adaptació"
+          "Transparencia, Inspección y Adaptación",
+          "Transparencia, Previsibilidad y Adaptación",
+          "Planificación, Inspección y Adaptación",
+          "Transparencia, Inspección y Documentación"
+        ],
+        "correct": 0,
+        "exp": [
+          "Correcto: son exactamente los tres pilares que sostienen el control de procesos empírico en Scrum.",
+          "Incorrecto: la previsibilidad es algo que el empirismo ayuda a optimizar, no uno de los tres pilares.",
+          "Incorrecto: la planificación no sustituye a la transparencia; los pilares no incluyen ninguna forma de planificación.",
+          "Incorrecto: la documentación no es un pilar; un exceso de documentación puede incluso ir en contra de la transparencia real si no refleja el trabajo tal como es."
+        ],
+        "trap": "La previsibilidad es un resultado que se busca optimizar mediante el empirismo, pero nunca se cuenta entre los tres pilares (transparencia, inspección, adaptación)."
+      },
+      {
+        "type": "multi",
+        "q": "¿Cuáles de los siguientes son valores de Scrum según la Guía 2020?",
+        "opts": [
+          "Enfoque",
+          "Eficiencia",
+          "Apertura",
+          "Coraje"
         ],
         "correct": [
           0,
@@ -28,181 +41,128 @@ const TOPICS_ES = [
           3
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: la previsibilitat és un objectiu que Scrum busca optimitzar, no un pilar.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte."
+          "Correcto: el Enfoque es uno de los cinco valores de Scrum.",
+          "Incorrecto: la eficiencia no figura como valor de Scrum en la Guía; es un distractor habitual que suena razonable pero no es uno de los cinco.",
+          "Correcto: la Apertura es uno de los cinco valores.",
+          "Correcto: el Coraje es uno de los cinco valores."
         ],
-        "trap": "[ES PENDIENTE] Els tres pilars són exactament transparència, inspecció i adaptació. Cap més concepte (previsibilitat, planificació...) forma part d'aquesta llista."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Segons la Guia, què passa amb la inspecció sense adaptació?",
-        "opts": [
-          "[ES PENDIENTE] Es considera inútil",
-          "[ES PENDIENTE] Es considera suficient si es documenta bé",
-          "[ES PENDIENTE] És l'única finalitat de la Retrospective",
-          "[ES PENDIENTE] Substitueix la transparència"
-        ],
-        "correct": 0,
-        "exp": [
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: la inspecció passa en tots els esdeveniments, no només a la Retrospective.",
-          "[ES PENDIENTE] Incorrecte: són pilars independents i seqüencials."
-        ],
-        "trap": "[ES PENDIENTE] Frase gairebé literal de la Guia: 'la inspección sin adaptación se considera inútil'."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] En quins tres artefactes formals es basen les decisions importants segons la teoria de Scrum?",
-        "opts": [
-          "[ES PENDIENTE] Product Backlog, Sprint Backlog i Increment",
-          "[ES PENDIENTE] Product Goal, Sprint Goal i Definition of Done",
-          "[ES PENDIENTE] Roadmap, Backlog i Release Plan",
-          "[ES PENDIENTE] Sprint Backlog, Definition of Done i Vision"
-        ],
-        "correct": 0,
-        "exp": [
-          "[ES PENDIENTE] Correcte: són els tres artefactes formals de Scrum.",
-          "[ES PENDIENTE] Incorrecte: aquests són els 'compromisos' de cada artefacte, no els artefactes en si.",
-          "[ES PENDIENTE] Incorrecte: no són termes formals de la Guia Scrum.",
-          "[ES PENDIENTE] Incorrecte: barreja artefactes amb compromisos."
-        ],
-        "trap": "[ES PENDIENTE] No confondre 'artefacte' amb el seu 'compromís' associat (p. ex. Product Backlog té el Product Goal com a compromís, però són coses diferents)."
+        "trap": "Los cinco valores son Compromiso, Enfoque, Apertura, Respeto y Coraje. Términos plausibles pero ajenos como 'eficiencia' o 'calidad' son distractores frecuentes."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] El pensament Lean es centra en reduir desperdicis i centrar-se en l'essencial.",
+        "q": "La Guía Scrum afirma que la inspección sin adaptación se considera carente de sentido.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           0
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte: definició literal de la Guia."
+          "Correcto: la Guía afirma que la inspección sin adaptación se considera carente de sentido, ya que detectar un problema no sirve de nada si no se actúa después.",
+          "Incorrecto: la afirmación sí es verdadera según la Guía."
         ],
-        "trap": "[ES PENDIENTE] No confondre pensament Lean amb metodologies com Kanban o Six Sigma, que no es mencionen a la Guia Scrum."
+        "trap": "Inspeccionar y detectar una desviación no aporta nada si el equipo no ajusta después su forma de trabajar; inspección y adaptación van siempre unidas."
+      },
+      {
+        "type": "single",
+        "q": "Según la teoría de Scrum, ¿qué habilita la transparencia?",
+        "opts": [
+          "La adaptación directamente",
+          "La inspección",
+          "La planificación de releases",
+          "La creación del Sprint Backlog"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: la transparencia no habilita la adaptación de forma directa; primero permite la inspección, y es esta la que a su vez habilita la adaptación.",
+          "Correcto: sin visibilidad real sobre el proceso y el trabajo, cualquier inspección sería engañosa; la transparencia es la base que hace posible inspeccionar con garantías.",
+          "Incorrecto: la planificación de releases no es un concepto de la teoría de Scrum ni depende directamente de la transparencia.",
+          "Incorrecto: el Sprint Backlog lo crean los Developers durante el Sprint Planning; no es un efecto de la transparencia como pilar."
+        ],
+        "trap": "La cadena lógica es Transparencia → habilita la Inspección → habilita la Adaptación. No te saltes directamente de transparencia a adaptación."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quins dels següents són valors de Scrum segons la Guia 2020?",
+        "q": "¿Cuáles de las siguientes afirmaciones sobre el pensamiento Lean y el empirismo son correctas?",
         "opts": [
-          "[ES PENDIENTE] Compromís",
-          "[ES PENDIENTE] Eficiència",
-          "[ES PENDIENTE] Respecte",
-          "[ES PENDIENTE] Coratge"
+          "El pensamiento Lean se centra en reducir el desperdicio y enfocarse en lo esencial",
+          "El empirismo consiste en planificar todo el trabajo con detalle antes de empezar para evitar sorpresas",
+          "El empirismo sostiene que el conocimiento procede de la experiencia y que las decisiones se toman a partir de lo que se observa",
+          "El pensamiento Lean, tal como lo usa la Guía, es sinónimo de Six Sigma"
         ],
         "correct": [
           0,
-          2,
-          3
+          2
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: 'eficiència' no és un valor citat a la Guia.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte."
+          "Correcto: es la definición que da la Guía del pensamiento Lean.",
+          "Incorrecto: eso describe un enfoque predictivo (planificación exhaustiva por adelantado), justo lo contrario del empirismo.",
+          "Correcto: es la definición literal de empirismo que da la Guía.",
+          "Incorrecto: la Guía no menciona ni equipara el pensamiento Lean con Six Sigma; son marcos distintos no citados como sinónimos."
         ],
-        "trap": "[ES PENDIENTE] Els 5 valors són: Compromís, Enfocament, Obertura, Respecte i Coratge. Paraules similars com 'eficiència' o 'qualitat' són distractors habituals."
+        "trap": "Planificar todo el trabajo con detalle antes de empezar (enfoque predictivo/BDUF) es el opuesto del empirismo, un distractor muy habitual."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Què permet la transparència segons la teoria de Scrum?",
+        "q": "Según la Guía, ¿cuándo se vuelven más difíciles las adaptaciones?",
         "opts": [
-          "[ES PENDIENTE] L'adaptació directa",
-          "[ES PENDIENTE] La inspecció",
-          "[ES PENDIENTE] La planificació de releases",
-          "[ES PENDIENTE] La creació del Sprint Backlog"
+          "Cuando el equipo es demasiado grande",
+          "Cuando las personas no están empoderadas o no pueden autogestionarse",
+          "Cuando el Sprint dura más de un mes",
+          "Cuando hay demasiados stakeholders"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: la transparència permet la inspecció, i aquesta permet l'adaptació — és una cadena.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: el tamaño del equipo no es la condición que cita la Guía para dificultar la adaptación.",
+          "Correcto: la Guía señala que las adaptaciones se vuelven más difíciles cuando las personas implicadas no están empoderadas o no pueden autogestionarse.",
+          "Incorrecto: la duración del Sprint no es la causa que menciona la Guía; además, en Scrum el Sprint nunca dura más de un mes.",
+          "Incorrecto: el número de stakeholders no es la condición citada en la Guía."
         ],
-        "trap": "[ES PENDIENTE] La cadena lògica és: Transparència → permet la Inspecció → permet l'Adaptació. No saltis directament de transparència a adaptació."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quan es tornen més difícils les adaptacions segons la Guia?",
-        "opts": [
-          "[ES PENDIENTE] Quan l'equip és massa gran",
-          "[ES PENDIENTE] Quan les persones no estan empoderades o no poden autogestionar-se",
-          "[ES PENDIENTE] Quan el Sprint dura més d'un mes",
-          "[ES PENDIENTE] Quan hi ha massa stakeholders"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] L'empoderament i la capacitat d'autogestió són condicions necessàries per adaptar-se amb eficàcia."
+        "trap": "El empoderamiento y la capacidad de autogestión son condiciones necesarias para adaptarse con eficacia; sin ellas, la adaptación se resiente."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] Els valors de Scrum s'aprenen i s'exploren mentre l'equip treballa amb els esdeveniments i artefactes, no com a formació separada.",
+        "q": "Los valores de Scrum se aprenden y exploran mientras el Equipo Scrum trabaja con los eventos y artefactos, no mediante una formación separada.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           0
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte: la Guia ho descriu així literalment."
+          "Correcto: la Guía indica que los valores se aprenden y exploran mientras el Equipo Scrum trabaja con los eventos y artefactos, no en una formación separada.",
+          "Incorrecto: la afirmación es verdadera según la Guía."
         ],
-        "trap": "[ES PENDIENTE] Els valors no són un mòdul de formació aïllat; sorgeixen de la pràctica diària amb Scrum."
+        "trap": "Los valores de Scrum no son un módulo de formación aislado; cobran sentido a través de la práctica diaria del marco de trabajo."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quina afirmació descriu millor l'empirisme?",
+        "q": "¿Qué afirmación describe mejor el empirismo?",
         "opts": [
-          "[ES PENDIENTE] Planificar tot el treball abans de començar per evitar sorpreses",
-          "[ES PENDIENTE] Prendre decisions basades en el que s'observa i l'experiència",
-          "[ES PENDIENTE] Seguir un pla fix sense revisar-lo",
-          "[ES PENDIENTE] Delegar totes les decisions al Product Owner"
+          "Planificar todo el trabajo antes de empezar para evitar sorpresas",
+          "Tomar decisiones basadas en lo que se observa y en la experiencia",
+          "Seguir un plan fijo sin revisarlo nunca",
+          "Delegar todas las decisiones en el Product Owner"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: és l'enfocament contrari (Big Design Up Front).",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: l'empirisme implica tot l'equip Scrum, no només el PO."
+          "Incorrecto: es el enfoque contrario, propio de la planificación predictiva (Big Design Up Front), no del empirismo.",
+          "Correcto: es la esencia del empirismo tal como lo describe la Guía.",
+          "Incorrecto: un plan que nunca se revisa contradice la adaptación, uno de los tres pilares del empirismo.",
+          "Incorrecto: el empirismo implica a todo el Equipo Scrum, no solo al Product Owner."
         ],
-        "trap": "[ES PENDIENTE] Planificar-ho tot per endavant (BDUF) és l'oposat de l'empirisme, un distractor molt habitual."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Com ajuda Scrum a la inspecció freqüent dels artefactes i el progrés?",
-        "opts": [
-          "[ES PENDIENTE] Mitjançant informes setmanals obligatoris",
-          "[ES PENDIENTE] Proporcionant cadència amb els seus cinc esdeveniments",
-          "[ES PENDIENTE] Amb auditories externes trimestrals",
-          "[ES PENDIENTE] Amb un Sprint 0 de preparació"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte: no existeix aquest requisit a la Guia.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: 'Sprint 0' no existeix a Scrum."
-        ],
-        "trap": "[ES PENDIENTE] 'Sprint 0' és un dels distractors més recurrents a l'examen: no existeix a la Guia Scrum."
+        "trap": "Planificarlo todo por adelantado (BDUF) es el opuesto del empirismo; es uno de los distractores más recurrentes."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quines afirmacions sobre el risc i la complexitat són correctes segons la teoria de Scrum?",
+        "q": "¿Cuáles de las siguientes afirmaciones sobre el riesgo, la complejidad y el enfoque empírico son correctas?",
         "opts": [
-          "[ES PENDIENTE] Scrum optimitza la previsibilitat i controla el risc mitjançant un enfocament iteratiu i incremental",
-          "[ES PENDIENTE] El risc es controla només mitjançant documentació detallada prèvia",
-          "[ES PENDIENTE] Scrum s'utilitza en entorns complexos on el resultat no es coneix per endavant",
-          "[ES PENDIENTE] Els Sprints més curts poden limitar el risc de cost i esforç"
+          "Scrum optimiza la previsibilidad y controla el riesgo mediante un enfoque iterativo e incremental",
+          "El riesgo se controla principalmente mediante documentación detallada previa",
+          "Scrum se usa en entornos donde el resultado no se conoce completamente por adelantado (trabajo complejo)",
+          "Sprints más cortos pueden limitar el riesgo en cuanto a coste y esfuerzo"
         ],
         "correct": [
           0,
@@ -210,46 +170,64 @@ const TOPICS_ES = [
           3
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: contrari a l'enfocament empíric.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte: cita literal de la Guia."
+          "Correcto: es el enfoque que describe la Guía para gestionar el riesgo.",
+          "Incorrecto: esto describe un enfoque predictivo, opuesto al control de riesgo empírico que propone Scrum.",
+          "Correcto: Scrum está pensado para entornos complejos donde no se puede conocer todo el resultado de antemano.",
+          "Correcto: acortar el Sprint es una forma de limitar la exposición al riesgo en coste y esfuerzo antes de la siguiente inspección."
         ],
-        "trap": "[ES PENDIENTE] La documentació detallada prèvia (BDUF) és l'oposat del control de risc empíric que proposa Scrum."
+        "trap": "La documentación detallada previa (BDUF) es lo opuesto al control de riesgo empírico basado en ciclos cortos de inspección y adaptación."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué aporta a Scrum una cadencia regular para inspeccionar los artefactos y el progreso hacia los objetivos, sin necesitar reuniones adicionales?",
+        "opts": [
+          "Un informe semanal obligatorio",
+          "Los cinco eventos formales de Scrum, que aportan una cadencia regular",
+          "Auditorías externas trimestrales",
+          "Un 'Sprint 0' de preparación previo al primer Sprint"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: la Guía no exige ningún informe de este tipo.",
+          "Correcto: los eventos prescritos en Scrum crean regularidad y minimizan la necesidad de reuniones no definidas en el marco de trabajo.",
+          "Incorrecto: la Guía no menciona auditorías externas.",
+          "Incorrecto: 'Sprint 0' no existe en Scrum; la cadencia de inspección y adaptación empieza desde el primer Sprint."
+        ],
+        "trap": "'Sprint 0' es uno de los distractores más recurrentes en el examen: no existe en la Guía Scrum."
       }
     ]
   },
   {
     "id": "scrum-team",
-    "name": "[ES PENDIENTE] L'Equip Scrum i les seves accountabilities",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"scrum-team\"]</i></p>",
+    "name": "El Equipo Scrum y sus accountabilities",
+    "theory": "<h3>Composición y estructura</h3><p>El Equipo Scrum (Scrum Team) es la unidad fundamental de Scrum. Está formado por <b>un Scrum Master</b>, <b>un Propietario del Producto</b> y los <b>Desarrolladores</b>. No existen sub-equipos ni jerarquías dentro del Equipo Scrum: es una única unidad cohesionada centrada en un mismo objetivo, el Product Goal.</p><p>El equipo es <b>multifuncional</b> (cross-functional): sus miembros poseen colectivamente todas las habilidades necesarias para crear valor cada Sprint, sin depender de personas externas al equipo. También es <b>autogestionado</b> (self-managing): internamente decide quién hace qué, cuándo y cómo, sin que nadie externo al equipo —ni siquiera el Scrum Master o el Propietario del Producto— les dicte cómo convertir el Product Backlog en Incrementos de valor.</p><p>La Guía recomienda equipos <b>pequeños</b>, en general de <b>10 personas o menos</b>: suficientemente reducidos para mantenerse ágiles y suficientemente grandes para completar trabajo significativo dentro de un Sprint. Si un Equipo Scrum crece demasiado, debe considerar reorganizarse en varios Equipos Scrum, cada uno centrado en el mismo producto, compartiendo el mismo Product Goal, el mismo Product Backlog y el mismo Propietario del Producto.</p><p>Todo el Equipo Scrum es responsable de crear, cada Sprint, un Incremento valioso y útil, así como de todas las actividades relacionadas con el producto: colaboración con interesados, verificación, mantenimiento, operación, experimentación, investigación y desarrollo, y cualquier otra cosa que se requiera.</p><h3>Desarrolladores</h3><p>Son las personas del Equipo Scrum comprometidas a crear cualquier aspecto de un Incremento utilizable en cada Sprint. Sus responsabilidades específicas incluyen:</p><ul><li>Crear el plan del Sprint: el Sprint Backlog.</li><li>Incorporar la calidad adhiriéndose a una Definition of Done.</li><li>Adaptar su plan cada día hacia el Sprint Goal.</li><li>Responsabilizarse mutuamente como profesionales.</li></ul><h3>Propietario del Producto</h3><p>Es responsable de <b>maximizar el valor del producto</b> resultante del trabajo del Equipo Scrum. Esto se logra principalmente mediante la gestión eficaz del Product Backlog, lo que incluye:</p><ul><li>Desarrollar y comunicar explícitamente el Product Goal.</li><li>Crear y comunicar con claridad los elementos del Product Backlog.</li><li><b>Ordenar</b> (no \"priorizar\") los elementos del Product Backlog.</li><li>Asegurar que el Product Backlog sea transparente, visible y comprendido.</li></ul><p>El Propietario del Producto puede delegar este trabajo a otros, pero sigue siendo el responsable último: <b>puede delegar el trabajo, pero nunca la responsabilidad</b>. Es <b>una persona, no un comité</b>; puede representar las necesidades de muchos interesados en el Product Backlog, pero quien quiera cambiar la prioridad de un elemento debe negociarlo con el Propietario del Producto. Para que tenga éxito, toda la organización debe respetar sus decisiones.</p><h3>Scrum Master</h3><p>Es responsable de <b>establecer Scrum tal como se define en la Guía</b>. Lo hace ayudando a todos —Equipo Scrum y organización— a entender la teoría y la práctica de Scrum. Es responsable de la eficacia del Equipo Scrum, ayudándolo a mejorar sus prácticas dentro del marco de Scrum.</p><p>Sirve al Equipo Scrum entrenándolo en autogestión y multifuncionalidad, ayudando a centrarse en crear Incrementos de alto valor, eliminando impedimentos y asegurando que todos los eventos se den, sean positivos, productivos y se mantengan dentro del timebox. Sirve al Propietario del Producto ayudándole a encontrar técnicas para definir el Product Goal y gestionar el Product Backlog, y facilitando la colaboración con interesados cuando se solicite. Sirve a la organización liderando, formando y guiando la adopción de Scrum. Es un <b>verdadero líder que sirve</b> (servant leader) al equipo y a la organización, sin autoridad jerárquica sobre nadie.</p><h3>Errores frecuentes en el examen</h3><ul><li>Confundir \"autogestionado\" (self-managing, terminología 2020) con \"auto-organizado\" (terminología 2017, ya descartada).</li><li>Pensar que el Scrum Master asigna tareas o gestiona al equipo: rompería la autogestión.</li><li>Creer que el Propietario del Producto puede ser un comité: siempre es una única persona.</li><li>Suponer que ordenar el Product Backlog es tarea de los Desarrolladores: es siempre del Propietario del Producto.</li><li>Imaginar sub-equipos (p. ej. un \"equipo de QA\") dentro del Equipo Scrum: la Guía lo descarta explícitamente.</li></ul>",
     "questions": [
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quantes persones formen habitualment un Scrum Team, segons la Guia?",
+        "q": "¿Cuántas personas forman habitualmente un Equipo Scrum, según la Guía?",
         "opts": [
-          "[ES PENDIENTE] 5 o menys",
-          "[ES PENDIENTE] 10 o menys",
-          "[ES PENDIENTE] Entre 15 i 20",
-          "[ES PENDIENTE] No hi ha límit definit"
+          "5 o menos",
+          "10 o menos",
+          "Entre 15 y 20",
+          "No hay límite definido"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: la Guia sí que dona una xifra orientativa."
+          "Incorrecto: la Guía no fija 5 como cifra orientativa, sino 10.",
+          "Correcto: la Guía indica que los Equipos Scrum suelen tener 10 personas o menos.",
+          "Incorrecto: un equipo tan grande dificulta la comunicación y la colaboración efectiva.",
+          "Incorrecto: la Guía sí ofrece una cifra orientativa, aunque no sea un límite estricto."
         ],
-        "trap": "[ES PENDIENTE] La xifra exacta ('en general 10 o menys') és una dada memoritzable típica d'examen."
+        "trap": "La cifra 'en general 10 o menos' es un dato memorizable muy típico de examen."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quines són responsabilitats explícites dels Developers segons la Guia?",
+        "q": "¿Cuáles son responsabilidades explícitas de los Desarrolladores según la Guía?",
         "opts": [
-          "[ES PENDIENTE] Crear el Sprint Backlog",
-          "[ES PENDIENTE] Ordenar el Product Backlog",
-          "[ES PENDIENTE] Adherir-se a una Definition of Done",
-          "[ES PENDIENTE] Adaptar el seu pla cada dia cap al Sprint Goal"
+          "Crear el Sprint Backlog",
+          "Ordenar el Product Backlog",
+          "Adherirse a una Definition of Done",
+          "Adaptar su plan cada día hacia el Sprint Goal"
         ],
         "correct": [
           0,
@@ -257,91 +235,91 @@ const TOPICS_ES = [
           3
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: ordenar el Product Backlog és responsabilitat del Product Owner.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte."
+          "Correcto: el Sprint Backlog es el plan que crean los Desarrolladores.",
+          "Incorrecto: ordenar el Product Backlog es responsabilidad exclusiva del Propietario del Producto.",
+          "Correcto: incorporar calidad mediante la Definition of Done es una responsabilidad explícita de los Desarrolladores.",
+          "Correcto: los Desarrolladores adaptan su plan cada día hacia el Sprint Goal."
         ],
-        "trap": "[ES PENDIENTE] Ordenar el Product Backlog és sempre del PO, mai dels Developers — trampa d'intercanvi de responsabilitats molt freqüent."
+        "trap": "Intercambiar responsabilidades entre Developers y PO —especialmente 'ordenar el backlog'— es una trampa muy frecuente."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Qui pot delegar la gestió efectiva del Product Backlog?",
+        "q": "¿Quién puede delegar la gestión efectiva del Product Backlog?",
         "opts": [
-          "[ES PENDIENTE] Ningú, és intransferible fins i tot el treball",
-          "[ES PENDIENTE] El Product Owner pot delegar el treball, però mai la responsabilitat",
-          "[ES PENDIENTE] El Scrum Master, si el PO no hi és",
-          "[ES PENDIENTE] Els Developers, per consens"
+          "Nadie, es intransferible incluso el trabajo",
+          "El Propietario del Producto puede delegar el trabajo, pero nunca la responsabilidad",
+          "El Scrum Master, si el PO no está disponible",
+          "Los Desarrolladores, por consenso"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: el treball sí es pot delegar.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: el trabajo de gestionar el Product Backlog sí se puede delegar.",
+          "Correcto: la Guía indica que el Propietario del Producto puede delegar el trabajo, pero sigue siendo responsable último.",
+          "Incorrecto: el Scrum Master no asume la responsabilidad del PO en su ausencia.",
+          "Incorrecto: los Developers no asumen la gestión del Product Backlog."
         ],
-        "trap": "[ES PENDIENTE] Distingeix sempre 'delegar el treball' (possible) de 'delegar la responsabilitat' (impossible, sempre és del PO)."
+        "trap": "Distingue siempre 'delegar el trabajo' (posible) de 'delegar la responsabilidad' (imposible, siempre es del PO)."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] El Product Owner pot ser un comitè de diverses persones per representar millor els stakeholders.",
+        "q": "El Propietario del Producto puede ser un comité de varias personas para representar mejor a los interesados.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: 'El Propietario del Producto es una persona, no un comité' — cita literal."
+          "Incorrecto: la Guía es explícita en que el PO es una única persona.",
+          "Correcto: la Guía afirma literalmente que el Propietario del Producto es una persona, no un comité."
         ],
-        "trap": "[ES PENDIENTE] El PO és sempre una única persona, encara que representi moltes veus de negoci."
+        "trap": "El PO es siempre una única persona, aunque represente muchas voces de negocio distintas."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Com ha de procedir algú que vulgui canviar la prioritat d'un element del Product Backlog?",
+        "q": "¿Cómo debe proceder alguien que quiera cambiar el orden de un elemento del Product Backlog?",
         "opts": [
-          "[ES PENDIENTE] Modificar-lo directament si és urgent",
-          "[ES PENDIENTE] Negociar-ho amb el Product Owner",
-          "[ES PENDIENTE] Demanar-ho als Developers al Daily Scrum",
-          "[ES PENDIENTE] Esperar a la Retrospective"
+          "Modificarlo directamente si es urgente",
+          "Negociarlo con el Propietario del Producto",
+          "Pedirlo a los Desarrolladores en el Daily Scrum",
+          "Esperar a la Retrospective"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal de la Guia.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: nadie fuera del proceso de gestión del backlog modifica su orden unilateralmente.",
+          "Correcto: cualquier cambio de orden o alcance del backlog se negocia con el Propietario del Producto.",
+          "Incorrecto: el Daily Scrum es un evento interno de los Developers para el Sprint Backlog, no para renegociar el Product Backlog.",
+          "Incorrecto: no hace falta esperar a la Retrospective para tratar cambios del Product Backlog."
         ],
-        "trap": "[ES PENDIENTE] Qualsevol canvi d'ordre o abast del backlog passa sempre per una negociació amb el PO."
+        "trap": "Cualquier cambio de orden o alcance del backlog pasa siempre por una negociación con el PO."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quin terme va introduir la Guia 2020 per substituir 'auto-organitzat'?",
+        "q": "¿Qué término introdujo la Guía 2020 para sustituir 'auto-organizado'?",
         "opts": [
-          "[ES PENDIENTE] Auto-suficient",
-          "[ES PENDIENTE] Autogestionat",
-          "[ES PENDIENTE] Multidisciplinari",
-          "[ES PENDIENTE] Auto-dirigit"
+          "Autosuficiente",
+          "Autogestionado",
+          "Multidisciplinario",
+          "Autodirigido"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: no es un término usado por la Guía.",
+          "Correcto: 'autogestionado' sustituyó a 'auto-organizado' en la Guía 2020.",
+          "Incorrecto: 'multidisciplinario' describe la multifuncionalidad, no la autogestión.",
+          "Incorrecto: no es el término empleado por la Guía."
         ],
-        "trap": "[ES PENDIENTE] 'Auto-organitzat' és terminologia 2017, obsoleta. 2020 usa 'autogestionat' (self-managing): decideixen qui, com i on treballar."
+        "trap": "'Auto-organizado' es terminología 2017 obsoleta; 2020 usa 'autogestionado': el equipo decide quién, cómo y dónde trabaja."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quines de les següents són formes en què el Scrum Master serveix al Product Owner?",
+        "q": "¿Cuáles de las siguientes son formas en que el Scrum Master sirve al Propietario del Producto?",
         "opts": [
-          "[ES PENDIENTE] Ajudar a trobar tècniques per definir el Product Goal",
-          "[ES PENDIENTE] Decidir l'ordre del Product Backlog en el seu lloc",
-          "[ES PENDIENTE] Ajudar l'equip a entendre la necessitat d'elements clars i concisos",
-          "[ES PENDIENTE] Facilitar la col·laboració amb stakeholders quan es sol·liciti"
+          "Ayudar a encontrar técnicas para definir el Product Goal",
+          "Decidir el orden del Product Backlog en su lugar",
+          "Ayudar al equipo a entender la necesidad de elementos claros y concisos",
+          "Facilitar la colaboración con los interesados cuando se solicite"
         ],
         "correct": [
           0,
@@ -349,91 +327,91 @@ const TOPICS_ES = [
           3
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: mai substitueix la decisió del PO.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte."
+          "Correcto: es una de las formas explícitas en que el Scrum Master ayuda al Propietario del Producto.",
+          "Incorrecto: el Scrum Master nunca decide el orden del Product Backlog en lugar del PO; eso rompería su responsabilidad.",
+          "Correcto: ayudar al equipo a entender la necesidad de elementos claros y concisos es un servicio del SM al PO.",
+          "Correcto: facilitar la colaboración con los interesados cuando se solicita es una forma explícita de servicio al PO."
         ],
-        "trap": "[ES PENDIENTE] El SM 'ajuda' i 'facilita', però mai pren decisions que són accountability exclusiva del PO."
+        "trap": "El SM 'ayuda' y 'facilita', pero nunca toma decisiones que son accountability exclusiva del PO."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Qui és responsable de determinar el tamany (sizing) dels elements del Product Backlog?",
+        "q": "¿Quién es responsable de determinar el tamaño (sizing) de los elementos del Product Backlog?",
         "opts": [
-          "[ES PENDIENTE] El Product Owner",
-          "[ES PENDIENTE] El Scrum Master",
-          "[ES PENDIENTE] Els Developers",
-          "[ES PENDIENTE] Els stakeholders"
+          "El Propietario del Producto",
+          "El Scrum Master",
+          "Los Desarrolladores",
+          "Los interesados"
         ],
         "correct": 2,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: el PO pot influir, però no decideix.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: qui fa el treball és qui l'estima.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: el PO puede influir ayudando a entender y seleccionar mejores alternativas, pero no decide el tamaño.",
+          "Incorrecto: el Scrum Master no estima el trabajo del equipo.",
+          "Correcto: quienes realizan el trabajo son quienes lo estiman.",
+          "Incorrecto: los interesados no participan en la estimación del trabajo."
         ],
-        "trap": "[ES PENDIENTE] El PO 'pot influir ajudant-los a entendre i seleccionar millors alternatives', però la decisió final és dels Developers."
+        "trap": "El PO 'puede influir ayudando a entender y seleccionar mejores alternativas', pero la decisión final de tamaño es siempre de los Developers."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] Dins de l'Scrum Team hi ha sub-equips diferenciats, per exemple un equip de QA i un altre de desenvolupament.",
+        "q": "Dentro del Equipo Scrum hay sub-equipos diferenciados, por ejemplo un equipo de QA y otro de desarrollo.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: la Guia diu explícitament que no hi ha sub-equips ni jerarquies dins l'Scrum Team."
+          "Incorrecto: la Guía descarta explícitamente los sub-equipos y jerarquías dentro del Equipo Scrum.",
+          "Correcto: no hay sub-equipos ni jerarquías dentro del Equipo Scrum."
         ],
-        "trap": "[ES PENDIENTE] Frase literal: 'no hi ha sub-equips ni jerarquies'. Qualsevol opció que suggereixi sub-divisions internes és incorrecta."
+        "trap": "Frase literal: 'no hay sub-equipos ni jerarquías'. Cualquier opción que sugiera divisiones internas es incorrecta."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quina és la responsabilitat central i única del Scrum Master segons la Guia?",
+        "q": "¿Cuál es la responsabilidad central del Scrum Master según la Guía?",
         "opts": [
-          "[ES PENDIENTE] Assegurar que l'equip compleixi terminis",
-          "[ES PENDIENTE] Ser responsable d'establir Scrum tal com es defineix a la Guia",
-          "[ES PENDIENTE] Gestionar el pressupost del projecte",
-          "[ES PENDIENTE] Assignar tasques als Developers"
+          "Asegurar que el equipo cumpla los plazos",
+          "Ser responsable de establecer Scrum tal como se define en la Guía",
+          "Gestionar el presupuesto del proyecto",
+          "Asignar tareas a los Desarrolladores"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte: no és una funció Scrum.",
-          "[ES PENDIENTE] Incorrecte: els Developers s'auto-assignen tasques."
+          "Incorrecto: cumplir plazos no es una accountability formal del Scrum Master.",
+          "Correcto: es la responsabilidad central del Scrum Master según la Guía.",
+          "Incorrecto: gestionar presupuestos no es una función Scrum.",
+          "Incorrecto: los Developers se autoasignan el trabajo; el SM no asigna tareas."
         ],
-        "trap": "[ES PENDIENTE] El SM no assigna feina; això trencaria l'autogestió de l'equip."
+        "trap": "El SM no asigna trabajo; eso rompería la autogestión del equipo."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quan diversos Scrum Teams treballen en el mateix producte, què han de compartir obligatòriament?",
+        "q": "Cuando varios Equipos Scrum trabajan en el mismo producto, ¿qué deben compartir obligatoriamente?",
         "opts": [
-          "[ES PENDIENTE] El mateix Scrum Master per a tots els equips",
-          "[ES PENDIENTE] El mateix Product Goal, Product Backlog i Product Owner",
-          "[ES PENDIENTE] El mateix Sprint Backlog per a tots",
-          "[ES PENDIENTE] Els mateixos Developers rotant entre equips"
+          "El mismo Scrum Master para todos los equipos",
+          "El mismo Product Goal, Product Backlog y Propietario del Producto",
+          "El mismo Sprint Backlog para todos",
+          "Los mismos Desarrolladores rotando entre equipos"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: cada equip pot tenir el seu propi SM.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte: cada equip té el seu propi Sprint Backlog.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: cada Equipo Scrum puede tener su propio Scrum Master.",
+          "Correcto: cuando varios Equipos Scrum trabajan en el mismo producto deben compartir el mismo Product Goal, Product Backlog y Propietario del Producto.",
+          "Incorrecto: cada equipo mantiene su propio Sprint Backlog.",
+          "Incorrecto: la Guía no prescribe rotar Developers entre equipos."
         ],
-        "trap": "[ES PENDIENTE] Regla d''un producte, un Product Backlog, un Product Owner' encara que hi hagi múltiples equips Scrum treballant-hi."
+        "trap": "Regla de 'un producto, un Product Backlog, un Product Owner', aunque haya múltiples Equipos Scrum trabajando en él."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quines afirmacions sobre el Product Owner són correctes?",
+        "q": "¿Cuáles de las siguientes afirmaciones sobre el Propietario del Producto son correctas?",
         "opts": [
-          "[ES PENDIENTE] És responsable de maximitzar el valor del producte",
-          "[ES PENDIENTE] Ha de comptar amb l'aprovació dels Developers per canviar l'ordre del backlog",
-          "[ES PENDIENTE] Pot representar les necessitats de moltes parts interessades",
-          "[ES PENDIENTE] Ha de ser respectat per tota l'organització perquè les seves decisions siguin efectives"
+          "Es responsable de maximizar el valor del producto",
+          "Debe contar con la aprobación de los Desarrolladores para cambiar el orden del backlog",
+          "Puede representar las necesidades de muchos interesados",
+          "Debe ser respetado por toda la organización para que sus decisiones sean efectivas"
         ],
         "correct": [
           0,
@@ -441,64 +419,136 @@ const TOPICS_ES = [
           3
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: el PO ordena el backlog sense necessitar aprovació dels Developers.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte: cita literal sobre el respecte organitzacional."
+          "Correcto: maximizar el valor del producto es la responsabilidad central del PO.",
+          "Incorrecto: el PO ordena el backlog sin necesitar la aprobación de los Developers.",
+          "Correcto: el PO puede representar las necesidades de muchos interesados en el Product Backlog.",
+          "Correcto: para que las decisiones del PO sean efectivas, toda la organización debe respetarlas."
         ],
-        "trap": "[ES PENDIENTE] El PO decideix l'ordre unilateralment; no necessita 'aprovació' dels Developers, encara que sí col·labori amb ells."
+        "trap": "El PO decide el orden unilateralmente; no necesita 'aprobación' de los Developers, aunque sí colabore con ellos."
       }
     ]
   },
   {
     "id": "esdeveniments",
-    "name": "[ES PENDIENTE] Esdeveniments de Scrum",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"esdeveniments\"]</i></p>",
+    "name": "Eventos de Scrum",
+    "theory": "<h3>El Sprint: el contenedor de todo</h3><p>El Sprint es un contenedor de duración fija —<b>un mes o menos</b>— dentro del cual tienen lugar todos los demás eventos de Scrum: la Planificación de Sprint, el Scrum diario, la Revisión del Sprint y la Retrospectiva del Sprint. Un nuevo Sprint comienza <b>inmediatamente</b> después de que termine el anterior; no existe ningún hueco de preparación ni un \"Sprint 0\" — ese concepto no aparece en la Guía Scrum. Durante el Sprint no se realizan cambios que puedan poner en peligro el Sprint Goal, la calidad no se reduce, y el alcance puede aclararse y renegociarse con el Product Owner a medida que se aprende más. Solo el Product Owner tiene autoridad para cancelar un Sprint antes de que finalice.</p><h3>Planificación de Sprint (Sprint Planning)</h3><p>Da inicio al Sprint. Para un Sprint de un mes, su timebox máximo es de <b>8 horas</b> (en Sprints más cortos el evento suele ser más breve, aunque la Guía no fija una cifra exacta). El evento responde a tres preguntas: <b>por qué</b> es valioso este Sprint (el Sprint Goal), <b>qué</b> puede hacerse de entre el Product Backlog, y <b>cómo</b> se realizará el trabajo elegido. Participa todo el Scrum Team.</p><h3>Scrum diario (Daily Scrum)</h3><p>Evento de <b>15 minutos como máximo</b>, siempre — es la única cifra que no escala con la duración del Sprint. Es un evento interno de y para los Developers, pensado para inspeccionar el progreso hacia el Sprint Goal y adaptar el Sprint Backlog. Si el Product Owner o el Scrum Master trabajan activamente en elementos del Sprint Backlog, participan como Developers, no en su rol de gestión.</p><h3>Revisión del Sprint (Sprint Review)</h3><p>Timebox máximo de <b>4 horas</b> para un Sprint de un mes. El Scrum Team presenta los resultados de su trabajo a los interesados clave (stakeholders) y, juntos, revisan lo conseguido e inspeccionan el impacto sobre el Product Backlog y los próximos pasos. No es en absoluto una \"puerta\" de aprobación: un Increment puede entregarse a los interesados en cualquier momento antes de que finalice el Sprint.</p><h3>Retrospectiva del Sprint (Sprint Retrospective)</h3><p>Cierra el Sprint. Su timebox máximo es de <b>3 horas</b> para un Sprint de un mes. Su propósito es planificar formas de aumentar la calidad y la eficacia del equipo. Participa <b>todo el Scrum Team</b>, incluido el Product Owner, como un miembro más — ningún evento interno del equipo excluye al PO.</p><h3>Trampas frecuentes en el examen</h3><ul><li>Inventar un \"Sprint 0\": no existe en la Guía Scrum; el trabajo de preparación se realiza dentro de los Sprints normales.</li><li>Creer que el Scrum diario escala con la duración del Sprint: solo la Planificación, la Revisión y la Retrospectiva escalan; el Scrum diario siempre es de 15 minutos.</li><li>Confundir la Revisión del Sprint con una aprobación formal de release: es una sesión colaborativa de inspección y adaptación, no un \"gate\".</li><li>Excluir al Product Owner de eventos internos como el Scrum diario o la Retrospectiva: el PO participa en todos los eventos del Scrum Team.</li></ul>",
     "questions": [
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Què significa que un esdeveniment tingui un 'timebox'?",
+        "q": "¿Qué significa que un evento de Scrum tenga un \"timebox\"?",
         "opts": [
-          "[ES PENDIENTE] Té una durada mínima obligatòria",
-          "[ES PENDIENTE] Té una durada màxima fixada per endavant",
-          "[ES PENDIENTE] Es fa sempre a la mateixa hora",
-          "[ES PENDIENTE] Ha d'acabar abans d'una data límit externa"
+          "Tiene una duración mínima obligatoria",
+          "Tiene una duración máxima fijada de antemano, que no puede superarse",
+          "Se celebra siempre a la misma hora del día",
+          "Debe terminar antes de una fecha límite impuesta externamente"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: confon timebox amb horari fix.",
-          "[ES PENDIENTE] Incorrecte: confon amb deadline."
+          "Incorrecto: un timebox nunca exige una duración mínima; el evento puede terminar antes.",
+          "Correcto: un timebox es un límite máximo de duración establecido de antemano, nunca superable.",
+          "Incorrecto: confunde timebox con un horario fijo del día.",
+          "Incorrecto: confunde timebox con una fecha límite (deadline) externa al evento."
         ],
-        "trap": "[ES PENDIENTE] Un timebox mai exigeix un mínim — pot acabar abans, mai després del màxim."
+        "trap": "Un timebox marca solo un máximo, nunca un mínimo obligatorio: el evento puede acabar antes, pero jamás debe alargarse más allá del límite."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quin és el timebox màxim del Daily Scrum, independentment de la durada del Sprint?",
+        "q": "¿Cuál es el timebox máximo del Scrum diario, independientemente de la duración del Sprint?",
         "opts": [
-          "[ES PENDIENTE] 30 minuts",
-          "[ES PENDIENTE] 15 minuts, sempre",
-          "[ES PENDIENTE] 1 hora per Sprints d'un mes",
-          "[ES PENDIENTE] Escala proporcionalment amb la durada del Sprint"
+          "30 minutos",
+          "15 minutos, siempre",
+          "1 hora, para Sprints de un mes",
+          "Escala proporcionalmente con la duración del Sprint"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: és l'única excepció que NO escala."
+          "Incorrecto: esa cifra no aparece en la Guía para el Scrum diario.",
+          "Correcto: el Scrum diario está siempre limitado a 15 minutos, sea cual sea la duración del Sprint.",
+          "Incorrecto: esa cifra no corresponde al Scrum diario.",
+          "Incorrecto: es precisamente el único evento cuyo timebox NO escala con la duración del Sprint."
         ],
-        "trap": "[ES PENDIENTE] Planning, Review i Retro escalen amb la durada del Sprint; el Daily Scrum sempre és 15 min màxim."
+        "trap": "Planificación, Revisión y Retrospectiva escalan (se acortan) en Sprints más cortos; el Scrum diario es la excepción — siempre 15 minutos máximo."
+      },
+      {
+        "type": "single",
+        "q": "¿Quién tiene autoridad para cancelar un Sprint?",
+        "opts": [
+          "El Scrum Master",
+          "Todo el Scrum Team por consenso",
+          "Solo el Product Owner",
+          "Los principales stakeholders"
+        ],
+        "correct": 2,
+        "exp": [
+          "Incorrecto: el Scrum Master no tiene esta autoridad.",
+          "Incorrecto: cancelar un Sprint no es una decisión de consenso del equipo.",
+          "Correcto: la Guía Scrum otorga esta autoridad en exclusiva al Product Owner.",
+          "Incorrecto: los stakeholders no tienen autoridad formal sobre el Sprint."
+        ],
+        "trap": "La cancelación de un Sprint es una decisión unilateral del Product Owner — no requiere el consentimiento de nadie más, aunque el PO puede consultar a otros."
+      },
+      {
+        "type": "single",
+        "q": "¿Cuál es el timebox máximo de la Retrospectiva del Sprint para un Sprint de un mes?",
+        "opts": [
+          "1 hora",
+          "2 horas",
+          "3 horas",
+          "4 horas"
+        ],
+        "correct": 2,
+        "exp": [
+          "Incorrecto.",
+          "Incorrecto.",
+          "Correcto: 3 horas es el máximo para un Sprint de un mes.",
+          "Incorrecto: 4 horas es el máximo de la Revisión del Sprint, no de la Retrospectiva."
+        ],
+        "trap": "Memoriza el orden para un Sprint de un mes: Planificación 8h, Revisión 4h, Retrospectiva 3h — la Retrospectiva no es el evento más largo."
+      },
+      {
+        "type": "single",
+        "q": "¿Cuándo comienza un nuevo Sprint?",
+        "opts": [
+          "Una semana después de que termine el anterior, para revisar resultados",
+          "Inmediatamente después de que termine el Sprint anterior",
+          "Cuando el Product Owner lo decida discrecionalmente",
+          "Después de un \"Sprint 0\" de preparación"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: no existe ningún hueco de revisión entre Sprints.",
+          "Correcto: un nuevo Sprint comienza justo después de que concluya el anterior.",
+          "Incorrecto: la cadencia es continua, no queda a discreción de nadie.",
+          "Incorrecto: el \"Sprint 0\" no existe en la Guía Scrum."
+        ],
+        "trap": "No hay hueco entre Sprints ni un \"Sprint 0\" de preparación — es uno de los distractores más habituales en los exámenes."
+      },
+      {
+        "type": "single",
+        "q": "¿Cuál es el timebox máximo de la Planificación de Sprint para un Sprint de un mes?",
+        "opts": [
+          "4 horas",
+          "8 horas",
+          "15 minutos",
+          "3 horas"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: ese es el máximo de la Revisión del Sprint.",
+          "Correcto: 8 horas es el máximo para un Sprint de un mes.",
+          "Incorrecto: ese es el timebox del Scrum diario.",
+          "Incorrecto: ese es el máximo de la Retrospectiva."
+        ],
+        "trap": "No intercambies las cifras: Planificación = 8h, Revisión = 4h, Retrospectiva = 3h, para un Sprint de un mes."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quins tres temes s'aborden al Sprint Planning?",
+        "q": "¿Qué tres temas se abordan durante la Planificación de Sprint?",
         "opts": [
-          "[ES PENDIENTE] Per què és valuós aquest Sprint",
-          "[ES PENDIENTE] Qui assistirà al Sprint Review",
-          "[ES PENDIENTE] Què es pot fer aquest Sprint",
-          "[ES PENDIENTE] Com es realitzarà el treball escollit"
+          "Por qué este Sprint es valioso",
+          "Quién asistirá a la Revisión del Sprint",
+          "Qué se puede conseguir en este Sprint",
+          "Cómo se realizará el trabajo elegido"
         ],
         "correct": [
           0,
@@ -506,109 +556,21 @@ const TOPICS_ES = [
           3
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte."
+          "Correcto: es el tema \"Por qué\".",
+          "Incorrecto: quién asiste a la Revisión no es uno de los tres temas de la Planificación.",
+          "Correcto: es el tema \"Qué\".",
+          "Correcto: es el tema \"Cómo\"."
         ],
-        "trap": "[ES PENDIENTE] El 'Why' és l'afegit de la Guia 2020; qualsevol resposta que l'ometi és incompleta."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Qui té l'autoritat per cancel·lar un Sprint?",
-        "opts": [
-          "[ES PENDIENTE] El Scrum Master",
-          "[ES PENDIENTE] Tot l'Scrum Team per consens",
-          "[ES PENDIENTE] Només el Product Owner",
-          "[ES PENDIENTE] Els stakeholders principals"
-        ],
-        "correct": 2,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] Decisió unilateral i exclusiva del PO — no requereix consens de ningú més."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] El Sprint Review és una porta d'aprovació formal per alliberar l'Increment a producció.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: la Guia ho nega explícitament."
-        ],
-        "trap": "[ES PENDIENTE] És una sessió de treball d'inspecció i adaptació, no un 'gate' d'aprovació estil Waterfall."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quina és la durada màxima de la Sprint Retrospective per un Sprint d'un mes?",
-        "opts": [
-          "[ES PENDIENTE] 1 hora",
-          "[ES PENDIENTE] 2 hores",
-          "[ES PENDIENTE] 3 hores",
-          "[ES PENDIENTE] 4 hores"
-        ],
-        "correct": 2,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte (això és la Review)."
-        ],
-        "trap": "[ES PENDIENTE] Ordre a memoritzar: Planning 8h, Review 4h, Retro 3h (per Sprint d'un mes)."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Qui participa al Daily Scrum?",
-        "opts": [
-          "[ES PENDIENTE] Tot l'Scrum Team amb el mateix pes de veu",
-          "[ES PENDIENTE] Només els Developers; PO i SM només si treballen com Developers",
-          "[ES PENDIENTE] Només el Product Owner i els stakeholders",
-          "[ES PENDIENTE] El Scrum Master en solitari per informar l'organització"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] És un esdeveniment intern dels Developers. Si PO/SM hi participen és perquè estan fent treball del Sprint Backlog, no per rol de gestió."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quan comença un nou Sprint?",
-        "opts": [
-          "[ES PENDIENTE] Una setmana després que acabi l'anterior, per revisar resultats",
-          "[ES PENDIENTE] Immediatament després que acabi l'anterior",
-          "[ES PENDIENTE] Quan el Product Owner ho decideixi discrecionalment",
-          "[ES PENDIENTE] Després d'un 'Sprint 0' de preparació"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: 'Sprint 0' no existeix."
-        ],
-        "trap": "[ES PENDIENTE] No hi ha buit entre Sprints ni un 'Sprint 0' de preparació — un dels distractors més recurrents."
+        "trap": "El tema \"Por qué\" fue una incorporación explícita de la Guía 2020; cualquier respuesta que describa solo dos temas está incompleta."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quines afirmacions sobre el Sprint són correctes?",
+        "q": "¿Qué afirmaciones sobre el Sprint son correctas?",
         "opts": [
-          "[ES PENDIENTE] Té una durada fixa d'un mes o menys",
-          "[ES PENDIENTE] Durant el Sprint es poden fer canvis que posin en perill el Sprint Goal si el PO ho aprova",
-          "[ES PENDIENTE] La qualitat no disminueix durant el Sprint",
-          "[ES PENDIENTE] L'abast es pot clarificar i renegociar amb el PO a mesura que s'aprèn més"
+          "Tiene una duración fija de un mes o menos",
+          "Se permiten cambios que pongan en peligro el Sprint Goal si el Product Owner los aprueba",
+          "La calidad no disminuye durante el Sprint",
+          "El alcance puede aclararse y renegociarse con el Product Owner a medida que se aprende más"
         ],
         "correct": [
           0,
@@ -616,918 +578,605 @@ const TOPICS_ES = [
           3
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: mai es posa en perill el Sprint Goal, ni amb aprovació del PO.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte."
+          "Correcto.",
+          "Incorrecto: ninguna aprobación, ni siquiera del Product Owner, justifica poner en peligro el Sprint Goal.",
+          "Correcto.",
+          "Correcto."
         ],
-        "trap": "[ES PENDIENTE] Cap canvi durant el Sprint pot posar en perill el Sprint Goal, sense excepcions, ni tan sols amb 'permís' del PO."
+        "trap": "Ninguna aprobación —ni siquiera del Product Owner— puede justificar un cambio que ponga en peligro el Sprint Goal; esa protección no tiene excepciones."
       },
       {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quin és el propòsit principal del Daily Scrum?",
+        "type": "multi",
+        "q": "¿Qué afirmaciones sobre la Revisión del Sprint son correctas?",
         "opts": [
-          "[ES PENDIENTE] Informar el Scrum Master de l'estat de cada persona",
-          "[ES PENDIENTE] Inspeccionar el progrés cap al Sprint Goal i adaptar el Sprint Backlog",
-          "[ES PENDIENTE] Assignar noves tasques als Developers per part del PO",
-          "[ES PENDIENTE] Revisar l'Increment amb els stakeholders"
+          "Es una sesión de trabajo colaborativa, no solo una reunión de estado",
+          "Participan el Scrum Team y los stakeholders clave",
+          "Autoriza formalmente la puesta en producción del Increment",
+          "Sirve para inspeccionar el resultado del Sprint y adaptar el Product Backlog"
         ],
-        "correct": 1,
+        "correct": [
+          0,
+          1,
+          3
+        ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: això és el Sprint Review."
+          "Correcto.",
+          "Correcto.",
+          "Incorrecto: la Guía niega explícitamente que la Revisión sea una puerta de aprobación para el release.",
+          "Correcto."
         ],
-        "trap": "[ES PENDIENTE] No és un 'status report' cap a un cap; és inspecció i adaptació feta pel mateix equip, per a ell mateix."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Un Sprint de dues setmanes: quin és el timebox màxim aproximat del Sprint Planning?",
-        "opts": [
-          "[ES PENDIENTE] 8 hores, igual que en un Sprint d'un mes",
-          "[ES PENDIENTE] Proporcionalment menor, normalment més curt",
-          "[ES PENDIENTE] 15 minuts",
-          "[ES PENDIENTE] No aplica Sprint Planning en sprints curts"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte: 8h és el màxim NOMÉS per sprints d'un mes.",
-          "[ES PENDIENTE] Correcte: 'Para sprints más cortos, el evento suele ser más corto'.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] La xifra de 8h és específica per sprints d'un mes; en sprints més curts el timebox s'escurça proporcionalment (sense un nombre exacte fixat per la Guia)."
+        "trap": "La Revisión del Sprint es inspección y adaptación del producto, nunca una aprobación formal de \"sí/no\" para el release."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] La Sprint Retrospective és exclusivament per als Developers; el Product Owner no hi participa.",
+        "q": "La Revisión del Sprint es una puerta de aprobación formal que debe superarse antes de poder liberar un Increment a los usuarios.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: tot l'Scrum Team hi participa, PO inclòs, com un membre més."
+          "Incorrecto.",
+          "Correcto: la Guía afirma explícitamente que la Revisión del Sprint no debe considerarse una puerta para liberar valor."
         ],
-        "trap": "[ES PENDIENTE] El PO no queda fora de cap esdeveniment intern de l'equip — participa igual que Developers i SM."
+        "trap": "Es una sesión de trabajo de inspección y adaptación, no una puerta de aprobación al estilo Waterfall."
+      },
+      {
+        "type": "tf",
+        "q": "La Retrospectiva del Sprint es exclusivamente para los Developers; el Product Owner no participa.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto.",
+          "Correcto: participa todo el Scrum Team, Product Owner incluido, como un miembro más."
+        ],
+        "trap": "Ningún evento interno del equipo excluye al Product Owner — participa igual que los Developers y el Scrum Master."
+      },
+      {
+        "type": "tf",
+        "q": "El timebox del Scrum diario escala con la duración del Sprint, igual que la Planificación, la Revisión y la Retrospectiva.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: este es precisamente la única excepción — nunca escala.",
+          "Correcto: el Scrum diario está siempre limitado a 15 minutos, sin importar cuánto dure el Sprint."
+        ],
+        "trap": "Planificación, Revisión y Retrospectiva se acortan en Sprints más cortos; el timebox del Scrum diario es fijo, 15 minutos, sin importar la duración del Sprint."
       }
     ]
   },
   {
     "id": "artefactes",
-    "name": "[ES PENDIENTE] Artefactes i els seus compromisos",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"artefactes\"]</i></p>",
+    "name": "Artefactos y sus compromisos",
+    "theory": "<h3>Qué son los artefactos de Scrum</h3><p>Los artefactos de Scrum representan trabajo o valor y están diseñados para maximizar la transparencia de la información clave que el Equipo Scrum y los interesados necesitan conocer. Son tres: el <b>trabajo pendiente del producto (Product Backlog)</b>, el <b>trabajo pendiente del Sprint (Sprint Backlog)</b> y el <b>Incremento</b>. Cada artefacto lleva asociado un <b>compromiso</b> que aporta información adicional y permite medir el progreso: el Product Backlog tiene el <b>Objetivo del Producto</b>, el Sprint Backlog tiene el <b>Objetivo del Sprint</b>, y el Incremento tiene la <b>Definición de Hecho</b>.</p><h3>Product Backlog y Objetivo del Producto</h3><p>El Product Backlog es una lista <b>emergente y ordenada</b> (nunca \"priorizada\") de todo lo que se necesita para mejorar el producto; es la única fuente de trabajo que emprende el Equipo Scrum. Nunca está completa: evoluciona junto con el producto y su entorno. El <b>Objetivo del Producto</b> describe un estado futuro del producto que puede servir como diana para que el Equipo Scrum planifique: es un objetivo a <b>largo plazo</b>, y debe cumplirse (o abandonarse formalmente) antes de que el equipo asuma el siguiente. El propio Product Backlog es la representación emergente de ese Objetivo del Producto.</p><h3>Sprint Backlog y Objetivo del Sprint</h3><p>El Sprint Backlog es un plan hecho <b>por y para los Developers</b>: combina el Objetivo del Sprint (el porqué), los elementos del Product Backlog seleccionados para el Sprint (el qué) y un plan de acción para entregar el Incremento (el cómo). Es una imagen en tiempo real, altamente visible, del trabajo que los Developers planean realizar, y se actualiza a lo largo de todo el Sprint según se va aprendiendo más; solo los Developers pueden modificar su Sprint Backlog durante el Sprint. El <b>Objetivo del Sprint</b> es el único objetivo del Sprint, se crea durante el Sprint Planning como aportación a los elementos seleccionados, y da coherencia y foco, animando al equipo a trabajar junto en lugar de en iniciativas separadas. El Objetivo del Sprint ofrece cierta flexibilidad respecto al trabajo exacto necesario para conseguirlo: los Developers pueden renegociar el alcance con el Product Owner si descubren que el trabajo es distinto de lo esperado, pero el Objetivo del Sprint en sí no cambia.</p><h3>Incremento y Definición de Hecho</h3><p>El Incremento es un escalón concreto y verificado hacia el Objetivo del Producto; cada Incremento se suma a los anteriores y se verifica a fondo para asegurar que todos funcionan juntos. Se pueden crear varios Incrementos dentro de un mismo Sprint, y un Incremento puede entregarse a los interesados antes de que termine el Sprint (el Sprint Review nunca debe considerarse la única barrera para liberar valor). Un elemento del Product Backlog solo pasa a formar parte del Incremento cuando cumple la <b>Definición de Hecho</b>, el compromiso asociado a este artefacto que aporta transparencia compartida sobre qué significa \"terminado\". (Este tema se trata en profundidad en el apartado dedicado a la Definición de Hecho.)</p><h3>Errores habituales en el examen</h3><ul><li>Confundir un artefacto con su compromiso: el Product Backlog no \"es\" el Objetivo del Producto, lo tiene asociado; lo mismo ocurre con Sprint Backlog/Objetivo del Sprint e Incremento/Definición de Hecho.</li><li>Creer que el Product Backlog puede llegar a estar \"completo\" o ser una lista fija: siempre es emergente y ordenado, nunca priorizado ni cerrado.</li><li>Pensar que solo puede existir un Incremento por Sprint, o que el Sprint Review es el único momento para entregar valor: ambas ideas son incorrectas según la Guía.</li><li>Creer que el Product Owner (u otra persona externa) puede modificar el Sprint Backlog durante el Sprint: solo los Developers pueden hacerlo.</li><li>Confundir el Objetivo del Sprint con la simple suma de los elementos seleccionados: el Objetivo del Sprint es un compromiso de coherencia y propósito, no una lista de tareas.</li></ul>",
     "questions": [
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quin compromís està associat al Product Backlog?",
+        "q": "¿Cuáles son los tres artefactos formales de Scrum?",
         "opts": [
-          "[ES PENDIENTE] Sprint Goal",
-          "[ES PENDIENTE] Definition of Done",
-          "[ES PENDIENTE] Product Goal",
-          "[ES PENDIENTE] Increment"
+          "El trabajo pendiente del producto (Product Backlog), el trabajo pendiente del Sprint (Sprint Backlog) y el Incremento",
+          "El Objetivo del Producto, el Objetivo del Sprint y la Definición de Hecho",
+          "El Roadmap, el Backlog y el Plan de Release",
+          "La Visión del producto, el Backlog y el Sprint Backlog"
         ],
-        "correct": 2,
+        "correct": 0,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: l'Increment és un artefacte, no un compromís."
+          "Correcto: son los tres artefactos formales que define la Guía Scrum.",
+          "Incorrecto: estos son los tres compromisos asociados a los artefactos, no los artefactos en sí.",
+          "Incorrecto: ninguno de estos términos aparece como artefacto formal en la Guía Scrum.",
+          "Incorrecto: mezcla conceptos informales (Visión) con artefactos reales, y omite el Product Backlog y el Incremento."
         ],
-        "trap": "[ES PENDIENTE] Empareja sempre: Product Backlog→Product Goal, Sprint Backlog→Sprint Goal, Increment→Definition of Done."
+        "trap": "No confundas 'artefacto' con su 'compromiso' asociado: son conceptos distintos, aunque van siempre emparejados."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Com descriu la Guia el Product Backlog?",
+        "q": "¿Qué compromiso lleva asociado el Product Backlog?",
         "opts": [
-          "[ES PENDIENTE] Una llista fixa i priorizada de requisits",
-          "[ES PENDIENTE] Una llista emergent i ordenada del que cal per millorar el producte",
-          "[ES PENDIENTE] Un document d'abast aprovat pels stakeholders",
-          "[ES PENDIENTE] Un pla de release amb dates fixes"
+          "El Objetivo del Sprint",
+          "La Definición de Hecho",
+          "El Objetivo del Producto",
+          "El Incremento"
+        ],
+        "correct": 2,
+        "exp": [
+          "Incorrecto: el Objetivo del Sprint es el compromiso del Sprint Backlog, no del Product Backlog.",
+          "Incorrecto: la Definición de Hecho es el compromiso del Incremento.",
+          "Correcto: el Product Backlog lleva asociado el Objetivo del Producto.",
+          "Incorrecto: el Incremento es un artefacto en sí mismo, no un compromiso."
+        ],
+        "trap": "Empareja siempre: Product Backlog-Objetivo del Producto, Sprint Backlog-Objetivo del Sprint, Incremento-Definición de Hecho."
+      },
+      {
+        "type": "single",
+        "q": "¿Cómo describe la Guía Scrum al Product Backlog?",
+        "opts": [
+          "Una lista fija y priorizada de requisitos aprobada por los interesados",
+          "Una lista emergente y ordenada de todo lo necesario para mejorar el producto",
+          "Un documento de especificación técnica detallada",
+          "Un plan de release con fechas fijas de entrega"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: la Guía nunca habla de una lista 'fija' ni 'priorizada'; usa 'emergente' y 'ordenada'.",
+          "Correcto: así describe la Guía el Product Backlog.",
+          "Incorrecto: no es una especificación técnica, sino una lista de trabajo ordenada.",
+          "Incorrecto: la Guía Scrum no define planes de release con fechas fijas como artefacto."
         ],
-        "trap": "[ES PENDIENTE] Paraules clau textuals: 'emergent' i 'ordenada' — mai 'fixa' ni 'priorizada'."
+        "trap": "Palabras clave textuales: 'emergente' y 'ordenada' — nunca 'fija' ni 'priorizada'."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué es el Objetivo del Producto (Product Goal)?",
+        "opts": [
+          "Un objetivo a corto plazo válido solo para el Sprint en curso",
+          "Un estado futuro del producto que sirve de diana a largo plazo para el Equipo Scrum",
+          "Una lista detallada de tareas para los Developers",
+          "Un documento que se aprueba una sola vez y no se vuelve a revisar"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: eso describe al Objetivo del Sprint, no al Objetivo del Producto.",
+          "Correcto: el Objetivo del Producto describe un estado futuro del producto y es un objetivo a largo plazo.",
+          "Incorrecto: esa es una descripción más cercana al Sprint Backlog.",
+          "Incorrecto: el Objetivo del Producto se revisa y se sustituye por uno nuevo cuando se cumple o se abandona."
+        ],
+        "trap": "Objetivo del Producto = largo plazo; Objetivo del Sprint = corto plazo, válido solo para ese Sprint."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] Es pot considerar un element com a part de l'Increment encara que no compleixi la Definition of Done, si el PO ho aprova.",
+        "q": "El Product Backlog puede considerarse completo en algún momento del desarrollo del producto.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: sense excepcions, ni amb aprovació del PO."
+          "Incorrecto: el Product Backlog es emergente por naturaleza y evoluciona mientras el producto y su entorno cambian.",
+          "Correcto: la Guía indica que el Product Backlog nunca está completo; solo presenta lo que se conoce y entiende mejor en un momento dado."
         ],
-        "trap": "[ES PENDIENTE] La DoD no és negociable per ningú, ni tan sols pel PO — és un estàndard de qualitat objectiu."
+        "trap": "El carácter 'emergente' implica que el Product Backlog nunca se cierra ni se da por terminado."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Què passa amb un element del Product Backlog que no compleix la Definition of Done al final del Sprint?",
+        "q": "¿Quién puede modificar el Sprint Backlog durante el Sprint?",
         "opts": [
-          "[ES PENDIENTE] Es lliura amb una nota d'excepció",
-          "[ES PENDIENTE] Es presenta al Sprint Review com 'gairebé fet'",
-          "[ES PENDIENTE] Torna al Product Backlog per consideració futura",
-          "[ES PENDIENTE] S'elimina definitivament"
+          "Solo los Developers",
+          "El Product Owner, cuando cambian las prioridades",
+          "El Scrum Master, para mantener el tablero actualizado",
+          "Cualquier interesado que lo solicite"
         ],
-        "correct": 2,
+        "correct": 0,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: ni tan sols es presenta.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Correcto: el Sprint Backlog es un plan por y para los Developers, y solo ellos pueden cambiarlo durante el Sprint.",
+          "Incorrecto: el PO puede aportar contexto o renegociar alcance, pero no modifica el Sprint Backlog directamente.",
+          "Incorrecto: el rol del Scrum Master es facilitar, no gestionar el contenido del Sprint Backlog.",
+          "Incorrecto: los interesados externos no tienen autoridad para modificar el Sprint Backlog."
         ],
-        "trap": "[ES PENDIENTE] 'Gairebé fet' no existeix a Scrum: un element està Done o no ho està."
+        "trap": "El Sprint Backlog es propiedad operativa exclusiva de los Developers durante el Sprint."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quines afirmacions sobre l'Increment són correctes?",
+        "q": "¿Qué afirmaciones sobre el Objetivo del Sprint son correctas?",
         "opts": [
-          "[ES PENDIENTE] Es pot lliurar als stakeholders abans que acabi el Sprint",
-          "[ES PENDIENTE] Només es pot crear un Increment per Sprint",
-          "[ES PENDIENTE] Ha de complir la Definition of Done per considerar-se part de l'Increment",
-          "[ES PENDIENTE] El Sprint Review és l'única oportunitat de lliurar valor"
+          "Se crea durante el Sprint Planning como aportación a los elementos seleccionados del Product Backlog",
+          "Da coherencia y foco al equipo, animando a trabajar junto en lugar de en iniciativas separadas",
+          "Es una lista fija de tareas que no puede modificarse bajo ningún concepto",
+          "Permite cierta flexibilidad sobre el trabajo exacto necesario para conseguirlo"
+        ],
+        "correct": [
+          0,
+          1,
+          3
+        ],
+        "exp": [
+          "Correcto: el Objetivo del Sprint se redacta durante el Sprint Planning.",
+          "Correcto: es precisamente la función que cumple el Objetivo del Sprint.",
+          "Incorrecto: el Objetivo del Sprint no es una lista de tareas, sino un compromiso de propósito; la lista de tareas es el Sprint Backlog, que sí puede evolucionar.",
+          "Correcto: el Objetivo del Sprint deja margen sobre cómo lograrlo exactamente, aunque el objetivo en sí se mantenga."
+        ],
+        "trap": "No confundas el Objetivo del Sprint (un compromiso de propósito) con la lista de elementos seleccionados (que sí puede cambiar)."
+      },
+      {
+        "type": "single",
+        "q": "Si a mitad de Sprint los Developers descubren que el trabajo es distinto de lo esperado, ¿qué deberían hacer?",
+        "opts": [
+          "Abandonar el Objetivo del Sprint y fijar uno nuevo de inmediato",
+          "Renegociar con el Product Owner el alcance del Sprint Backlog sin cambiar el Objetivo del Sprint",
+          "Ignorar el cambio y continuar con el plan original pase lo que pase",
+          "Esperar hasta el Sprint Review para informar de cualquier cambio"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: el Objetivo del Sprint no se abandona a mitad de Sprint; se protege precisamente para dar foco.",
+          "Correcto: los Developers pueden renegociar el alcance con el PO cuando aprenden más, manteniendo intacto el Objetivo del Sprint.",
+          "Incorrecto: Scrum se basa en la adaptación continua, no en ignorar lo aprendido.",
+          "Incorrecto: la adaptación del plan ocurre durante el Sprint, no se pospone hasta el Sprint Review."
+        ],
+        "trap": "El alcance del Sprint Backlog es negociable durante el Sprint; el Objetivo del Sprint, una vez fijado, no."
+      },
+      {
+        "type": "multi",
+        "q": "¿Qué afirmaciones sobre el Incremento son correctas?",
+        "opts": [
+          "Puede entregarse a los interesados antes de que finalice el Sprint",
+          "Solo puede crearse un Incremento por Sprint",
+          "Cada Incremento se suma a los anteriores y debe verificarse que todos funcionen juntos",
+          "El Sprint Review es el único momento en que se puede liberar valor a los interesados"
         ],
         "correct": [
           0,
           2
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: se'n poden crear diversos dins un mateix Sprint.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: la Guia ho nega explícitament."
+          "Correcto: no hace falta esperar al final del Sprint para entregar valor.",
+          "Incorrecto: pueden crearse varios Incrementos dentro de un mismo Sprint.",
+          "Correcto: los Incrementos son acumulativos y se verifican a fondo en su conjunto.",
+          "Incorrecto: la Guía rechaza explícitamente esta idea; el Sprint Review no es la única vía para liberar valor."
         ],
-        "trap": "[ES PENDIENTE] Dues trampes juntes: creure que només hi ha un Increment per Sprint, i creure que el Sprint Review és l'únic moment de lliurar valor."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quin és l'objectiu a llarg termini per a l'Scrum Team, situat dins el Product Backlog?",
-        "opts": [
-          "[ES PENDIENTE] El Sprint Goal",
-          "[ES PENDIENTE] El Product Goal",
-          "[ES PENDIENTE] La Definition of Done",
-          "[ES PENDIENTE] El Release Plan"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte: és l'objectiu del Sprint, a curt termini.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: no és un artefacte formal de la Guia."
-        ],
-        "trap": "[ES PENDIENTE] Product Goal = llarg termini; Sprint Goal = curt termini (només aquell Sprint)."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Qui crea el Sprint Backlog?",
-        "opts": [
-          "[ES PENDIENTE] El Product Owner en solitari",
-          "[ES PENDIENTE] Els Developers",
-          "[ES PENDIENTE] Tot l'Scrum Team col·lectivament durant el Sprint Planning, sent un pla per i per als Developers",
-          "[ES PENDIENTE] El Scrum Master"
-        ],
-        "correct": 2,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Parcialment cert però incomplet — la resposta més precisa inclou el context de col·laboració.",
-          "[ES PENDIENTE] Correcte: es crea durant el Planning col·laborativament, però és 'un pla por y para los desarrolladores'.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El Sprint Backlog sorgeix de la col·laboració de tot l'Scrum Team al Planning, però és propietat operativa dels Developers, que l'actualitzen durant el Sprint."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] El Sprint Backlog és un document estàtic que no canvia un cop començat el Sprint.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: 's'actualitza al llarg del Sprint a mesura que s'aprèn més'."
-        ],
-        "trap": "[ES PENDIENTE] El Sprint Backlog és una 'imagen muy visible y en tiempo real' — dinàmic, no estàtic."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Si la Definition of Done forma part dels estàndards de l'organització, què han de fer els Scrum Teams?",
-        "opts": [
-          "[ES PENDIENTE] Poden ignorar-la si el seu producte és diferent",
-          "[ES PENDIENTE] Han de seguir-la com a mínim",
-          "[ES PENDIENTE] És opcional per a equips experimentats",
-          "[ES PENDIENTE] Només s'aplica al primer Sprint"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] Si hi ha estàndard organitzatiu de DoD, és un mínim obligatori per a tots els equips, no una opció."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quan es crea un Increment segons la Guia?",
-        "opts": [
-          "[ES PENDIENTE] Quan el PO l'aprova al Sprint Review",
-          "[ES PENDIENTE] En el moment en què un element del Product Backlog compleix la Definition of Done",
-          "[ES PENDIENTE] Al final de cada Sprint, sempre",
-          "[ES PENDIENTE] Quan els stakeholders el validen"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte: es pot crear en qualsevol moment del Sprint, no només al final.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] La creació de l'Increment no depèn d'una aprovació humana — depèn únicament de complir la DoD."
+        "trap": "Dos trampas típicas: creer que hay un único Incremento por Sprint, y creer que el Sprint Review es la única oportunidad de entregar valor."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quins atributs es van afegir o reforçar a la Guia 2020 respecte als artefactes?",
+        "q": "¿Qué parejas artefacto-compromiso son correctas?",
         "opts": [
-          "[ES PENDIENTE] El concepte de Product Goal com a nou compromís",
-          "[ES PENDIENTE] L'eliminació completa del Product Backlog",
-          "[ES PENDIENTE] Cada artefacte té ara un 'compromís' associat explícit",
-          "[ES PENDIENTE] La Definition of Done ja no és necessària per l'Increment"
+          "Product Backlog - Objetivo del Producto",
+          "Sprint Backlog - Objetivo del Sprint",
+          "Incremento - Definición de Hecho",
+          "Sprint Backlog - Definición de Hecho"
         ],
         "correct": [
           0,
+          1,
           2
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: mai es va eliminar.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: segueix sent obligatòria."
+          "Correcto: es la pareja artefacto-compromiso correcta.",
+          "Correcto: es la pareja artefacto-compromiso correcta.",
+          "Correcto: es la pareja artefacto-compromiso correcta.",
+          "Incorrecto: la Definición de Hecho es el compromiso del Incremento, no del Sprint Backlog."
         ],
-        "trap": "[ES PENDIENTE] La novetat clau de 2020 és formalitzar els 'compromisos' (Product Goal, Sprint Goal, DoD) per a cada artefacte."
+        "trap": "Cada uno de los tres artefactos tiene exactamente un compromiso propio: no mezcles los pares."
+      },
+      {
+        "type": "tf",
+        "q": "El Objetivo del Producto actual debe cumplirse o abandonarse formalmente antes de que el Equipo Scrum asuma el siguiente.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: el Objetivo del Producto actual debe cumplirse (o abandonarse formalmente) antes de que el Equipo Scrum asuma el siguiente.",
+          "Incorrecto: la Guía es clara en que no se puede acumular objetivos del producto en paralelo sin cerrar el anterior."
+        ],
+        "trap": "El Objetivo del Producto es un compromiso a largo plazo secuencial: no se apilan varios objetivos activos a la vez."
       }
     ]
   },
   {
     "id": "definition-of-done",
-    "name": "[ES PENDIENTE] Definition of Done",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"definition-of-done\"]</i></p>",
+    "name": "Definición de Hecho",
+    "theory": "<h3>Qué es</h3><p>La Definición de Hecho (Definition of Done, DoD) es una descripción formal del estado que debe alcanzar el Incremento para cumplir las medidas de calidad requeridas por el producto. Es el <b>compromiso asociado al Incremento</b>, igual que el Objetivo de Producto lo es del Product Backlog y el Objetivo de Sprint lo es del Sprint Backlog.</p><h3>Cuándo 'nace' un Incremento</h3><p>En el instante en que un elemento del Product Backlog cumple la Definición de Hecho, nace un Incremento. Cada nuevo Incremento se suma a todos los anteriores y se verifica minuciosamente, garantizando que todos los Incrementos funcionen juntos.</p><h3>Qué ocurre si un elemento no cumple la DoD</h3><ul><li>Si un elemento del Product Backlog no cumple la Definición de Hecho, no puede liberarse, y ni siquiera puede presentarse en la Revisión de Sprint (Sprint Review).</li><li>En su lugar, vuelve al Product Backlog para su consideración futura.</li></ul><h3>Origen de la DoD: estándar organizativo o creada por el equipo</h3><ul><li>Si la Definición de Hecho para un incremento forma parte de los estándares de la organización, todos los Scrum Teams deben seguirla como mínimo.</li><li>Si no existe un estándar organizativo, el Scrum Team debe crear una Definición de Hecho apropiada para el producto.</li><li>Los Developers están obligados a ajustarse a la Definición de Hecho.</li><li>Si varios Scrum Teams trabajan juntos en un mismo producto, deben definir y cumplir mutuamente la misma Definición de Hecho.</li></ul><h3>Relación con la transparencia</h3><p>La Definición de Hecho crea transparencia porque proporciona a todos una comprensión compartida de qué trabajo se ha completado como parte del Incremento. Un elemento que no cumple la DoD no puede presentarse como terminado ante nadie, ni dentro ni fuera del equipo.</p><h3>Trampa frecuente</h3><p>No confundas la Definición de Hecho con los 'criterios de aceptación' de un elemento concreto del Product Backlog: los criterios de aceptación son específicos de un ítem, mientras que la DoD es un estándar de calidad transversal aplicado a todo el Incremento. Tampoco es negociable con el Product Owner ni con los stakeholders, ni puede relajarse puntualmente en un Sprint por conveniencia: es un mínimo de calidad estable, aunque puede mejorarse con el tiempo.</p>",
     "questions": [
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Què és la Definition of Done?",
+        "q": "¿Qué es la Definición de Hecho (Definition of Done) según la Guía Scrum?",
         "opts": [
-          "[ES PENDIENTE] Els criteris d'acceptació d'un item concret",
-          "[ES PENDIENTE] Una descripció formal de l'estat de l'Increment quan compleix les mesures de qualitat requerides",
-          "[ES PENDIENTE] Un document firmat pel PO al final del Sprint",
-          "[ES PENDIENTE] Una llista de tasques pendents"
+          "El conjunto de criterios de aceptación específicos de un elemento del Product Backlog",
+          "Una descripción formal del estado que debe alcanzar el Incremento para cumplir las medidas de calidad requeridas por el producto",
+          "Un documento que el Product Owner firma al final de cada Sprint para aprobar el trabajo",
+          "La lista de tareas técnicas pendientes que aparece en el Sprint Backlog"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: és un concepte diferent i més ampli que els criteris d'un item.",
-          "[ES PENDIENTE] Correcte: definició literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: los criterios de aceptación son propios de un elemento concreto; la DoD es un estándar de calidad que aplica a todo el Incremento.",
+          "Correcto: la Guía define la DoD como una descripción formal del estado del Incremento cuando cumple las medidas de calidad requeridas para el producto.",
+          "Incorrecto: la Guía no contempla ninguna firma de aprobación del Product Owner; el cumplimiento de la DoD no depende de una validación humana posterior.",
+          "Incorrecto: eso describiría más bien el trabajo planificado en el Sprint Backlog, no la DoD."
         ],
-        "trap": "[ES PENDIENTE] La DoD no és el mateix que els 'criteris d'acceptació' d'un PBI concret — la DoD aplica a tot l'Increment."
+        "trap": "Confundir la DoD (estándar de calidad de todo el Incremento) con un documento de aprobación o con una lista de tareas."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] Si diversos Scrum Teams treballen sobre el mateix producte, cada equip pot definir la seva pròpia Definition of Done sense coordinar-se.",
+        "q": "Si varios Scrum Teams trabajan juntos en un mismo producto, cada equipo puede mantener su propia Definición de Hecho sin necesidad de coordinarse con los demás.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: han de definir i complir mútuament la mateixa DoD."
+          "Incorrecto: la Guía exige justamente lo contrario cuando varios equipos comparten un mismo producto.",
+          "Correcto: la Guía establece que, si varios Scrum Teams trabajan juntos en un mismo producto, deben definir y cumplir mutuamente la misma Definición de Hecho."
         ],
-        "trap": "[ES PENDIENTE] En entorns escalats amb un sol producte, la DoD ha de ser compartida i coherent entre tots els equips."
+        "trap": "En contextos con varios equipos sobre un mismo producto, la DoD debe ser única y compartida, no un estándar interno de cada equipo."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Si l'organització té un estàndard de qualitat per a tots els seus productes, com afecta a la DoD d'un Scrum Team?",
+        "q": "La organización tiene un estándar de calidad aplicable a todos sus productos. ¿Cómo afecta esto a la Definición de Hecho de un Scrum Team concreto?",
         "opts": [
-          "[ES PENDIENTE] El Scrum Team pot ignorar-lo si té la seva pròpia DoD",
-          "[ES PENDIENTE] El Scrum Team ha de complir-lo com a mínim",
-          "[ES PENDIENTE] Només s'aplica al primer Increment",
-          "[ES PENDIENTE] No té relació amb la DoD de l'equip"
+          "El Scrum Team puede ignorarlo si ya tiene su propia DoD definida",
+          "El Scrum Team debe seguirlo como mínimo",
+          "Solo se aplica al primer Incremento del producto",
+          "No guarda relación con la DoD del equipo"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: un estándar organizativo no puede descartarse solo porque el equipo tenga su propia definición.",
+          "Correcto: la Guía indica que si la DoD forma parte de los estándares de la organización, todos los Scrum Teams deben seguirla como mínimo.",
+          "Incorrecto: la Guía no establece ninguna limitación temporal de este tipo.",
+          "Incorrecto: existe una relación directa y obligatoria."
         ],
-        "trap": "[ES PENDIENTE] L'estàndard organitzatiu és un mínim, mai un màxim ni una opció descartable."
+        "trap": "El estándar organizativo actúa como un suelo mínimo obligatorio, nunca como algo opcional o descartable."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Qui ha de complir la Definition of Done?",
+        "q": "¿Quién está obligado a ajustarse a la Definición de Hecho al construir el Incremento?",
         "opts": [
-          "[ES PENDIENTE] Només el Product Owner, en validar l'Increment",
-          "[ES PENDIENTE] Els Developers, en construir l'Increment",
-          "[ES PENDIENTE] Els stakeholders, en revisar-lo al Sprint Review",
-          "[ES PENDIENTE] El Scrum Master, en tancar el Sprint"
+          "El Product Owner, al aceptar el Incremento",
+          "Los Developers",
+          "Los stakeholders, durante la Revisión de Sprint",
+          "El Scrum Master, al cerrar el Sprint"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: 'Los desarrolladores deben ajustarse a la definición de Hecho'.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: la Guía no describe una aceptación formal del PO como mecanismo de cumplimiento de la DoD.",
+          "Correcto: la Guía indica explícitamente que los Developers están obligados a ajustarse a la Definición de Hecho.",
+          "Incorrecto: los stakeholders participan en la revisión, pero no son quienes deben ajustarse a la DoD al construir el trabajo.",
+          "Incorrecto: el Scrum Master no construye el Incremento ni valida su cumplimiento de la DoD."
         ],
-        "trap": "[ES PENDIENTE] La responsabilitat de complir la DoD és dels Developers, no una validació posterior d'algú altre."
+        "trap": "El cumplimiento de la DoD recae en quienes construyen el Incremento, los Developers, no en una validación externa posterior."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] Un Product Backlog Item que no compleix la Definition of Done es pot presentar al Sprint Review si s'explica el motiu.",
+        "q": "Un elemento del Product Backlog que no cumple la Definición de Hecho puede presentarse en la Revisión de Sprint si el equipo explica por qué no está terminado.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: la Guia diu que ni tan sols es pot presentar al Sprint Review."
+          "Incorrecto: la Guía no contempla ninguna excepción por justificación.",
+          "Correcto: la Guía es tajante — si no cumple la DoD, ni siquiera puede presentarse en la Revisión de Sprint; vuelve al Product Backlog."
         ],
-        "trap": "[ES PENDIENTE] 'Ni siquiera presentar en la revisión de Sprint' és una frase gairebé literal — cap excepció."
+        "trap": "'Ni siquiera se puede presentar en la revisión de Sprint' no admite excepciones ni justificaciones."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Què ha de fer un Scrum Team si no existeix una Definition of Done com a estàndard organitzatiu?",
+        "q": "¿Qué debe hacer un Scrum Team si en su organización no existe una Definición de Hecho establecida como estándar?",
         "opts": [
-          "[ES PENDIENTE] Treballar sense DoD fins que l'organització en defineixi una",
-          "[ES PENDIENTE] Crear una DoD adequada per al seu producte",
-          "[ES PENDIENTE] Utilitzar la DoD d'un altre equip sense adaptar-la",
-          "[ES PENDIENTE] Preguntar als stakeholders quina DoD volen"
+          "Trabajar sin ninguna Definición de Hecho hasta que la organización defina una",
+          "Crear una Definición de Hecho apropiada para su producto",
+          "Adoptar sin adaptar la DoD de otro equipo de la organización",
+          "Dejar que cada Developer decida individualmente cuándo un elemento está terminado"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: la DoD és sempre obligatòria.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: la DoD nunca es opcional, ni siquiera de forma temporal.",
+          "Correcto: la Guía indica que si no existe un estándar organizativo, el Scrum Team debe crear una Definición de Hecho apropiada para el producto.",
+          "Incorrecto: la Guía no sugiere copiar la DoD de otro equipo sin adaptarla al propio producto.",
+          "Incorrecto: la DoD es un estándar del equipo, no una decisión individual de cada Developer."
         ],
-        "trap": "[ES PENDIENTE] La DoD mai és opcional. Si no hi ha estàndard, l'equip n'ha de crear una pròpia."
+        "trap": "La DoD nunca es opcional: si no hay estándar organizativo, la responsabilidad de crearla recae en el propio Scrum Team."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quin dels següents és el compromís (commitment) associat específicament a l'Increment?",
+        "q": "De los tres artefactos de Scrum, ¿cuál tiene la Definición de Hecho como su compromiso asociado?",
         "opts": [
-          "[ES PENDIENTE] Product Goal",
-          "[ES PENDIENTE] Sprint Goal",
-          "[ES PENDIENTE] Definition of Done",
-          "[ES PENDIENTE] Release Plan"
+          "El Product Backlog",
+          "El Sprint Backlog",
+          "El Incremento",
+          "El Sprint Backlog y el Incremento por igual"
         ],
         "correct": 2,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: no és un artefacte ni compromís formal de la Guia."
+          "Incorrecto: el compromiso del Product Backlog es el Objetivo de Producto.",
+          "Incorrecto: el compromiso del Sprint Backlog es el Objetivo de Sprint.",
+          "Correcto: la Definición de Hecho es el compromiso asociado al Incremento.",
+          "Incorrecto: cada artefacto tiene exactamente un compromiso; no se comparte entre dos artefactos."
         ],
-        "trap": "[ES PENDIENTE] Cadascun dels tres artefactes té exactament un compromís: no barregis els parells."
+        "trap": "Cada artefacto tiene exactamente un compromiso asociado: no intercambies los pares Objetivo de Producto/Product Backlog, Objetivo de Sprint/Sprint Backlog y DoD/Incremento."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] La Definition of Done pot variar entre Sprints d'un mateix producte segons convingui al PO.",
+        "q": "El Product Owner puede acordar con los Developers relajar puntualmente la Definición de Hecho en un Sprint concreto para llegar a tiempo a una fecha de entrega.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: la DoD és un estàndard de qualitat estable pel producte, no una variable negociable Sprint a Sprint segons convingui."
+          "Incorrecto: la presión por una fecha no autoriza a rebajar la DoD.",
+          "Correcto: la DoD no es negociable, ni siquiera con el Product Owner, y no se ajusta puntualmente por conveniencia en un Sprint concreto."
         ],
-        "trap": "[ES PENDIENTE] La DoD pot evolucionar amb el temps (millorar-se), però no es 'flexibilitza' puntualment per conveniència en un Sprint concret."
+        "trap": "La presión por una fecha de entrega no es motivo válido para rebajar la DoD: no es negociable, ni siquiera con el Product Owner."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quina relació hi ha entre la Definition of Done i la transparència?",
+        "q": "¿Qué relación existe entre la Definición de Hecho y la transparencia en Scrum?",
         "opts": [
-          "[ES PENDIENTE] Cap relació directa",
-          "[ES PENDIENTE] La DoD crea transparència proporcionant una comprensió compartida de què significa 'fet'",
-          "[ES PENDIENTE] La DoD substitueix la necessitat de transparència",
-          "[ES PENDIENTE] La DoD només afecta la comunicació amb stakeholders externs"
+          "No existe relación directa entre ambos conceptos",
+          "La DoD crea transparencia al proporcionar a todos una comprensión compartida de qué trabajo se considera completado en el Incremento",
+          "La DoD sustituye la necesidad de transparencia entre el equipo y los stakeholders",
+          "La DoD solo afecta a la transparencia de cara a los stakeholders externos, no dentro del equipo"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: la Guía sí establece una relación explícita entre la DoD y la transparencia.",
+          "Correcto: cita del propósito de la DoD en la Guía — proporciona una comprensión compartida de qué significa 'hecho'.",
+          "Incorrecto: la DoD no sustituye la transparencia, es uno de sus mecanismos.",
+          "Incorrecto: la comprensión compartida beneficia a todo el Scrum Team, no solo a la comunicación externa."
         ],
-        "trap": "[ES PENDIENTE] La DoD és, per definició, un mecanisme de transparència compartida per a tot l'Scrum Team, no només cap enfora."
+        "trap": "La DoD es un mecanismo de transparencia compartida para todo el Scrum Team, no únicamente una cara externa hacia los stakeholders."
       },
       {
-        "type": "single",
-        "q": "[ES PENDIENTE] Un Developer creu que un element ja es pot considerar 'fet' encara que li falti passar les proves automatitzades incloses a la DoD del producte. Què hauria de fer l'equip?",
+        "type": "multi",
+        "q": "Un elemento del Product Backlog no cumple la Definición de Hecho al final del Sprint. ¿Qué afirmaciones son correctas según la Guía Scrum?",
         "opts": [
-          "[ES PENDIENTE] Acceptar-ho igualment si el PO no s'hi oposa",
-          "[ES PENDIENTE] No considerar-lo part de l'Increment fins complir la DoD íntegrament",
-          "[ES PENDIENTE] Presentar-ho al Sprint Review com a 'parcialment complet'",
-          "[ES PENDIENTE] Deixar-ho a criteri individual de cada Developer"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte: la DoD no és negociable ni tan sols amb el PO.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: no existeix la categoria 'parcialment complet'.",
-          "[ES PENDIENTE] Incorrecte: la DoD és un estàndard de tot l'equip, no individual."
-        ],
-        "trap": "[ES PENDIENTE] Cap component de la DoD és opcional ni negociable puntualment, encara que sembli menor."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] Si un producte té diversos Scrum Teams treballant-hi, cadascun pot tenir el seu propi nivell de qualitat sempre que compleixi el mínim intern del seu equip.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "No puede liberarse",
+          "No puede ni siquiera presentarse en la Revisión de Sprint",
+          "Vuelve al Product Backlog para su consideración futura",
+          "Se cuenta igualmente como parte del Incremento entregado, aunque incompleto"
         ],
         "correct": [
-          1
+          0,
+          1,
+          2
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: han de definir i complir mútuament la mateixa DoD quan comparteixen producte."
+          "Correcto: un elemento que no cumple la DoD no puede liberarse.",
+          "Correcto: la Guía indica que ni siquiera puede presentarse en la Revisión de Sprint.",
+          "Correcto: en su lugar, vuelve al Product Backlog para su consideración futura.",
+          "Incorrecto: solo los elementos que cumplen la DoD forman parte del Incremento; no existe una categoría de Incremento 'parcial'."
         ],
-        "trap": "[ES PENDIENTE] 'Nivell de qualitat propi de cada equip' és incorrecte quan es comparteix un únic producte: la DoD ha de ser comuna."
+        "trap": "La opción trampa es la que sugiere que se puede 'contar parcialmente' como Incremento: si no cumple la DoD, sencillamente no forma parte del Incremento entregado."
+      },
+      {
+        "type": "multi",
+        "q": "¿Cuáles de las siguientes afirmaciones sobre la Definición de Hecho son correctas según la Guía Scrum?",
+        "opts": [
+          "Los Developers están obligados a ajustarse a ella al construir el Incremento",
+          "Si es un estándar organizativo, todos los Scrum Teams deben cumplirlo como mínimo",
+          "Si varios Scrum Teams trabajan en el mismo producto, deben definir y cumplir mutuamente la misma DoD",
+          "El Product Owner puede modificarla unilateralmente en cualquier momento sin acuerdo del resto del Scrum Team"
+        ],
+        "correct": [
+          0,
+          1,
+          2
+        ],
+        "exp": [
+          "Correcto: cita literal de la Guía sobre la obligación de los Developers.",
+          "Correcto: un estándar organizativo se sigue siempre como mínimo.",
+          "Correcto: varios equipos sobre el mismo producto deben compartir y cumplir la misma DoD.",
+          "Incorrecto: la DoD no es propiedad exclusiva del Product Owner; su creación y cumplimiento involucran a todo el Scrum Team."
+        ],
+        "trap": "La DoD no es propiedad exclusiva del Product Owner: no puede imponerla ni cambiarla en solitario sin el resto del Scrum Team."
       }
     ]
   },
   {
     "id": "autogestio",
-    "name": "[ES PENDIENTE] Equips autogestionats",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"autogestio\"]</i></p>",
+    "name": "Equipos autogestionados",
+    "theory": "<h3>Qué significa ser autogestionado (Guía 2020)</h3><p>El Scrum Team es <b>autogestionado</b> (self-managing): decide internamente <b>quién</b> hace <b>qué</b>, <b>cuándo</b> y <b>cómo</b>. Este término sustituyó en la versión 2020 al antiguo auto-organizado (self-organizing) de la Guía 2017; nadie fuera del equipo, ni siquiera el Scrum Master, asigna tareas a los Developers.</p><h3>Una sola unidad, sin sub-equipos</h3><p>El Scrum Team está formado por un Scrum Master, un Product Owner y los Developers. No existen sub-equipos ni jerarquías dentro de él: es una unidad cohesionada enfocada en un único objetivo a la vez, el Product Goal.</p><h3>Multifuncionalidad</h3><p>Los Developers son <b>multifuncionales</b>: entre todos poseen colectivamente las habilidades necesarias para crear un Incremento de valor en cada Sprint. Esto no exige que cada persona sepa hacer de todo; es una propiedad del equipo en su conjunto, no de cada individuo.</p><h3>Tamaño del equipo</h3><p>La Guía recomienda un Scrum Team lo bastante pequeño para mantenerse ágil y lo bastante grande para completar trabajo significativo dentro de un Sprint: normalmente <b>10 personas o menos</b>. Los equipos más pequeños suelen comunicarse mejor y ser más productivos. Si un Scrum Team crece demasiado, debería considerar reorganizarse en varios Scrum Teams cohesionados, todos centrados en el mismo producto y compartiendo el mismo Product Goal, el mismo Product Backlog y el mismo Product Owner.</p><h3>Por qué importa</h3><p>La Guía asocia la autogestión, la multifuncionalidad y la cohesión del equipo con una mayor creatividad y productividad a la hora de resolver problemas complejos.</p><h3>Trampas frecuentes en el examen</h3><ul><li>Confundir autogestionado (2020) con auto-organizado (2017): no son sinónimos intercambiables como terminología oficial vigente.</li><li>Pensar que la autogestión elimina la rendición de cuentas: los Developers se responsabilizan mutuamente como profesionales.</li><li>Creer que el Scrum Master asigna trabajo o decide quién forma parte del equipo: ambas cosas romperían la autogestión.</li><li>Suponer que un equipo demasiado grande debe dividir su Product Backlog: la solución es reorganizarse en varios equipos que compartan un único Product Goal, Product Backlog y Product Owner.</li></ul>",
     "questions": [
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Què decideixen internament els equips autogestionats segons la Guia 2020?",
+        "q": "Según la Guía Scrum 2020, ¿qué decide internamente un equipo autogestionado?",
         "opts": [
-          "[ES PENDIENTE] Qui fa el treball, com i on es fa",
-          "[ES PENDIENTE] Quant es cobra per cada tasca",
-          "[ES PENDIENTE] Qui és el Product Owner",
-          "[ES PENDIENTE] Quan comença i acaba l'organització el projecte"
+          "Quién hace qué, cuándo y cómo",
+          "El presupuesto asignado a cada Sprint",
+          "Quién ocupará el rol de Product Owner en el siguiente Sprint",
+          "Qué metodología alternativa usar en vez de Scrum"
         ],
         "correct": 0,
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: el PO no és triat pels Developers.",
-          "[ES PENDIENTE] Incorrecte."
+          "Correcto: es la definición literal de la Guía 2020 sobre autogestión.",
+          "Incorrecto: la Guía no atribuye decisiones de presupuesto a la autogestión del equipo.",
+          "Incorrecto: el Product Owner es una responsabilidad estable, no algo que rote entre Sprints.",
+          "Incorrecto: la autogestión no implica elegir un marco distinto de Scrum."
         ],
-        "trap": "[ES PENDIENTE] La fórmula exacta és 'quién, cómo y dónde trabajar' — memoritza-la literalment."
+        "trap": "La fórmula exacta es 'quién hace qué, cuándo y cómo' — memorízala literalmente, es una pregunta de cita textual habitual."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] 'Autogestionat' i 'auto-organitzat' són sinònims intercambiables a la Guia Scrum 2020.",
+        "q": "Autogestionado y auto-organizado son términos intercambiables en la Guía Scrum 2020.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: 'auto-organitzat' és terme de la versió 2017, substituït per 'autogestionat' el 2020."
+          "Incorrecto.",
+          "Correcto: auto-organizado era la terminología de 2017; la Guía 2020 la sustituyó por autogestionado."
         ],
-        "trap": "[ES PENDIENTE] Trampa de vocabulari molt freqüent: usar el terme antic (2017) com si fos l'actual."
+        "trap": "Trampa de vocabulario muy frecuente: usar el término antiguo (2017) como si fuera el vigente."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Què vol dir que un Scrum Team sigui multifuncional?",
+        "q": "¿Qué significa que un Scrum Team sea multifuncional?",
         "opts": [
-          "[ES PENDIENTE] Que cada membre sap fer totes les tasques per si sol",
-          "[ES PENDIENTE] Que col·lectivament tenen totes les habilitats necessàries per crear valor cada Sprint",
-          "[ES PENDIENTE] Que treballen en diversos productes alhora",
-          "[ES PENDIENTE] Que roten de rol cada Sprint"
+          "Cada miembro debe dominar todas las habilidades por sí solo",
+          "Entre todos, el equipo posee colectivamente las habilidades necesarias para crear valor cada Sprint",
+          "El equipo trabaja en varios productos a la vez",
+          "Los miembros rotan de rol cada Sprint"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: no cal que cada individu sàpiga fer-ho tot.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: la multifuncionalidad no exige que cada individuo lo sepa hacer todo.",
+          "Correcto: es una propiedad del equipo en su conjunto, no de cada persona.",
+          "Incorrecto: no tiene relación con el número de productos.",
+          "Incorrecto: la Guía no menciona rotación de roles."
         ],
-        "trap": "[ES PENDIENTE] Multifuncional és una propietat de l'equip com a conjunt, no una exigència individual de cada membre."
+        "trap": "Multifuncional es una propiedad colectiva del equipo, no una exigencia individual de cada miembro."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quin és el paper del Scrum Master respecte a l'autogestió de l'equip?",
+        "q": "¿Qué recomienda la Guía Scrum sobre el tamaño de un Scrum Team?",
         "opts": [
-          "[ES PENDIENTE] Assignar les tasques diàries per assegurar eficiència",
-          "[ES PENDIENTE] Capacitar els membres de l'equip en autogestió i multifuncionalitat",
-          "[ES PENDIENTE] Decidir qui forma part de l'equip",
-          "[ES PENDIENTE] Substituir a un Developer si falta personal"
+          "Como máximo 5 personas, sin excepciones",
+          "Lo bastante pequeño para ser ágil y lo bastante grande para completar trabajo significativo, normalmente 10 personas o menos",
+          "Un mínimo de 15 personas para garantizar cobertura de habilidades",
+          "La Guía no da ninguna recomendación de tamaño"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: trencaria l'autogestió.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: la Guía no fija un máximo estricto de 5; menciona 10 o menos como referencia habitual.",
+          "Correcto: cita orientativa de la Guía 2020 sobre el tamaño del Scrum Team.",
+          "Incorrecto: la Guía no recomienda un mínimo de 15; equipos más grandes tienden a comunicarse peor.",
+          "Incorrecto: sí existe una recomendación explícita de tamaño."
         ],
-        "trap": "[ES PENDIENTE] Qualsevol opció on el SM 'decideix pel equip' trenca el principi d'autogestió."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] L'autogestió implica que ningú es responsabilitza de res concret dins l'equip.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: els Developers 'se responsabilizan mutuamente como profesionales' — hi ha rendició de comptes."
-        ],
-        "trap": "[ES PENDIENTE] Autogestió no és absència de responsabilitat individual ni col·lectiva."
+        "trap": "El número '10 o menos' es una referencia orientativa citada literalmente, no una regla rígida obligatoria."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quan un Scrum Team es torna massa gran, què recomana la Guia?",
+        "q": "Cuando un Scrum Team se vuelve demasiado grande, ¿qué recomienda la Guía?",
         "opts": [
-          "[ES PENDIENTE] Afegir més Scrum Masters per coordinar",
-          "[ES PENDIENTE] Considerar reorganitzar-se en diversos equips cohesionats centrats en el mateix producte",
-          "[ES PENDIENTE] Dividir el Product Backlog en diversos backlogs paral·lels",
-          "[ES PENDIENTE] Crear un equip de coordinació superior"
+          "Añadir más Scrum Masters para coordinar sub-equipos",
+          "Considerar reorganizarse en varios Scrum Teams cohesionados que compartan el mismo Product Goal, Product Backlog y Product Owner",
+          "Dividir el Product Backlog en varios backlogs paralelos",
+          "Crear una capa de gestión por encima del Scrum Team para coordinar el trabajo"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: sempre ha d'existir un únic Product Backlog.",
-          "[ES PENDIENTE] Incorrecte: no existeix aquesta figura a la Guia."
+          "Incorrecto: varios Scrum Masters dentro de un mismo equipo no es lo que recomienda la Guía.",
+          "Correcto: es la recomendación literal de la Guía 2020 ante equipos demasiado grandes.",
+          "Incorrecto: la Guía exige un único Product Backlog compartido entre los equipos.",
+          "Incorrecto: no existe tal figura en Scrum; recrearía la jerarquía que el marco evita."
         ],
-        "trap": "[ES PENDIENTE] La solució a l'escalat és més equips cohesionats amb el mateix Product Goal, Product Backlog i PO — mai més backlogs ni jerarquies noves."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Per què Scrum utilitza 'desarrolladores' com a terme general per a totes les persones que fan el treball?",
-        "opts": [
-          "[ES PENDIENTE] Per excloure altres disciplines com investigadors o dissenyadors",
-          "[ES PENDIENTE] Per simplificar, sense excloure ningú que aporti valor al producte",
-          "[ES PENDIENTE] Perquè només aplica a equips de software",
-          "[ES PENDIENTE] Per diferenciar-los legalment del Product Owner"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte: és el contrari de la intenció.",
-          "[ES PENDIENTE] Correcte: cita literal del propòsit de la Guia.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] 'Si obtens valor de Scrum, considera't inclòs' — la Guia és explícita en no limitar el terme a programadors."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] Els Developers poden decidir dividir-se en sub-equips estables per especialitat (frontend, backend) dins del mateix Scrum Team.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: la Guia prohibeix explícitament sub-equips dins d'un Scrum Team."
-        ],
-        "trap": "[ES PENDIENTE] Encara que cada persona tingui especialitats, no es formalitzen sub-equips permanents dins l'Scrum Team."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quina és la relació entre autogestió i ritme sostenible?",
-        "opts": [
-          "[ES PENDIENTE] No hi ha relació entre ambdós conceptes",
-          "[ES PENDIENTE] Treballar en Sprints a un ritme sostenible millora l'enfocament i la consistència de l'equip autogestionat",
-          "[ES PENDIENTE] L'autogestió exigeix hores extra per complir el Sprint Goal",
-          "[ES PENDIENTE] El ritme sostenible només aplica al Scrum Master"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte: contrari a l'esperit de la Guia.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El 'ritme sostenible' és un concepte explícit de la Guia associat al benestar de l'equip, no a treballar més hores."
-      }
-    ]
-  },
-  {
-    "id": "forecasting",
-    "name": "[ES PENDIENTE] Forecasting i planificació de releases",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"forecasting\"]</i></p>",
-    "questions": [
-      {
-        "type": "multi",
-        "q": "[ES PENDIENTE] Quines pràctiques cita la Guia Scrum com a útils per al forecasting?",
-        "opts": [
-          "[ES PENDIENTE] Diagrames de Gantt",
-          "[ES PENDIENTE] Burn-down charts",
-          "[ES PENDIENTE] Burn-up charts",
-          "[ES PENDIENTE] Flujos acumulatius (cumulative flow)"
-        ],
-        "correct": [
-          1,
-          2,
-          3
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte: Gantt no apareix a la Guia Scrum.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte."
-        ],
-        "trap": "[ES PENDIENTE] Gantt és un distractor clàssic de metodologia tradicional, no forma part del vocabulari de la Guia Scrum."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] Les eines de forecasting com el burn-down substitueixen la importància de l'empirisme.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: la Guia ho nega explícitament — no la substitueixen."
-        ],
-        "trap": "[ES PENDIENTE] Són eines de suport; la decisió empírica real segueix sent primordial per sobre de qualsevol gràfic."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Segons la teoria de Scrum, en quins entorns es desconeix per endavant què succeirà?",
-        "opts": [
-          "[ES PENDIENTE] Entorns simples",
-          "[ES PENDIENTE] Entorns complexos",
-          "[ES PENDIENTE] Entorns predictibles",
-          "[ES PENDIENTE] Entorns amb requisits fixos"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] Scrum s'orienta a problemes complexos, on el resultat futur és incert per definició."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quina és la base correcta per fer un forecast fiable, segons l'enfocament empíric?",
-        "opts": [
-          "[ES PENDIENTE] Una estimació teòrica feta abans de començar el projecte",
-          "[ES PENDIENTE] Dades sobre el que ja ha succeït (rendiment passat)",
-          "[ES PENDIENTE] L'opinió del stakeholder més sènior",
-          "[ES PENDIENTE] Un pla detallat aprovat a l'inici"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: 'solo lo que ya ha sucedido se puede utilizar para la toma de decisiones con vistas a futuro'.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: contrari a l'enfocament empíric (BDUF)."
-        ],
-        "trap": "[ES PENDIENTE] Únicament les dades reals passades són vàlides per projectar el futur en un entorn empíric."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] Un forecast de release ha de comunicar-se com un compromís fix i inamovible.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: un forecast és una previsió basada en probabilitat i dades, no un compromís absolut."
-        ],
-        "trap": "[ES PENDIENTE] Presentar un forecast com a data fixa contradiu l'enfocament probabilístic i empíric que promou Scrum."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quin factor és clau perquè els Developers puguin fer pronòstics de Sprint més segurs?",
-        "opts": [
-          "[ES PENDIENTE] Conèixer el pressupost total del projecte",
-          "[ES PENDIENTE] Conèixer el seu rendiment passat, capacitat futura i la seva Definition of Done",
-          "[ES PENDIENTE] Tenir l'aprovació prèvia de tots els stakeholders",
-          "[ES PENDIENTE] Disposar d'un pla de release aprovat per la direcció"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal de la secció de Sprint Planning.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El forecast de Sprint es basa en dades pròpies de l'equip (rendiment passat, DoD), no en factors externs com pressupostos o aprovacions."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quantes vegades, com a mínim, garanteixen els Sprints la inspecció i adaptació del progrés cap a un Product Goal?",
-        "opts": [
-          "[ES PENDIENTE] Una vegada per trimestre",
-          "[ES PENDIENTE] Una vegada al mes, com a mínim, atès que el Sprint dura un mes o menys",
-          "[ES PENDIENTE] Una vegada per setmana obligatòriament",
-          "[ES PENDIENTE] Només al final del producte"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte: depèn de la durada real del Sprint escollida per l'equip.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] La freqüència mínima ve donada pel límit superior del Sprint (un mes), no per una cadència setmanal obligatòria."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] Quan l'horitzó d'un Sprint és massa llarg, el Sprint Goal pot tornar-se obsolet i el risc pot augmentar.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          0
-        ],
-        "exp": [
-          "[ES PENDIENTE] Correcte: cita literal de la secció 'El Sprint'."
-        ],
-        "trap": "[ES PENDIENTE] Sprints més llargs augmenten la incertesa acumulada abans de la següent inspecció formal."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quin és un motiu per utilitzar Sprints més curts, segons la Guia?",
-        "opts": [
-          "[ES PENDIENTE] Redueixen la burocràcia documental",
-          "[ES PENDIENTE] Generen més cicles d'aprenentatge i limiten el risc de cost i esforç a un període més petit",
-          "[ES PENDIENTE] Eliminen la necessitat de Sprint Review",
-          "[ES PENDIENTE] Redueixen el nombre de Product Backlog Items necessaris"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] Els Sprints curts no eliminen esdeveniments — simplement limiten el risc i acceleren l'aprenentatge empíric."
-      }
-    ]
-  },
-  {
-    "id": "visio-valor",
-    "name": "[ES PENDIENTE] Visió i valor de producte",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"visio-valor\"]</i></p>",
-    "questions": [
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Com defineix la Guia un 'producte'?",
-        "opts": [
-          "[ES PENDIENTE] Un projecte amb data d'inici i fi definides",
-          "[ES PENDIENTE] Un vehicle per lliurar valor, amb límits clars i usuaris/clients definits",
-          "[ES PENDIENTE] Un conjunt de funcionalitats de software exclusivament",
-          "[ES PENDIENTE] Un document de requisits aprovat"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: definició literal.",
-          "[ES PENDIENTE] Incorrecte: la Guia diu explícitament que pot ser més abstracte que software.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] Un producte no és un 'projecte' — Scrum evita aquest terme; és un vehicle continu de valor."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Què descriu el Product Goal?",
-        "opts": [
-          "[ES PENDIENTE] Un pla de releases amb dates concretes",
-          "[ES PENDIENTE] Un estat futur del producte que serveix d'objectiu per l'Scrum Team",
-          "[ES PENDIENTE] Els criteris d'acceptació de tots els PBI",
-          "[ES PENDIENTE] Un document firmat pels stakeholders"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El Product Goal és una direcció/objectiu, no un pla detallat amb dates — no és un roadmap."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] L'Scrum Team ha de complir o abandonar un Product Goal abans d'assumir-ne un altre.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          0
-        ],
-        "exp": [
-          "[ES PENDIENTE] Correcte: cita literal."
-        ],
-        "trap": "[ES PENDIENTE] No es pot treballar simultàniament cap a dos Product Goals diferents amb el mateix equip."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Qui és responsable de maximitzar el valor del producte?",
-        "opts": [
-          "[ES PENDIENTE] El Scrum Master",
-          "[ES PENDIENTE] Els stakeholders",
-          "[ES PENDIENTE] El Product Owner",
-          "[ES PENDIENTE] Tot l'Scrum Team per igual, sense diferenciar responsabilitats"
-        ],
-        "correct": 2,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] Encara que tot l'equip aporta valor amb l'Increment, la responsabilitat formal de maximitzar-lo és específicament del PO."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quina afirmació sobre un producte és correcta segons la Guia?",
-        "opts": [
-          "[ES PENDIENTE] Ha de ser sempre un producte físic tangible",
-          "[ES PENDIENTE] Pot ser un servei, un producte físic o quelcom més abstracte",
-          "[ES PENDIENTE] Ha de tenir sempre un únic usuari final",
-          "[ES PENDIENTE] No necessita límits clars, ja que és emergent"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: sí necessita un límit clar."
-        ],
-        "trap": "[ES PENDIENTE] Un producte no s'ha de confondre amb 'software' exclusivament — pot ser molt més abstracte."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Què emergeix per definir 'què' complirà el Product Goal?",
-        "opts": [
-          "[ES PENDIENTE] La resta del Product Backlog",
-          "[ES PENDIENTE] El Sprint Backlog únicament",
-          "[ES PENDIENTE] La Definition of Done",
-          "[ES PENDIENTE] El pla de releases anual"
-        ],
-        "correct": 0,
-        "exp": [
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El Product Backlog complet (no només el Sprint Backlog) és el que evoluciona per assolir el Product Goal."
+        "trap": "La respuesta correcta de escalado conserva siempre un único Product Goal, Product Backlog y Product Owner: nunca varios backlogs ni nuevas jerarquías."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quines característiques té un producte segons la Guia Scrum?",
+        "q": "¿Cuáles de las siguientes afirmaciones sobre los equipos Scrum autogestionados son correctas según la Guía 2020? (selecciona todas las que correspondan)",
         "opts": [
-          "[ES PENDIENTE] Té un límit clar",
-          "[ES PENDIENTE] Ha de generar sempre ingressos directes",
-          "[ES PENDIENTE] Té stakeholders coneguts",
-          "[ES PENDIENTE] Té usuaris o clients ben definits"
+          "El equipo decide internamente quién hace qué, cuándo y cómo",
+          "El Scrum Master asigna las tareas diarias a los Developers",
+          "No existen sub-equipos ni jerarquías dentro del Scrum Team",
+          "Los Developers se responsabilizan mutuamente como profesionales"
         ],
         "correct": [
           0,
@@ -1535,491 +1184,877 @@ const TOPICS_ES = [
           3
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: la Guia no ho exigeix; un producte intern també és vàlid.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Correcte."
+          "Correcto: es la definición de autogestión de la Guía.",
+          "Incorrecto: esto rompería la autogestión; el Scrum Master no asigna tareas.",
+          "Correcto: la Guía prohíbe explícitamente sub-equipos y jerarquías dentro del Scrum Team.",
+          "Correcto: la Guía indica que los Developers se responsabilizan mutuamente como profesionales."
         ],
-        "trap": "[ES PENDIENTE] Generar ingressos directes no és un requisit de la definició de 'producte' a la Guia — pot ser un servei intern o una plataforma sense monetització directa."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quina diferència hi ha entre el Product Goal i un Sprint Goal en termes d'horitzó temporal?",
-        "opts": [
-          "[ES PENDIENTE] Ambdós són a llarg termini",
-          "[ES PENDIENTE] El Product Goal és a llarg termini; el Sprint Goal és específic d'aquell Sprint",
-          "[ES PENDIENTE] El Sprint Goal és a llarg termini; el Product Goal és puntual",
-          "[ES PENDIENTE] No hi ha diferència, són sinònims"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: invertit.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] No confonguis l'abast temporal: Product Goal = visió a llarg termini; Sprint Goal = objectiu d'un únic Sprint."
+        "trap": "El distractor de selección múltiple más habitual es incluir que el Scrum Master asigna tareas: suena plausible pero contradice la autogestión."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] El Product Owner pot tenir dos Product Goals actius simultàniament per accelerar el desenvolupament.",
+        "q": "Los Developers pueden dividirse en sub-equipos estables por especialidad (por ejemplo, frontend y backend) dentro del mismo Scrum Team.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cal complir o abandonar un Product Goal abans d'assumir el següent."
+          "Incorrecto.",
+          "Correcto: la Guía prohíbe explícitamente formar sub-equipos o jerarquías dentro de un mismo Scrum Team, aunque las personas tengan especialidades distintas."
         ],
-        "trap": "[ES PENDIENTE] Un únic Product Goal actiu a la vegada — treballar-ne dos en paral·lel dilueix el focus de l'equip."
-      }
-    ]
-  },
-  {
-    "id": "gestio-backlog",
-    "name": "[ES PENDIENTE] Gestió del Product Backlog",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"gestio-backlog\"]</i></p>",
-    "questions": [
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Com s'anomena l'acte de descompondre i definir més els elements del Product Backlog?",
-        "opts": [
-          "[ES PENDIENTE] Priorització",
-          "[ES PENDIENTE] Refinament (refinement)",
-          "[ES PENDIENTE] Sizing",
-          "[ES PENDIENTE] Ordenació estratègica"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: sizing és només l'atribut de tamany.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El terme oficial és 'refinement', una activitat contínua, no un esdeveniment formal de Scrum."
+        "trap": "Aunque cada persona tenga una especialidad, no se formalizan sub-equipos permanentes dentro del Scrum Team."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quin verb utilitza la Guia Scrum per descriure com el PO gestiona els elements del Product Backlog?",
+        "q": "¿Cuál es el papel del Scrum Master respecto a la autogestión del equipo?",
         "opts": [
-          "[ES PENDIENTE] Priorizar",
-          "[ES PENDIENTE] Ordenar",
-          "[ES PENDIENTE] Classificar per urgència",
-          "[ES PENDIENTE] Segmentar per departament"
+          "Asignar las tareas diarias para asegurar eficiencia",
+          "Ayudar a los miembros del equipo a mejorar en autogestión y multifuncionalidad",
+          "Decidir quién forma parte del equipo",
+          "Sustituir a un Developer si falta personal"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: terme evitat deliberadament per la Guia.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto: rompería la autogestión del equipo.",
+          "Correcto: cita literal de las formas en que el Scrum Master sirve al Scrum Team.",
+          "Incorrecto: no es una responsabilidad del Scrum Master descrita en la Guía.",
+          "Incorrecto: no forma parte de las responsabilidades del Scrum Master."
         ],
-        "trap": "[ES PENDIENTE] 'Priorizar' és possiblement la trampa de vocabulari més repetida de tot l'examen PSPO I."
+        "trap": "Cualquier opción donde el Scrum Master decida por el equipo rompe el principio de autogestión."
       },
       {
         "type": "multi",
-        "q": "[ES PENDIENTE] Quines pràctiques ajuden a minimitzar el desperdici en la gestió del Product Backlog?",
+        "q": "¿Qué beneficios asocia la Guía Scrum con la autogestión, la multifuncionalidad y la cohesión del equipo? (selecciona todas las que correspondan)",
         "opts": [
-          "[ES PENDIENTE] Refinar en detall només els elements que probablement s'implementaran aviat",
-          "[ES PENDIENTE] Crear un segon backlog paral·lel per als elements 'nous'",
-          "[ES PENDIENTE] Eliminar elements obsolets que porten molt temps sense tocar-se",
-          "[ES PENDIENTE] Detallar exhaustivament tots els elements des del principi"
+          "Mayor creatividad y productividad para resolver problemas complejos",
+          "Fechas de entrega fijas y garantizadas para los stakeholders",
+          "Mejor comunicación cuando el equipo se mantiene pequeño",
+          "Eliminación de la necesidad de un Product Owner"
         ],
         "correct": [
           0,
           2
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte: enfocament 'just in time, just enough'.",
-          "[ES PENDIENTE] Incorrecte: trenca el principi d'única font de veritat.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: és una forma de desperdici (BDUF a nivell de backlog)."
+          "Correcto: la Guía asocia la autogestión y la multifuncionalidad con más creatividad y productividad.",
+          "Incorrecto: el enfoque empírico de Scrum evita comprometerse con fechas fijas garantizadas.",
+          "Correcto: la Guía señala que los equipos más pequeños suelen comunicarse mejor.",
+          "Incorrecto: el Product Owner sigue siendo una responsabilidad necesaria, sea cual sea el tamaño del equipo."
         ],
-        "trap": "[ES PENDIENTE] Un segon backlog 'paral·lel' sempre és incorrecte: només ha d'existir un Product Backlog com a font única de veritat."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Qui és responsable del tamany (size) dels elements del Product Backlog?",
-        "opts": [
-          "[ES PENDIENTE] El Product Owner en exclusiva",
-          "[ES PENDIENTE] Els Developers que faran el treball",
-          "[ES PENDIENTE] Els stakeholders principals",
-          "[ES PENDIENTE] El Scrum Master"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El PO pot influir-hi, però la decisió final de mida és sempre dels Developers."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] El refinament del Product Backlog és un esdeveniment formal de Scrum amb un timebox fix.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: és una activitat contínua, no un dels quatre esdeveniments formals amb timebox de la Guia."
-        ],
-        "trap": "[ES PENDIENTE] El refinement NO és un dels 4 esdeveniments formals (Planning, Daily, Review, Retro) — és una activitat en curs."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quina responsabilitat té el PO respecte a la visibilitat del Product Backlog?",
-        "opts": [
-          "[ES PENDIENTE] Assegurar que sigui transparent, visible i comprès",
-          "[ES PENDIENTE] Amagar-lo als stakeholders fins que estigui complet",
-          "[ES PENDIENTE] Compartir-lo només amb els Developers",
-          "[ES PENDIENTE] Publicar-lo només al final de cada release"
-        ],
-        "correct": 0,
-        "exp": [
-          "[ES PENDIENTE] Correcte: responsabilitat explícita del PO.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] La transparència del backlog és per a tot l'Scrum Team i els stakeholders, no un document restringit."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quan es considera que un element del Product Backlog està 'llest' (ready) per seleccionar-se en un Sprint Planning?",
-        "opts": [
-          "[ES PENDIENTE] Quan el PO l'ha aprovat formalment per escrit",
-          "[ES PENDIENTE] Quan ha adquirit prou transparència, normalment després d'activitats de refinament",
-          "[ES PENDIENTE] Quan té una estimació en hores exacta",
-          "[ES PENDIENTE] Quan tots els stakeholders l'han validat"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: la Guia no exigeix hores exactes.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] 'Ready' és un grau de transparència/comprensió assolit via refinament, no una aprovació formal ni una estimació exacta."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quin percentatge de temps de l'equip s'hauria de dedicar al refinament segons la Guia Scrum?",
-        "opts": [
-          "[ES PENDIENTE] Un 10% fix segons la Guia",
-          "[ES PENDIENTE] La Guia no especifica un percentatge fix; és una activitat contínua segons calgui",
-          "[ES PENDIENTE] Un 25% obligatori cada Sprint",
-          "[ES PENDIENTE] Ha de fer-se sempre en un esdeveniment separat d'1 hora"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte: la Guia no dona cap percentatge.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] Trampa comuna: atribuir a la Guia Scrum xifres concretes (com el famós '10% del temps') que en realitat provenen de pràctiques externes, no del text oficial."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Si dos Product Backlog Items competeixen pel mateix Sprint, qui decideix quin ordre tenen?",
-        "opts": [
-          "[ES PENDIENTE] Els Developers, per pura capacitat tècnica",
-          "[ES PENDIENTE] El Product Owner, ordenant el Product Backlog",
-          "[ES PENDIENTE] Es vota entre tot l'Scrum Team i stakeholders",
-          "[ES PENDIENTE] Es decideix per antiguitat de l'element al backlog"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] L'ordre del backlog és responsabilitat única del PO — no és un procés de votació ni d'antiguitat."
+        "trap": "Los distractores mezclan conceptos que suenan a beneficio pero no están respaldados por la Guía, como fechas fijas o prescindir del Product Owner."
       }
     ]
   },
   {
-    "id": "estrategia-negoci",
-    "name": "[ES PENDIENTE] Estratègia de negoci",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"estrategia-negoci\"]</i></p>",
+    "id": "forecasting",
+    "name": "Forecasting y planificación de releases",
+    "theory": "<h3>Prácticas mencionadas por la Guía</h3><p>La Guía Scrum no impone ninguna técnica concreta de pronóstico. Simplemente reconoce que existen <b>diversas prácticas para pronosticar el progreso</b>, como los <b>burn-down charts, burn-up charts o los diagramas de flujo acumulado (cumulative flow)</b>. Se citan a título de ejemplo, no como requisito del marco.</p><h3>El límite de estas herramientas</h3><p>La propia Guía advierte que, aunque estas prácticas han demostrado ser útiles, <b>no sustituyen la importancia del empirismo</b>. Ningún gráfico por sí solo garantiza buenas decisiones si no está respaldado por inspección y adaptación reales.</p><h3>Por qué el futuro no se puede predecir con certeza</h3><p>En entornos complejos —el terreno de juego de Scrum— <b>no se sabe de antemano qué va a ocurrir</b>. La Guía es explícita: solo lo que ya ha sucedido puede utilizarse para tomar decisiones de cara al futuro. Por eso el pronóstico en Scrum se apoya en datos reales y pasados (rendimiento histórico), no en estimaciones especulativas hechas antes de empezar.</p><h3>El Sprint como motor de previsibilidad</h3><p>La Guía no describe un proceso formal de \"release planning\", pero sí explica cómo Scrum logra previsibilidad: mediante los Sprints. Al tener una duración fija de un mes o menos, los Sprints garantizan que el progreso hacia el Product Goal se inspeccione y adapte, como mínimo, una vez al mes. Cuando el horizonte de un Sprint es demasiado largo, el Sprint Goal puede invalidarse, la complejidad puede aumentar y el riesgo puede crecer; por eso los Sprints más cortos generan más ciclos de aprendizaje y limitan el riesgo de coste y esfuerzo a un marco temporal más pequeño.</p><h3>El pronóstico dentro del Sprint</h3><p>Durante la Sprint Planning son los propios Developers quienes elaboran su pronóstico de cuánto trabajo pueden completar en el Sprint. Ese pronóstico gana fiabilidad cuando conocen su rendimiento pasado, su capacidad real para el Sprint que viene y su Definition of Done — no depende de aprobaciones externas, presupuestos o planes impuestos por otros.</p><h3>Trampas frecuentes en el examen</h3><ul><li>Confundir las \"prácticas citadas como ejemplo\" (burn-down, burn-up, cumulative flow) con \"técnicas obligatorias\": la Guía no exige ninguna.</li><li>Presentar un pronóstico de release como una fecha de compromiso fija, en vez de como una probabilidad basada en datos históricos.</li><li>Pensar que un gráfico sustituye la inspección empírica: la Guía dice explícitamente que no.</li><li>Creer que los Sprints más largos dan más seguridad: la Guía asocia, en realidad, los horizontes largos con más riesgo y con la posible invalidación del Sprint Goal.</li></ul>",
     "questions": [
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Segons les competències PSPO, per què és important que el PO entengui el mercat i la competència?",
+        "q": "Según la Guía Scrum, ¿cuál es el estatus de los burn-down charts, burn-up charts y los diagramas de flujo acumulado (cumulative flow)?",
         "opts": [
-          "[ES PENDIENTE] Per poder programar ell mateix funcionalitats competitives",
-          "[ES PENDIENTE] Per prendre decisions informades sobre com maximitzar el valor del producte",
-          "[ES PENDIENTE] Per substituir l'equip de màrqueting de l'organització",
-          "[ES PENDIENTE] Perquè és un requisit tècnic de la Guia Scrum"
+          "Son artefactos obligatorios que todo Scrum Team debe generar durante la Sprint Planning",
+          "Son ejemplos de prácticas que pueden ayudar a pronosticar el progreso, pero la Guía no exige ninguna de ellas",
+          "Son artefactos oficiales de Scrum, al mismo nivel que el Product Backlog y el Sprint Backlog",
+          "Sustituyen la necesidad de inspección y adaptación empíricas"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: la Guia Scrum no ho detalla; ve de les competències PSPO."
+          "Incorrecto. La Guía Scrum no obliga a usar ninguna herramienta o técnica de pronóstico concreta; los equipos son libres de usarlas o no.",
+          "Correcto. La Guía cita los burn-down, burn-up y los diagramas de flujo acumulado únicamente como ejemplos de prácticas útiles, sin exigir ninguna de ellas.",
+          "Incorrecto. Los únicos artefactos de Scrum son el Product Backlog, el Sprint Backlog y el Increment; estos gráficos de pronóstico no son artefactos del marco.",
+          "Incorrecto. La Guía afirma explícitamente lo contrario: estas prácticas no sustituyen la importancia del empirismo."
         ],
-        "trap": "[ES PENDIENTE] Aquest contingut prové de les Professional Scrum Competencies, no de la Guia Scrum en si — combina ambdues fonts a l'examen."
+        "trap": "Una trampa clásica de examen es tratar los ejemplos de la Guía (burn-down, burn-up, cumulative flow) como requisitos obligatorios o como artefactos oficiales, cuando no son ni lo uno ni lo otro."
       },
       {
-        "type": "single",
-        "q": "[ES PENDIENTE] Què implica el 'cost d'oportunitat' en la presa de decisions del PO?",
+        "type": "multi",
+        "q": "¿Cuáles de las siguientes cita la Guía Scrum como ejemplos de prácticas para pronosticar el progreso? (Selecciona todas las que correspondan.)",
         "opts": [
-          "[ES PENDIENTE] El cost monetari exacte de cada Product Backlog Item",
-          "[ES PENDIENTE] Que triar fer una cosa implica renunciar (de moment) a fer-ne una altra amb els mateixos recursos",
-          "[ES PENDIENTE] El cost de formació de l'equip",
-          "[ES PENDIENTE] El pressupost total assignat al producte"
+          "Burn-down charts",
+          "Diagramas de Gantt",
+          "Burn-up charts",
+          "Diagramas de flujo acumulado (cumulative flow)"
         ],
-        "correct": 1,
+        "correct": [
+          0,
+          2,
+          3
+        ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Correcto. Los burn-down charts se citan explícitamente como ejemplo de práctica de pronóstico.",
+          "Incorrecto. Los diagramas de Gantt pertenecen a la gestión de proyectos predictiva tradicional y no aparecen en ningún momento en la Guía Scrum.",
+          "Correcto. Los burn-up charts se citan explícitamente como ejemplo.",
+          "Correcto. Los diagramas de flujo acumulado se citan explícitamente como ejemplo."
         ],
-        "trap": "[ES PENDIENTE] Cost d'oportunitat no és un càlcul financer exacte, és el concepte de renúncia implícita en cada decisió d'ordenació del backlog."
+        "trap": "Los diagramas de Gantt son un distractor clásico tomado del vocabulario de planificación predictiva (waterfall) que no aparece en ningún lugar de la Guía Scrum."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] Un bon Product Owner es centra exclusivament en detalls tècnics d'implementació, deixant l'estratègia de negoci a la direcció.",
+        "q": "Verdadero o falso: como las prácticas de burn-down, burn-up y flujo acumulado han demostrado ser útiles, sustituyen la necesidad de empirismo en Scrum.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           1
         ],
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: el PO ha d'equilibrar visió de producte, negoci i execució — no és només una figura tècnica."
+          "Incorrecto. La Guía lo niega de forma explícita: ninguna práctica de pronóstico puede sustituir la inspección y adaptación empíricas reales.",
+          "Correcto. La Guía Scrum afirma que estas prácticas, aunque útiles, no sustituyen la importancia del empirismo."
         ],
-        "trap": "[ES PENDIENTE] Reduir el PO a un rol purament tècnic o purament administratiu són dues simplificacions incorrectes habituals a l'examen."
+        "trap": "Confundir un gráfico de seguimiento visual con un sustituto de la inspección y adaptación reales es la idea errónea que pone a prueba esta pregunta."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quin enfocament recomanen les competències PSPO per validar si una funcionalitat aportarà valor real?",
+        "q": "Según la visión de la complejidad de la Guía Scrum, ¿qué se puede saber realmente sobre el futuro?",
         "opts": [
-          "[ES PENDIENTE] Confiar en la intuïció del PO sense validar-ho",
-          "[ES PENDIENTE] Basar-se en dades i experimentació per validar hipòtesis de valor",
-          "[ES PENDIENTE] Esperar que ho decideixi la direcció general",
-          "[ES PENDIENTE] Copiar directament el que fa la competència"
+          "Exactamente lo que ocurrirá, si se recopilan suficientes datos por adelantado",
+          "Solo lo que ya ha sucedido; lo que ocurrirá a continuación es desconocido",
+          "La fecha exacta de release, una vez dibujado un burn-down chart",
+          "Todo, siempre que el Product Backlog esté completamente detallado antes del primer Sprint"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto. Esto describe una mentalidad predictiva de análisis previo que contradice la premisa de Scrum sobre los entornos complejos.",
+          "Correcto. La Guía afirma que en entornos complejos se desconoce qué ocurrirá, y que solo lo que ya ha sucedido puede usarse para tomar decisiones de cara al futuro.",
+          "Incorrecto. Un gráfico ayuda a pronosticar, pero no puede garantizar una fecha futura exacta.",
+          "Incorrecto. Detallar todo el Product Backlog por adelantado no elimina la incertidumbre inherente al trabajo complejo; es una idea de diseño exhaustivo previo (BDUF) que Scrum rechaza."
         ],
-        "trap": "[ES PENDIENTE] L'enfocament empíric també s'aplica a l'estratègia de producte: validar hipòtesis amb dades, no assumir-les."
+        "trap": "Las preguntas de examen suelen disfrazar la idea de 'diseño exhaustivo previo' como 'más planificación equivale a más certeza', lo cual contradice la postura de Scrum sobre la complejidad."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Com hauria d'utilitzar el PO l'Increment presentat al Sprint Review en relació amb l'estratègia de negoci?",
+        "q": "¿Cuál de las siguientes es la base correcta para un pronóstico fiable, dado el enfoque empírico de Scrum ante el trabajo complejo?",
         "opts": [
-          "[ES PENDIENTE] Com una prova per justificar el pressupost invertit",
-          "[ES PENDIENTE] Com a base empírica per ajustar la direcció del producte segons canvis del mercat",
-          "[ES PENDIENTE] Com un document legal per als stakeholders",
-          "[ES PENDIENTE] Només com a demostració tècnica interna"
+          "Un plan detallado aprobado por la dirección antes de empezar a trabajar",
+          "Datos sobre lo que ya ha sucedido, como el rendimiento pasado",
+          "La opinión del stakeholder más sénior presente",
+          "Una estimación exhaustiva y previa que cubra todo el Product Backlog"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: el Sprint Review inspecciona resultats i entorn per decidir pròxims passos alineats amb el valor de negoci.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto. Un plan preaprobado es una idea propia de metodologías predictivas, no empírica; Scrum basa las decisiones en evidencias, no en autorizaciones previas.",
+          "Correcto. La Guía es explícita: solo lo que ya ha sucedido, es decir, datos históricos reales, puede utilizarse para la toma de decisiones de cara al futuro.",
+          "Incorrecto. La autoridad o la antigüedad no son una fuente de datos empíricos; el pronóstico debe apoyarse en evidencias, no en opiniones.",
+          "Incorrecto. Una estimación exhaustiva previa es una práctica de diseño exhaustivo por adelantado (BDUF) en la que la teoría de procesos empírica de Scrum no se apoya."
         ],
-        "trap": "[ES PENDIENTE] El Sprint Review connecta directament execució i estratègia: no és només una demo tècnica, és input per a decisions de negoci."
+        "trap": "Esta pregunta comprueba si el lector sigue prefiriendo artefactos de planificación previa (planes aprobados, estimaciones completas) frente a los datos empíricos reales como base del pronóstico."
       },
       {
         "type": "tf",
-        "q": "[ES PENDIENTE] El Product Owner ha d'ignorar els canvis del mercat un cop el Product Backlog està definit, per mantenir estabilitat.",
+        "q": "Verdadero o falso: los Sprints permiten la previsibilidad al garantizar que el progreso hacia el Product Goal se inspecciona y adapta como mínimo una vez cada mes natural.",
         "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: el Product Backlog és emergent i s'ha d'ajustar a noves oportunitats i canvis d'entorn."
-        ],
-        "trap": "[ES PENDIENTE] 'Emergent' vol dir que el backlog evoluciona contínuament amb el mercat, mai és un document tancat i estable."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quin concepte descriu millor per què el PO ha de prioritzar objectius estratègics per sobre de peticions puntuals de stakeholders individuals?",
-        "opts": [
-          "[ES PENDIENTE] Maximitzar el valor global del producte a llarg termini, no només satisfer demandes aïllades",
-          "[ES PENDIENTE] Evitar conflictes personals amb l'equip",
-          "[ES PENDIENTE] Complir estrictament amb el pressupost anual",
-          "[ES PENDIENTE] Reduir el nombre de reunions amb stakeholders"
-        ],
-        "correct": 0,
-        "exp": [
-          "[ES PENDIENTE] Correcte: coherent amb la responsabilitat de maximitzar el valor del producte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El PO no és un simple 'gestor de peticions' — ha d'equilibrar-les amb la visió estratègica global del producte."
-      }
-    ]
-  },
-  {
-    "id": "stakeholders",
-    "name": "[ES PENDIENTE] Stakeholders i clients",
-    "theory": "<p><i>[ES PENDIENTE — traducir siguiendo la Scrum Guide oficial en castellano. Referencia original en catalán: data.ca.js, topic \"stakeholders\"]</i></p>",
-    "questions": [
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] En quin esdeveniment col·laboren especialment els stakeholders amb l'Scrum Team?",
-        "opts": [
-          "[ES PENDIENTE] Daily Scrum",
-          "[ES PENDIENTE] Sprint Planning",
-          "[ES PENDIENTE] Sprint Review",
-          "[ES PENDIENTE] Sprint Retrospective"
-        ],
-        "correct": 2,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte: només Developers.",
-          "[ES PENDIENTE] Incorrecte: principalment l'Scrum Team, encara que poden convidar-se assessors.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: intern de l'equip."
-        ],
-        "trap": "[ES PENDIENTE] El Sprint Review és l'esdeveniment obert a stakeholders per excel·lència; els altres tres són majoritàriament interns."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Com ha de procedir un stakeholder que vulgui canviar l'ordre del Product Backlog?",
-        "opts": [
-          "[ES PENDIENTE] Parlar-ho directament amb els Developers durant el Sprint",
-          "[ES PENDIENTE] Negociar-ho amb criteri amb el Product Owner",
-          "[ES PENDIENTE] Esperar la propera auditoria de qualitat",
-          "[ES PENDIENTE] Escalar-ho a direcció general immediatament"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] Tota negociació de canvis d'abast o ordre passa pel PO, mai directament pels Developers."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] Els stakeholders formen part de l'Scrum Team.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
-        ],
-        "correct": [
-          1
-        ],
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: l'Scrum Team és només PO, SM i Developers; els stakeholders són externs."
-        ],
-        "trap": "[ES PENDIENTE] Confondre 'col·laborar estretament' amb 'formar part de l'equip' és un error freqüent."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Quina és una manera en què el Scrum Master serveix a l'organització respecte als stakeholders?",
-        "opts": [
-          "[ES PENDIENTE] Decidint per ells quines funcionalitats són prioritàries",
-          "[ES PENDIENTE] Eliminant les barreres entre les parts interessades i els Scrum Teams",
-          "[ES PENDIENTE] Substituint el PO en la negociació de canvis",
-          "[ES PENDIENTE] Aprovant personalment els canvis de Product Backlog"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte: cita literal.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte."
-        ],
-        "trap": "[ES PENDIENTE] El SM elimina barreres i facilita, però mai substitueix les decisions o negociacions que corresponen al PO."
-      },
-      {
-        "type": "single",
-        "q": "[ES PENDIENTE] Durant el Sprint Review, què fan conjuntament l'Scrum Team i els stakeholders?",
-        "opts": [
-          "[ES PENDIENTE] Aproven formalment el pressupost del següent Sprint",
-          "[ES PENDIENTE] Revisen el que s'ha aconseguit i col·laboren sobre què fer a continuació",
-          "[ES PENDIENTE] Assignen tasques concretes als Developers per al següent Sprint",
-          "[ES PENDIENTE] Redacten la Definition of Done del producte"
-        ],
-        "correct": 1,
-        "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: l'assignació és interna dels Developers.",
-          "[ES PENDIENTE] Incorrecte: la DoD la defineix l'Scrum Team, no és tema específic del Review amb stakeholders."
-        ],
-        "trap": "[ES PENDIENTE] El Sprint Review és col·laboratiu i de treball conjunt, no una reunió d'aprovacions formals ni d'assignació de tasques."
-      },
-      {
-        "type": "tf",
-        "q": "[ES PENDIENTE] El Product Owner pot representar les necessitats de moltes parts interessades dins del Product Backlog.",
-        "opts": [
-          "[ES PENDIENTE] Vertader",
-          "[ES PENDIENTE] Fals"
+          "Verdadero",
+          "Falso"
         ],
         "correct": [
           0
         ],
         "exp": [
-          "[ES PENDIENTE] Correcte: cita literal de la Guia."
+          "Correcto. La Guía afirma que los Sprints permiten la previsibilidad al garantizar la inspección y adaptación del progreso hacia un Product Goal como mínimo cada mes natural, lo que se deriva directamente de la duración máxima de un mes del Sprint.",
+          "Incorrecto. Esta es una afirmación directa de la Guía Scrum sobre el papel del Sprint en la previsibilidad."
         ],
-        "trap": "[ES PENDIENTE] El PO és un punt de síntesi de moltes veus de negoci, sense deixar de ser una única persona responsable."
+        "trap": "Algunos candidatos asumen que la frecuencia mínima de inspección es semanal o está ligada a los Daily Scrums; en realidad está ligada a la duración máxima de un mes del Sprint."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Un client extern demana directament als Developers que canviïn l'abast d'un item que ja està al Sprint Backlog. Què hauria de passar?",
+        "q": "¿Qué dice la Guía Scrum que puede ocurrir cuando el horizonte de un Sprint es demasiado largo?",
         "opts": [
-          "[ES PENDIENTE] Els Developers ho accepten si tècnicament és senzill",
-          "[ES PENDIENTE] Es negocia amb el Product Owner, sense posar en perill el Sprint Goal",
-          "[ES PENDIENTE] S'aplica directament perquè el client sempre té raó",
-          "[ES PENDIENTE] Es porta a votació al Daily Scrum següent"
+          "Nada cambia; los Sprints más largos son siempre al menos tan seguros como los cortos",
+          "El Sprint Goal puede invalidarse, la complejidad puede aumentar y el riesgo puede crecer",
+          "La Definition of Done pasa a ser opcional para ese Sprint",
+          "El Product Owner obtiene autoridad formal sobre el contenido del Sprint Backlog"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte: els Developers no negocien abast directament amb externs.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Incorrecte: el Daily Scrum no és un fòrum de negociació d'abast amb externs."
+          "Incorrecto. La Guía advierte de consecuencias negativas concretas cuando el horizonte de un Sprint se alarga demasiado; más largo no es intrínsecamente más seguro.",
+          "Correcto. Es una consecuencia descrita directamente en la sección de la Guía Scrum dedicada al Sprint.",
+          "Incorrecto. La Definition of Done siempre se aplica a cualquier trabajo que se declare Done, independientemente de la duración del Sprint.",
+          "Incorrecto. La duración del Sprint no afecta a quién controla el contenido del Sprint Backlog; eso corresponde a los Developers."
         ],
-        "trap": "[ES PENDIENTE] Cap canvi d'abast durant el Sprint es fa sense passar pel PO i sense posar en perill el Sprint Goal ja acordat."
+        "trap": "Una idea errónea frecuente es que los Sprints más largos dan más estabilidad; la Guía asocia, en cambio, los horizontes largos con más riesgo y un posible Sprint Goal invalidado."
+      },
+      {
+        "type": "multi",
+        "q": "Según la descripción de la Sprint Planning en la Guía Scrum, ¿qué factores ayudan a los Developers a pronosticar con más confianza cuánto trabajo pueden completar en el Sprint? (Selecciona todas las que correspondan.)",
+        "opts": [
+          "Su rendimiento pasado",
+          "Su capacidad disponible para el Sprint que viene",
+          "Su Definition of Done",
+          "La aprobación formal de un presupuesto por parte de la dirección"
+        ],
+        "correct": [
+          0,
+          1,
+          2
+        ],
+        "exp": [
+          "Correcto. Conocer su propio rendimiento pasado es uno de los factores que cita la Guía para un pronóstico más fiable.",
+          "Correcto. Conocer su capacidad disponible para el Sprint que viene se cita junto al rendimiento pasado.",
+          "Correcto. La Definition of Done se cita como el tercer factor que fundamenta el pronóstico de los Developers.",
+          "Incorrecto. Pronosticar el trabajo del Sprint es una decisión interna que corresponde únicamente a los Developers; la Guía nunca lo vincula a aprobaciones de presupuesto externas."
+        ],
+        "trap": "Esta pregunta comprueba si el lector sigue creyendo que las aprobaciones externas (presupuestos, visto bueno de dirección) determinan el pronóstico del Sprint, cuando la Guía mantiene esa decisión totalmente en manos de los Developers."
       },
       {
         "type": "single",
-        "q": "[ES PENDIENTE] Quin és el risc principal de deixar que els stakeholders parlin directament amb els Developers sobre prioritats, sense passar pel PO?",
+        "q": "Según la Guía Scrum, ¿cuál es una razón para utilizar Sprints más cortos?",
         "opts": [
-          "[ES PENDIENTE] Cap risc, millora la comunicació",
-          "[ES PENDIENTE] Es trenca la gestió coherent i unificada del valor del producte que ha de liderar el PO",
-          "[ES PENDIENTE] Els Developers es tornen massa autònoms",
-          "[ES PENDIENTE] Augmenta la transparència del Product Backlog"
+          "Eliminan la necesidad de una Sprint Review al final del Sprint",
+          "Generan más ciclos de aprendizaje y limitan el riesgo de coste y esfuerzo a un marco temporal más pequeño",
+          "Reducen el número de Developers necesarios en el Scrum Team",
+          "Permiten al Product Owner saltarse la Sprint Planning"
         ],
         "correct": 1,
         "exp": [
-          "[ES PENDIENTE] Incorrecte.",
-          "[ES PENDIENTE] Correcte.",
-          "[ES PENDIENTE] Incorrecte: no és negatiu que siguin autònoms tècnicament.",
-          "[ES PENDIENTE] Incorrecte."
+          "Incorrecto. Todo Sprint, sea cual sea su duración, sigue incluyendo Sprint Planning, Daily Scrum, Sprint Review y Sprint Retrospective.",
+          "Correcto. Esta es la razón que da la Guía Scrum para emplear Sprints más cortos.",
+          "Incorrecto. La duración del Sprint no tiene relación con el tamaño o la composición del equipo.",
+          "Incorrecto. La Sprint Planning siempre da inicio a cada Sprint; los Sprints más cortos no eliminan ningún evento de Scrum."
         ],
-        "trap": "[ES PENDIENTE] El risc no és de comunicació general, sinó de perdre un punt únic i coherent de decisió sobre valor i ordre — exactament el que soluciona tenir un PO."
+        "trap": "Algunos candidatos asumen que los Sprints más cortos implican menos eventos o menos rigor; en realidad todos los eventos de Scrum se siguen celebrando, solo se reduce la ventana de riesgo."
+      }
+    ]
+  },
+  {
+    "id": "visio-valor",
+    "name": "Visión y valor de producto",
+    "theory": "<h3>¿Qué es un producto?</h3><p>La Guía Scrum (2020) define un producto como un <b>vehículo para entregar valor</b>. Tiene un límite claro, stakeholders conocidos, y usuarios o clientes bien definidos. Puede ser un servicio, un producto físico, o algo más abstracto (por ejemplo, una plataforma interna, un proceso, o una app).</p><h3>El Objetivo del Producto (Product Goal)</h3><p>El Objetivo del Producto describe un <b>estado futuro</b> del producto que sirve de objetivo a largo plazo para todo el Scrum Team. Todo lo que hace el equipo debería contribuir a ese objetivo. El resto del Product Backlog emerge para definir 'qué' cumplirá ese Objetivo del Producto. El Scrum Team debe cumplir (o abandonar deliberadamente) un Objetivo del Producto antes de asumir el siguiente.</p><h3>Maximizar el valor</h3><p>El Product Owner es responsable de maximizar el valor del producto resultante del trabajo del Scrum Team. La Guía no dicta cómo hacerlo exactamente: la forma concreta varía ampliamente entre organizaciones, culturas y mercados.</p><h3>Valor: más allá de los ingresos</h3><p>Más allá del texto literal de la Guía, es un principio ampliamente aceptado en la gestión de producto que 'valor' no es un concepto unidimensional. Un Product Owner competente suele considerar varias dimensiones, como:</p><ul><li><b>Valor para el cliente/usuario</b>: utilidad, experiencia, resolución real de un problema.</li><li><b>Valor de negocio</b>: ingresos, cuota de mercado, reducción de costes, ventaja competitiva.</li><li><b>Valor no monetario</b>: reputación de marca, cumplimiento normativo, aprendizaje o reducción de riesgo, capacidades técnicas futuras.</li></ul><p>Ninguna de estas categorías es una cita literal de la Guía Scrum, pero son conocimiento estándar de gestión de producto que un PSPO debe saber aplicar.</p><h3>Trampas frecuentes en el examen</h3><ul><li>Confundir el Objetivo del Producto con un roadmap o un plan de releases con fechas: el Product Goal es una dirección, no un calendario.</li><li>Asumir que un producto siempre es software o algo que se vende directamente: la Guía permite productos internos, servicios o conceptos abstractos.</li><li>Pensar que 'maximizar valor' significa únicamente 'maximizar ingresos': el valor de negocio es solo una de varias dimensiones posibles.</li></ul>",
+    "questions": [
+      {
+        "type": "single",
+        "q": "¿Cómo define la Guía Scrum un 'producto'?",
+        "opts": [
+          "Un proyecto con fecha de inicio y fin definidas",
+          "Un vehículo para entregar valor, con límites claros y usuarios o clientes definidos",
+          "Un conjunto de funcionalidades de software exclusivamente",
+          "Un documento de requisitos aprobado por el cliente"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: Scrum evita deliberadamente el término 'proyecto'; un producto no tiene por qué tener una fecha de fin planificada, es un vehículo continuo de entrega de valor.",
+          "Correcto: es la definición literal de la Guía Scrum 2020 — un vehículo para entregar valor, con límite claro, stakeholders conocidos y usuarios o clientes bien definidos.",
+          "Incorrecto: la Guía dice explícitamente que un producto puede ser algo más abstracto que software, como un servicio o incluso un proceso.",
+          "Incorrecto: un documento no es un vehículo de valor; podría formar parte del contexto de un producto, pero no lo define."
+        ],
+        "trap": "El examen suele ofrecer 'proyecto' como distractor: Scrum no habla de proyectos, sino de un producto como vehículo continuo de valor."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué describe el Objetivo del Producto (Product Goal)?",
+        "opts": [
+          "Un plan de lanzamientos con fechas concretas",
+          "Un estado futuro del producto que sirve de objetivo a largo plazo para el Scrum Team",
+          "Los criterios de aceptación de todos los Product Backlog Items",
+          "Un contrato firmado por todos los stakeholders"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: un plan con fechas es un roadmap operativo, no el Objetivo del Producto, que describe una dirección, no un calendario.",
+          "Correcto: el Product Goal describe un estado futuro deseado que da sentido a todo el trabajo del Scrum Team.",
+          "Incorrecto: los criterios de aceptación son detalle a nivel de PBI, muy por debajo del horizonte del Objetivo del Producto.",
+          "Incorrecto: el Product Goal no es un artefacto contractual, sino una declaración de dirección compartida por el equipo."
+        ],
+        "trap": "Trampa clásica: presentar el Product Goal como si fuera un plan con fechas — en realidad es una visión de largo plazo, no un cronograma."
+      },
+      {
+        "type": "tf",
+        "q": "Según la Guía Scrum, el Scrum Team debe cumplir o abandonar deliberadamente un Objetivo del Producto antes de asumir el siguiente.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la Guía es explícita — el Scrum Team debe cumplir (o abandonar) un Objetivo del Producto antes de asumir el siguiente; no se persiguen varios Product Goals en paralelo.",
+          "Incorrecto: trabajar hacia dos Product Goals a la vez diluiría el foco del equipo y contradice el texto de la Guía."
+        ],
+        "trap": "Algunos distractores sugieren que un equipo puede perseguir varios Product Goals simultáneamente para 'ir más rápido' — es justo lo contrario de lo que dice la Guía."
+      },
+      {
+        "type": "single",
+        "q": "¿Quién es responsable de maximizar el valor del producto resultante del trabajo del Scrum Team?",
+        "opts": [
+          "El Scrum Master",
+          "Los stakeholders principales",
+          "El Product Owner",
+          "Todo el Scrum Team por igual, sin diferenciar responsabilidades"
+        ],
+        "correct": 2,
+        "exp": [
+          "Incorrecto: el Scrum Master responde de la eficacia del Scrum Team y de que se entienda y aplique Scrum, no de maximizar el valor del producto.",
+          "Incorrecto: los stakeholders aportan input e información valiosa, pero no tienen la responsabilidad formal de maximizar el valor.",
+          "Correcto: la Guía asigna explícitamente al Product Owner la responsabilidad de maximizar el valor del producto resultante del trabajo del Scrum Team.",
+          "Incorrecto: aunque todo el equipo contribuye a crear valor con el Incremento, la responsabilidad formal recae específicamente en el PO."
+        ],
+        "trap": "El examen intenta diluir la responsabilidad en 'todo el equipo' — pero la Guía asigna esta responsabilidad de forma explícita y única al Product Owner."
+      },
+      {
+        "type": "multi",
+        "q": "¿Qué características tiene un producto según la definición de la Guía Scrum? (selecciona todas las que correspondan)",
+        "opts": [
+          "Tiene un límite claro",
+          "Debe generar siempre ingresos directos",
+          "Tiene stakeholders conocidos",
+          "Tiene usuarios o clientes bien definidos"
+        ],
+        "correct": [
+          0,
+          2,
+          3
+        ],
+        "exp": [
+          "Correcto: la definición de producto de la Guía incluye tener un límite claro.",
+          "Incorrecto: la Guía no exige generar ingresos directos; un producto puede ser un servicio interno o una plataforma sin monetización directa.",
+          "Correcto: tener stakeholders conocidos forma parte de la definición literal de la Guía.",
+          "Correcto: tener usuarios o clientes bien definidos también forma parte de esa definición."
+        ],
+        "trap": "Generar ingresos no es un requisito de la definición de 'producto' de la Guía — es fácil confundir 'valor' con 'ingresos', pero no son sinónimos."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué emerge para definir 'qué' cumplirá el Objetivo del Producto?",
+        "opts": [
+          "El resto del Product Backlog",
+          "Únicamente el Sprint Backlog",
+          "La Definition of Done",
+          "El plan de lanzamientos anual"
+        ],
+        "correct": 0,
+        "exp": [
+          "Correcto: la Guía indica que el resto del Product Backlog emerge para definir 'qué' cumplirá el Objetivo del Producto.",
+          "Incorrecto: el Sprint Backlog es el subconjunto de trabajo de un único Sprint, no el instrumento que define cómo se cumple el Product Goal en su totalidad.",
+          "Incorrecto: la Definition of Done establece cuándo un Incremento está terminado, no qué trabajo cumple el Objetivo del Producto.",
+          "Incorrecto: la Guía no habla de planes de lanzamiento anuales; es un concepto ajeno al texto oficial."
+        ],
+        "trap": "No confundir Product Backlog (visión completa y emergente) con Sprint Backlog (el subconjunto de un solo Sprint)."
+      },
+      {
+        "type": "tf",
+        "q": "El 'valor', en la gestión de producto, siempre significa ingresos monetarios directos.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: reducir 'valor' a ingresos directos ignora otras dimensiones reconocidas en la gestión de producto, como el valor para el usuario o el valor no monetario.",
+          "Correcto: es un principio general y ampliamente aceptado en gestión de producto (no una cita literal de la Guía) que el valor incluye dimensiones como la satisfacción del usuario, la reducción de riesgo, el aprendizaje o la reputación, además de los ingresos."
+        ],
+        "trap": "El examen puede tentar a asumir que 'maximizar valor' equivale a 'maximizar ingresos' — es una simplificación excesiva del concepto de valor."
+      },
+      {
+        "type": "multi",
+        "q": "¿Cuáles de las siguientes son dimensiones de valor que un Product Owner suele considerar (conocimiento general de gestión de producto, más allá de la Guía Scrum)?",
+        "opts": [
+          "Valor de negocio (ingresos, ventaja competitiva, reducción de costes)",
+          "El número exacto de horas invertidas por los Developers",
+          "Valor para el cliente o usuario (utilidad, experiencia, resolución de un problema real)",
+          "Valor no monetario (reputación, cumplimiento normativo, reducción de riesgo, aprendizaje)"
+        ],
+        "correct": [
+          0,
+          2,
+          3
+        ],
+        "exp": [
+          "Correcto: el valor de negocio es una dimensión habitual que un PO debe considerar, aunque no la única.",
+          "Incorrecto: las horas invertidas son una medida de esfuerzo o coste, no de valor generado; confundir esfuerzo con valor es un error frecuente.",
+          "Correcto: el valor para el cliente/usuario es una dimensión central que cualquier PO competente debe tener en cuenta.",
+          "Correcto: dimensiones no monetarias como la reputación o la reducción de riesgo también son formas legítimas de valor."
+        ],
+        "trap": "Nota: esta pregunta trata conocimiento general de gestión de producto, no una cita literal de la Guía Scrum, que no detalla estas dimensiones explícitamente."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué diferencia hay entre el Product Goal y el Sprint Goal en cuanto a horizonte temporal?",
+        "opts": [
+          "Ambos son objetivos a largo plazo",
+          "El Product Goal es a largo plazo; el Sprint Goal es específico de ese Sprint",
+          "El Sprint Goal es a largo plazo; el Product Goal es puntual",
+          "No hay diferencia real, son sinónimos"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: el Sprint Goal tiene un horizonte mucho más corto, limitado a un único Sprint.",
+          "Correcto: el Product Goal es el objetivo a largo plazo de todo el producto; el Sprint Goal es el compromiso específico de un Sprint concreto que aporta hacia ese objetivo mayor.",
+          "Incorrecto: es justo lo contrario de la relación real entre ambos conceptos.",
+          "Incorrecto: son conceptos claramente distintos, con horizontes temporales diferentes."
+        ],
+        "trap": "No confundir el alcance temporal: Product Goal = visión de producto a largo plazo; Sprint Goal = objetivo de un único Sprint que aporta hacia esa visión."
+      }
+    ]
+  },
+  {
+    "id": "gestio-backlog",
+    "name": "Gestión del Product Backlog",
+    "theory": "<h3>Un Product Backlog nunca está completo</h3><p>El Product Backlog es la única fuente de trabajo para el Scrum Team. Es una lista <b>emergente</b> y <b>ordenada</b>: solo recoge lo que se conoce y entiende en un momento dado, así que evoluciona a medida que el producto y su entorno cambian. Mientras un producto exista, su Product Backlog también existe: nunca está \"terminado\" ni es un documento cerrado desde el principio.</p><h3>Refinamiento (refinement)</h3><p>El refinamiento es el acto de descomponer y definir con más detalle los elementos del Product Backlog en piezas más pequeñas y precisas. Es una actividad <b>continua</b> que añade detalles como descripción, orden y tamaño; estos atributos varían según el dominio de trabajo. Los propios Developers realizan el refinamiento, ya que son quienes finalmente entregarán el trabajo; el Product Owner puede influir en ellos ayudándoles a entender y seleccionar los elementos que aportan más valor.</p><h3>Elementos \"Ready\" (listos)</h3><p>Un elemento del Product Backlog se considera listo para ser seleccionado en un Sprint Planning cuando, gracias al refinamiento, ha alcanzado un grado de transparencia y claridad suficiente. \"Ready\" no significa que exista una estimación exacta en horas ni una aprobación formal por escrito: es simplemente el nivel de comprensión compartido que permite a los Developers razonar sobre el trabajo con confianza.</p><h3>Ordenar, no priorizar</h3><p>La Guía Scrum utiliza el verbo <b>ordenar</b> (order) para describir cómo se organiza el Product Backlog, nunca \"priorizar\". Ordenar los elementos del Product Backlog es una de las accountabilities explícitas del Product Owner.</p><h3>El tamaño (sizing) es de los Developers</h3><p>Los Developers que realizarán el trabajo son quienes tienen la responsabilidad de estimar el tamaño de los elementos del Product Backlog. El Product Owner puede influir en esa estimación ayudando a los Developers a comprender y seleccionar entre distintas alternativas o compromisos (trade-offs), pero la decisión final de tamaño corresponde siempre a quienes ejecutarán el trabajo.</p><h3>Accountabilities del Product Owner sobre el Product Backlog</h3><ul><li>Desarrollar y comunicar explícitamente el Product Goal.</li><li>Crear y comunicar con claridad los elementos del Product Backlog.</li><li>Ordenar los elementos del Product Backlog.</li><li>Asegurar que el Product Backlog sea transparente, visible y comprendido por todos.</li></ul><p>El Product Owner puede delegar parte de este trabajo en otros, pero sigue siendo el responsable último.</p><h3>Errores frecuentes en el examen</h3><p>Cuidado con estas trampas típicas: (1) usar \"priorizar\"/\"prioridad\" en lugar de \"ordenar\"/\"orden\"; (2) pensar que el refinamiento es un evento formal con timebox fijo — no lo es, es una actividad continua; (3) creer que el Product Owner decide el tamaño de los elementos — esa decisión es de los Developers; (4) suponer que existe un porcentaje fijo de tiempo (como \"el 10%\") que la Guía Scrum exige dedicar al refinamiento — la Guía no especifica ningún porcentaje; (5) imaginar un \"Sprint 0\" dedicado exclusivamente a preparar el backlog antes de empezar — ese concepto no aparece en la Guía Scrum, que asume que el refinamiento ocurre de forma continua a lo largo del desarrollo del producto.</p>",
+    "questions": [
+      {
+        "type": "single",
+        "q": "¿Cómo llama la Guía Scrum a la actividad continua de descomponer y añadir más detalle a los elementos del Product Backlog?",
+        "opts": [
+          "Priorización",
+          "Refinamiento (refinement)",
+          "Sizing",
+          "Ordenación estratégica"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: la Guía Scrum no usa el término \"priorización\" para esta actividad.",
+          "Correcto: refinamiento es el acto de descomponer y definir con más detalle los elementos del Product Backlog.",
+          "Incorrecto: sizing es solo uno de los atributos que se añade durante el refinamiento, no el nombre de la actividad completa.",
+          "Incorrecto: no es un término de la Guía Scrum."
+        ],
+        "trap": "El término oficial es 'refinement', una actividad continua, no un evento formal de Scrum con timebox."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué verbo usa explícitamente la Guía Scrum para describir cómo el Product Owner organiza el Product Backlog?",
+        "opts": [
+          "Priorizar",
+          "Ordenar",
+          "Clasificar por urgencia",
+          "Segmentar por departamento"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: término deliberadamente evitado por la Guía Scrum.",
+          "Correcto: la Guía Scrum dice explícitamente que el Product Owner es responsable de \"ordenar\" los elementos del Product Backlog.",
+          "Incorrecto: no es terminología de la Guía Scrum.",
+          "Incorrecto: no es terminología de la Guía Scrum."
+        ],
+        "trap": "'Priorizar' es probablemente la trampa de vocabulario más repetida de todo el examen PSPO I."
+      },
+      {
+        "type": "multi",
+        "q": "¿Qué prácticas recomienda la Guía Scrum para gestionar el Product Backlog de forma eficaz? (selecciona todas las correctas)",
+        "opts": [
+          "Refinar con detalle solo los elementos que probablemente se implementarán pronto",
+          "Crear un segundo backlog paralelo para los elementos \"nuevos\" o poco claros",
+          "Eliminar elementos obsoletos que llevan mucho tiempo sin tocarse",
+          "Detallar exhaustivamente todos los elementos del backlog desde el principio del producto"
+        ],
+        "correct": [
+          0,
+          2
+        ],
+        "exp": [
+          "Correcto: enfoque \"justo a tiempo, lo justo\" (just in time, just enough) que evita desperdiciar esfuerzo en detalles que pueden cambiar.",
+          "Incorrecto: el Product Backlog es la única fuente de trabajo; un segundo backlog rompe esa única fuente de verdad.",
+          "Correcto: eliminar elementos obsoletos mantiene el backlog transparente y útil.",
+          "Incorrecto: detallar todo desde el principio es trabajo prematuro que probablemente se desperdicie cuando el producto emerja y cambie."
+        ],
+        "trap": "Un segundo backlog \"paralelo\" siempre es incorrecto: solo debe existir un Product Backlog como fuente única de trabajo."
+      },
+      {
+        "type": "single",
+        "q": "¿Quién es responsable de estimar el tamaño (sizing) de los elementos del Product Backlog?",
+        "opts": [
+          "El Product Owner en exclusiva",
+          "Los Developers que realizarán el trabajo",
+          "Los stakeholders principales",
+          "El Scrum Master"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: el PO puede influir, pero no decide el tamaño.",
+          "Correcto: los Developers, al ser quienes ejecutan el trabajo, son responsables de su tamaño.",
+          "Incorrecto: los stakeholders no participan en el sizing.",
+          "Incorrecto: el Scrum Master no estima el trabajo, facilita el proceso."
+        ],
+        "trap": "El PO puede influir ayudando a entender y seleccionar trade-offs, pero la decisión final de tamaño es siempre de los Developers."
+      },
+      {
+        "type": "tf",
+        "q": "El refinamiento del Product Backlog es uno de los cuatro eventos formales de Scrum y tiene un timebox fijo definido por la Guía.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto.",
+          "Correcto: el refinamiento no es uno de los cuatro eventos formales de Scrum (Planning, Daily, Review, Retrospective); es una actividad continua sin timebox fijo propio."
+        ],
+        "trap": "Confundir el refinamiento con un evento formal timeboxed es un error muy común: la Guía lo describe como actividad continuada."
+      },
+      {
+        "type": "single",
+        "q": "Según la Guía Scrum, ¿qué debe garantizar el Product Owner sobre el Product Backlog en cuanto a su visibilidad?",
+        "opts": [
+          "Asegurar que sea transparente, visible y comprendido por todos",
+          "Ocultarlo a los stakeholders hasta que esté completo",
+          "Compartirlo únicamente con los Developers",
+          "Publicarlo solo al final de cada release"
+        ],
+        "correct": 0,
+        "exp": [
+          "Correcto: es una accountability explícita del Product Owner sobre el Product Backlog.",
+          "Incorrecto: contradice la transparencia exigida.",
+          "Incorrecto: el Product Backlog debe ser visible para todo el Scrum Team y, según convenga, los stakeholders.",
+          "Incorrecto: al ser emergente, nunca hay un momento en que esté \"completo\" o cerrado."
+        ],
+        "trap": "La transparencia del backlog es para todo el Scrum Team, no un documento restringido o guardado hasta estar 'terminado'."
+      },
+      {
+        "type": "single",
+        "q": "¿Cuándo se considera que un elemento del Product Backlog está 'Ready' para ser seleccionado en la Sprint Planning?",
+        "opts": [
+          "Cuando el Product Owner lo aprueba formalmente por escrito",
+          "Cuando ha alcanzado suficiente transparencia y claridad, normalmente gracias al refinamiento",
+          "Cuando tiene una estimación exacta en horas",
+          "Cuando todos los stakeholders lo han validado individualmente"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: la Guía no exige una aprobación formal por escrito.",
+          "Correcto: 'Ready' refleja el grado de comprensión y transparencia logrado mediante refinamiento continuo.",
+          "Incorrecto: la Guía no exige estimaciones exactas en horas.",
+          "Incorrecto: no es un requisito de validación individual por stakeholder."
+        ],
+        "trap": "'Ready' es un grado de transparencia/comprensión alcanzado vía refinamiento, no una aprobación formal ni una estimación exacta."
+      },
+      {
+        "type": "multi",
+        "q": "¿Cuáles de las siguientes son accountabilities del Product Owner en relación con el Product Backlog? (selecciona todas las correctas)",
+        "opts": [
+          "Desarrollar y comunicar el Product Goal",
+          "Ordenar los elementos del Product Backlog",
+          "Escribir personalmente el código de cada elemento",
+          "Asegurar que el Product Backlog sea transparente, visible y comprendido"
+        ],
+        "correct": [
+          0,
+          1,
+          3
+        ],
+        "exp": [
+          "Correcto: es una de las accountabilities del Product Owner para la gestión efectiva del Product Backlog.",
+          "Correcto: ordenar los elementos es una accountability explícita del Product Owner.",
+          "Incorrecto: escribir código es trabajo de los Developers, no una accountability del Product Owner.",
+          "Correcto: también es una accountability explícita del Product Owner."
+        ],
+        "trap": "El examen a veces mezcla accountabilities reales del PO con tareas técnicas de los Developers para confundir."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué dice la Guía Scrum acerca de cuánto tiempo o qué porcentaje fijo debe dedicarse al refinamiento del Product Backlog?",
+        "opts": [
+          "Un evento formal de una hora al principio de cada Sprint",
+          "Un porcentaje fijo del 10% del tiempo del equipo, según la Guía Scrum",
+          "Una actividad continua sin timebox fijo, según convenga a lo largo del desarrollo",
+          "Un Sprint 0 dedicado exclusivamente a preparar el Product Backlog antes de empezar"
+        ],
+        "correct": 2,
+        "exp": [
+          "Incorrecto: el refinamiento no es uno de los cuatro eventos formales de Scrum.",
+          "Incorrecto: la cifra del 10% es una práctica externa habitual, pero la Guía Scrum no especifica ningún porcentaje.",
+          "Correcto: la Guía Scrum describe el refinamiento como una actividad continua, sin exigir un timebox ni una frecuencia fija.",
+          "Incorrecto: la Guía Scrum no menciona ningún \"Sprint 0\"; el refinamiento ocurre de forma continua durante todo el desarrollo del producto."
+        ],
+        "trap": "Trampa común: atribuir a la Guía Scrum cifras concretas (como el famoso '10% del tiempo') o conceptos (como 'Sprint 0') que en realidad no aparecen en el texto oficial."
+      }
+    ]
+  },
+  {
+    "id": "estrategia-negoci",
+    "name": "Estrategia de negocio",
+    "theory": "<h3>Maximizar el valor: el eje de la estrategia del PO</h3><p>La Guía Scrum (2020) establece que el <b>Product Owner es responsable de maximizar el valor del producto</b> resultante del trabajo del Scrum Team. Esta responsabilidad no se limita a ordenar el Product Backlog sprint a sprint: implica sostener una visión de negocio que conecte cada decisión con el valor que el producto genera a medio y largo plazo, expresado a través del <b>Product Goal</b>.</p><h3>El coste no es solo \"coste de desarrollo\"</h3><p>Una estrategia de negocio sólida no mira únicamente el esfuerzo de construir una funcionalidad. En la práctica habitual de gestión de producto se considera el <b>Coste Total de Propiedad (Total Cost of Ownership, TCO)</b>: además de programarlo, hay que mantenerlo, darle soporte, formar a los usuarios y, en ocasiones, retirarlo. Un elemento \"barato\" de construir puede resultar caro de mantener durante años; el Propietario del Producto valora ese equilibrio al decidir qué entra en el Product Backlog. (Este concepto de TCO es una práctica general de gestión de producto, no un término definido en la Guía Scrum.)</p><h3>Empirismo también en la estrategia</h3><p>Scrum se apoya en tres pilares del empirismo: transparencia, inspección y adaptación. El Product Owner aplica estos mismos principios a la estrategia de negocio: en lugar de basar decisiones en opiniones o suposiciones, busca <b>datos reales</b> — uso del producto, feedback de mercado, resultados de sprints anteriores — para comprobar si el rumbo actual sigue siendo el correcto. El <b>Sprint Review</b> es precisamente un punto de inspección donde el Scrum Team y los stakeholders revisan el Incremento y el entorno (mercado, tecnología, presupuesto...) para decidir los próximos pasos.</p><h3>Responsable pase lo que pase</h3><p>Según la Guía, el Product Owner es <b>una única persona</b>, no un comité, y aunque puede delegar parte del trabajo de ordenar o refinar el Product Backlog en otras personas, <b>sigue siendo responsable</b> del resultado. Esto es clave en estrategia de negocio: aunque el PO se apoye en analistas de mercado, stakeholders o el propio equipo para obtener información, la decisión final y la rendición de cuentas sobre el valor entregado recaen en él o ella.</p><h3>Errores habituales en el examen</h3><ul><li>Pensar que TCO, ROI o las métricas de valor son citas literales de la Guía Scrum — no lo son; son prácticas estándar de gestión de producto compatibles con Scrum.</li><li>Creer que delegar el trabajo de ordenación del backlog exime al PO de responsabilidad — la Guía es explícita: sigue siendo responsable.</li><li>Suponer que \"maximizar el valor\" significa \"hacer lo que pide el stakeholder más ruidoso\" — el PO decide en base al conjunto de datos disponibles, no a la petición aislada más reciente.</li><li>Confundir \"coste de desarrollo\" con \"coste total\" — ignorar mantenimiento y soporte es un error típico de estrategia.</li></ul>",
+    "questions": [
+      {
+        "type": "single",
+        "q": "Según la Guía Scrum (2020), ¿de qué es responsable el Product Owner respecto al producto?",
+        "opts": [
+          "De maximizar el valor del producto resultante del trabajo del Scrum Team",
+          "De escribir código junto a los Developers para acelerar el Sprint",
+          "De aprobar personalmente cada tarea técnica del Sprint Backlog",
+          "De sustituir al Scrum Master en la facilitación de los eventos"
+        ],
+        "correct": 0,
+        "exp": [
+          "Correcto: es la responsabilidad central del Product Owner según la Guía Scrum.",
+          "Incorrecto: escribir código es tarea de los Developers, no una responsabilidad definida del PO.",
+          "Incorrecto: el Sprint Backlog y sus tareas son gestionados por los Developers.",
+          "Incorrecto: facilitar los eventos Scrum es responsabilidad del Scrum Master."
+        ],
+        "trap": "El examen a veces mezcla responsabilidades del PO con tareas operativas de los Developers o del Scrum Master; maximizar el valor es una responsabilidad explícita y exclusiva del PO."
+      },
+      {
+        "type": "single",
+        "q": "Un Product Backlog Item es muy rápido y barato de construir, pero requerirá soporte técnico constante y complejo durante años. ¿Qué perspectiva ayuda al Product Owner a valorar esta situación correctamente?",
+        "opts": [
+          "Solo el coste de desarrollo inicial, ya que es el único coste relevante",
+          "El Coste Total de Propiedad (TCO), que incluye mantenimiento y soporte a largo plazo, no solo la construcción",
+          "El número de story points estimado por los Developers",
+          "El coste de formación del Scrum Master en la herramienta"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: mirar solo el coste inicial de desarrollo ignora cargas futuras que pueden superar ese coste inicial.",
+          "Correcto: el TCO es la práctica de gestión de producto que contempla todo el ciclo de vida del coste, no solo su construcción.",
+          "Incorrecto: los story points estiman esfuerzo de desarrollo, no coste total de propiedad.",
+          "Incorrecto: no es relevante para esta decisión de negocio sobre el producto."
+        ],
+        "trap": "El examen puede intentar limitar el análisis de coste al esfuerzo de desarrollo; una buena estrategia de negocio mira el ciclo de vida completo del coste."
+      },
+      {
+        "type": "tf",
+        "q": "Si el Product Owner delega en otra persona el trabajo de ordenar el Product Backlog, dicha persona pasa a ser la responsable de maximizar el valor del producto.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto.",
+          "Correcto: la Guía Scrum indica que el Product Owner puede delegar el trabajo de ordenar o refinar el backlog, pero sigue siendo responsable del resultado."
+        ],
+        "trap": "Delegar trabajo no equivale a delegar responsabilidad: el PO sigue siendo la única persona responsable, incluso si otros ordenan el backlog en su nombre."
+      },
+      {
+        "type": "multi",
+        "q": "¿Qué factores debería considerar razonablemente un Product Owner al valorar el impacto económico de un elemento del Product Backlog, más allá del esfuerzo de desarrollo? (Selecciona todas las que correspondan)",
+        "opts": [
+          "El coste de mantenimiento y soporte a largo plazo",
+          "El coste de formar a los usuarios finales en la nueva funcionalidad",
+          "El número exacto de líneas de código que se escribirán",
+          "El posible impacto en ingresos o retención de clientes (valor esperado)"
+        ],
+        "correct": [
+          0,
+          1,
+          3
+        ],
+        "exp": [
+          "Correcto: forma parte del Coste Total de Propiedad.",
+          "Correcto: formar usuarios es un coste real asociado a introducir cambios en el producto.",
+          "Incorrecto: el número de líneas de código no es una medida de coste de negocio ni de valor.",
+          "Correcto: el valor esperado (ingresos, retención...) es justamente lo que el PO busca maximizar."
+        ],
+        "trap": "El examen mezcla métricas técnicas irrelevantes (como las líneas de código) con factores reales de coste o valor de negocio."
+      },
+      {
+        "type": "single",
+        "q": "¿Cómo debería un Product Owner usar el Sprint Review para apoyar la estrategia de negocio?",
+        "opts": [
+          "Como una demostración técnica cerrada, sin relación con decisiones de negocio",
+          "Como punto de inspección: revisar el Incremento y el entorno (mercado, presupuesto, tecnología) junto al Scrum Team y los stakeholders para decidir próximos pasos",
+          "Como una reunión para aprobar formalmente el presupuesto del próximo trimestre",
+          "Como sustituto de la investigación de mercado, ignorando datos externos al Sprint"
+        ],
+        "correct": 1,
+        "exp": [
+          "Incorrecto: el Sprint Review no es solo una demo técnica.",
+          "Correcto: es el evento de inspección donde se conecta el trabajo realizado con el contexto de negocio y de mercado para ajustar el rumbo.",
+          "Incorrecto: no es una reunión de aprobación presupuestaria formal.",
+          "Incorrecto: el Sprint Review complementa, no sustituye, el uso de datos de mercado."
+        ],
+        "trap": "El Sprint Review conecta ejecución y estrategia mediante inspección empírica; no es una simple demo ni una reunión administrativa."
+      },
+      {
+        "type": "tf",
+        "q": "Maximizar el valor del producto significa que el Product Owner debe implementar siempre la petición más reciente del stakeholder con más influencia.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto.",
+          "Correcto: maximizar el valor implica decisiones basadas en el conjunto de datos y en el Product Goal, no en ceder ante la petición más ruidosa o reciente."
+        ],
+        "trap": "Confundir 'maximizar el valor' con 'complacer siempre al stakeholder más insistente' es un error común; el PO pondera evidencias, no presión."
+      },
+      {
+        "type": "multi",
+        "q": "¿Cuáles son los tres pilares del empirismo en los que se apoya Scrum, y que el PO también aplica a la estrategia de negocio? (Selecciona todas las que correspondan)",
+        "opts": [
+          "Transparencia",
+          "Documentación exhaustiva",
+          "Inspección",
+          "Adaptación"
+        ],
+        "correct": [
+          0,
+          2,
+          3
+        ],
+        "exp": [
+          "Correcto: uno de los tres pilares del empirismo según la Guía Scrum.",
+          "Incorrecto: la documentación exhaustiva no es uno de los pilares del empirismo; Scrum valora la transparencia sobre el trabajo real, no la documentación en sí.",
+          "Correcto: inspeccionar artefactos y progreso con frecuencia es uno de los tres pilares.",
+          "Correcto: adaptar el rumbo cuando la inspección revela desviaciones es el tercer pilar."
+        ],
+        "trap": "El examen a veces incluye 'documentación' como distractor de un pilar de empirismo; los tres pilares reales son transparencia, inspección y adaptación."
+      }
+    ]
+  },
+  {
+    "id": "stakeholders",
+    "name": "Stakeholders y clientes",
+    "theory": "<h3>¿Quiénes son las partes interesadas?</h3><p>Las <b>partes interesadas</b> (stakeholders) son personas externas al Scrum Team —clientes, usuarios, patrocinadores, directivos u otras— con interés en el producto o afectadas por él. No forman parte del Scrum Team, pero su perspectiva es clave para maximizar el valor que el producto genera.</p><h3>El Product Owner: una sola persona, nunca un comité</h3><p>El Product Owner puede <b>representar las necesidades de muchas partes interesadas</b> dentro del Product Backlog, pero sigue siendo <b>una única persona</b> responsable de él, no un comité. Quien quiera cambiar el contenido o el orden del Product Backlog debe intentar convencer al Product Owner; nadie más está autorizado para indicar a los Developers que trabajen a partir de un conjunto distinto de requisitos.</p><h3>La Revisión del Sprint: trabajo conjunto, no una presentación</h3><p>La <b>Revisión del Sprint</b> es el evento en el que el Scrum Team y las partes interesadas colaboran e inspeccionan el resultado del Sprint para decidir qué hacer a continuación. No es una presentación de estado en un solo sentido ni una demo de aprobación: es una sesión de trabajo donde se revisa qué ha cambiado en el mercado o en el entorno y se ajusta el Product Backlog en consecuencia. Tampoco debe entenderse como una puerta que el valor deba cruzar para poder liberarse: cualquier elemento que cumpla la Definition of Done puede publicarse en cualquier momento, sin esperar al final del Sprint ni a la Revisión.</p><h3>Partes interesadas en otros eventos</h3><p>Aunque su papel principal se da en la Revisión del Sprint, las partes interesadas también pueden ser invitadas a la <b>Sprint Planning</b> cuando el Scrum Team lo considere útil, para dar consejo o aportar contexto. Aun así, planificar el Sprint sigue siendo trabajo del Scrum Team: son los Developers, junto con el Product Owner, quienes deciden qué se construirá.</p><h3>El Scrum Master y las partes interesadas</h3><p>El Scrum Master sirve a la organización liderando, entrenando y facilitando la adopción de Scrum, lo que incluye <b>eliminar barreras</b> entre las partes interesadas y el Scrum Team y facilitar su colaboración cuando se solicita o resulta necesario. Esta labor de apoyo no implica sustituir al Product Owner en la negociación de prioridades.</p><h3>Errores frecuentes en el examen</h3><ul><li>Pensar que las partes interesadas forman parte del Scrum Team: no es así, siguen siendo externas aunque colaboren estrechamente.</li><li>Creer que el Product Owner puede convertirse en un comité para \"representar mejor\" a muchos stakeholders: la Guía Scrum es explícita en que sigue siendo una sola persona.</li><li>Tratar la Revisión del Sprint como una demo formal de aprobación o como el único momento en que se puede liberar valor.</li><li>Suponer que las partes interesadas nunca pueden estar en la Sprint Planning: pueden ser invitadas si el Scrum Team lo decide.</li></ul>",
+    "questions": [
+      {
+        "type": "single",
+        "q": "¿Qué establece la Guía Scrum sobre el Product Owner cuando existen muchas partes interesadas con necesidades distintas?",
+        "opts": [
+          "El Product Owner puede representar las necesidades de muchas partes interesadas en el Product Backlog, pero sigue siendo una única persona",
+          "Cuando hay muchas partes interesadas, el Product Owner debe convertirse en un comité para representarlas mejor",
+          "Las partes interesadas comparten con el Product Owner la autoridad de ordenar el Product Backlog",
+          "El Product Owner delega la priorización en un comité de stakeholders cuando el producto crece"
+        ],
+        "correct": 0,
+        "exp": [
+          "Correcto: la Guía Scrum indica que el PO puede representar a muchas partes interesadas en el Product Backlog sin dejar de ser una sola persona responsable.",
+          "Incorrecto: el PO nunca se convierte en un comité; la responsabilidad final es siempre individual.",
+          "Incorrecto: la autoridad de ordenar el Product Backlog es exclusiva del Product Owner.",
+          "Incorrecto: delegar la priorización en un comité contradice el principio de que el PO es una única persona responsable."
+        ],
+        "trap": "Confundir 'representar a muchas partes interesadas' con 'ser un comité' es la trampa clásica: la Guía Scrum es explícita en que el PO sigue siendo una persona."
+      },
+      {
+        "type": "single",
+        "q": "¿Cuál es el propósito principal de la Revisión del Sprint respecto a las partes interesadas?",
+        "opts": [
+          "Que el Scrum Team y las partes interesadas inspeccionen el resultado del Sprint y colaboren sobre qué hacer a continuación",
+          "Que las partes interesadas aprueben formalmente la publicación del Incremento",
+          "Que el Product Owner evalúe el rendimiento individual de cada Developer",
+          "Firmar el Sprint Backlog del siguiente Sprint"
+        ],
+        "correct": 0,
+        "exp": [
+          "Correcto: es un evento de trabajo conjunto de inspección y adaptación, no un simple trámite de aprobación.",
+          "Incorrecto: liberar valor no depende de una aprobación en la Revisión del Sprint; un elemento que cumple la DoD puede liberarse en cualquier momento.",
+          "Incorrecto: la Revisión del Sprint no evalúa el desempeño individual de las personas.",
+          "Incorrecto: el Sprint Backlog del siguiente Sprint se crea en la Sprint Planning, no en la Revisión del Sprint."
+        ],
+        "trap": "Tratar la Revisión del Sprint como una aprobación formal de release es un error frecuente; es una sesión de colaboración, no una puerta de salida hacia producción."
+      },
+      {
+        "type": "tf",
+        "q": "La Revisión del Sprint es fundamentalmente una presentación de estado en un solo sentido del Scrum Team hacia las partes interesadas.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: la Guía Scrum describe la Revisión del Sprint como una sesión de trabajo colaborativa, no una presentación unidireccional.",
+          "Correcto: es un evento de colaboración e inspección conjunta, no una presentación de estado en un solo sentido."
+        ],
+        "trap": "Muchos equipos convierten la Revisión del Sprint en una demo pasiva; la Guía Scrum la define como colaboración activa."
+      },
+      {
+        "type": "multi",
+        "q": "¿Qué papel pueden tener las partes interesadas en los eventos de Scrum? (selecciona todas las correctas)",
+        "opts": [
+          "Pueden ser invitadas a la Sprint Planning por el Scrum Team para dar consejo",
+          "Son miembros obligatorios del Daily Scrum",
+          "Colaboran con el Scrum Team en la Revisión del Sprint sobre qué hacer a continuación",
+          "Deciden el contenido final del Sprint Backlog"
+        ],
+        "correct": [
+          0,
+          2
+        ],
+        "exp": [
+          "Correcto: el Scrum Team puede invitar a partes interesadas a la Sprint Planning cuando su consejo aporte valor.",
+          "Incorrecto: el Daily Scrum es un evento interno de los Developers; las partes interesadas no participan en él.",
+          "Correcto: es precisamente el propósito central de la Revisión del Sprint.",
+          "Incorrecto: el Sprint Backlog lo crean los Developers, junto con el Product Owner cuando aporta claridad; las partes interesadas no deciden su contenido."
+        ],
+        "trap": "El error típico es asumir que las partes interesadas nunca pueden estar en la Sprint Planning, o al contrario, que tienen voto en eventos internos como el Daily Scrum."
+      },
+      {
+        "type": "tf",
+        "q": "Si una parte interesada quiere cambiar el orden o el contenido del Product Backlog, puede negociarlo directamente con los Developers.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: los Developers no son el canal para negociar cambios de alcance u orden del Product Backlog.",
+          "Correcto: según la Guía Scrum, quien quiera un cambio debe intentar convencer al Product Owner."
+        ],
+        "trap": "Negociar directamente con los Developers para cambiar prioridades es un antipatrón clásico que rompe el punto único de decisión que representa el PO."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué relación existe entre la Revisión del Sprint y la liberación de valor al mercado?",
+        "opts": [
+          "La Revisión del Sprint no es una puerta de aprobación para liberar valor, y solo el trabajo que cumple la Definition of Done forma parte del Incremento utilizable",
+          "La petición de la parte interesada prevalece siempre sobre la Definition of Done",
+          "El Incremento puede liberarse igualmente si el Product Owner lo aprueba verbalmente en el momento",
+          "La Revisión del Sprint siempre implica el despliegue automático a producción de lo demostrado"
+        ],
+        "correct": 0,
+        "exp": [
+          "Correcto: la DoD es el estándar de calidad que determina si un trabajo forma parte del Incremento, independientemente de la presión de una parte interesada.",
+          "Incorrecto: ninguna parte interesada, ni siquiera un cliente, puede saltarse la Definition of Done.",
+          "Incorrecto: la aprobación verbal del PO no sustituye el cumplimiento de la Definition of Done.",
+          "Incorrecto: la Revisión del Sprint no implica despliegue automático; liberar valor es una decisión independiente del evento."
+        ],
+        "trap": "Confundir 'mostrar avances en la Revisión del Sprint' con 'aprobar el release' es un error común; la DoD manda, no la presión de un stakeholder."
+      },
+      {
+        "type": "multi",
+        "q": "¿Qué hace el Scrum Master en relación con las partes interesadas? (selecciona todas las correctas)",
+        "opts": [
+          "Facilita la colaboración con las partes interesadas cuando se solicita o resulta necesario",
+          "Ayuda a eliminar barreras entre las partes interesadas y el Scrum Team",
+          "Toma las decisiones finales de orden del Product Backlog en nombre de las partes interesadas",
+          "Sustituye al Product Owner en la negociación de prioridades con las partes interesadas"
+        ],
+        "correct": [
+          0,
+          1
+        ],
+        "exp": [
+          "Correcto: es una de las formas explícitas en que el Scrum Master sirve a la organización.",
+          "Correcto: eliminar barreras entre stakeholders y el Scrum Team es responsabilidad del Scrum Master.",
+          "Incorrecto: ordenar el Product Backlog es responsabilidad exclusiva del Product Owner.",
+          "Incorrecto: el Scrum Master facilita, pero no sustituye al Product Owner como negociador de prioridades."
+        ],
+        "trap": "El Scrum Master facilita y elimina barreras, pero nunca usurpa las decisiones de contenido u orden que corresponden al Product Owner."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué son las partes interesadas (stakeholders) respecto al Scrum Team?",
+        "opts": [
+          "Son personas externas al Scrum Team que colaboran con él, especialmente en la Revisión del Sprint",
+          "Forman parte del Scrum Team junto con el Product Owner, el Scrum Master y los Developers",
+          "Tienen autoridad para dirigir directamente el trabajo de los Developers",
+          "Sustituyen al Product Owner cuando este no está disponible"
+        ],
+        "correct": 0,
+        "exp": [
+          "Correcto: las partes interesadas son externas al Scrum Team, aunque colaboran estrechamente con él, sobre todo en la Revisión del Sprint.",
+          "Incorrecto: el Scrum Team está formado únicamente por el Product Owner, el Scrum Master y los Developers.",
+          "Incorrecto: dirigir el trabajo de los Developers no es un rol de las partes interesadas.",
+          "Incorrecto: la Guía Scrum no contempla que una parte interesada sustituya al Product Owner."
+        ],
+        "trap": "Un error muy común en el examen es pensar que 'colaborar estrechamente' equivale a 'ser miembro del Scrum Team'."
       }
     ]
   }
