@@ -518,10 +518,18 @@ function t(key, vars){
   if(vars) Object.keys(vars).forEach(k=>{ str = str.split("{"+k+"}").join(vars[k]); });
   return str;
 }
+// El banc de preguntes de l'examen segueix l'idioma d'interfície (es/en); el contingut
+// catala original (data.ca.js) queda com a referencia historica, no s'usa en runtime.
+function topicsForLang(lang){ return lang==="en" ? TOPICS_EN : TOPICS_ES; }
+function questionsForLang(lang){ return lang==="en" ? ALL_QUESTIONS_EN : ALL_QUESTIONS_ES; }
+let activeTopics = topicsForLang(currentLang);
+let activeQuestions = questionsForLang(currentLang);
 function toggleLang(){
   currentLang = currentLang==="es" ? "en" : "es";
   try{ localStorage.setItem(LANG_KEY, currentLang); }catch(e){}
   document.documentElement.lang = currentLang;
+  activeTopics = topicsForLang(currentLang);
+  activeQuestions = questionsForLang(currentLang);
   render();
 }
 
@@ -904,23 +912,23 @@ function deleteCustomQuestion(id){
   saveCustomQuestions(loadCustomQuestions().filter(q=>q.id!==id));
 }
 function topicQuestionCount(topicId){
-  const topic = TOPICS.find(t=>t.id===topicId);
+  const topic = activeTopics.find(t=>t.id===topicId);
   const officialCount = topic ? topic.questions.length : 0;
   const customCount = loadCustomQuestions().filter(q=>q.topicId===topicId).length;
   return officialCount + customCount;
 }
 function getTopicPool(topicId){
-  const topic = TOPICS.find(t=>t.id===topicId);
+  const topic = activeTopics.find(t=>t.id===topicId);
   const official = topic ? topic.questions.map(q=>({...q, topicId:topic.id, topicName:topic.name})) : [];
   const custom = loadCustomQuestions().filter(q=>q.topicId===topicId).map(q=>({...q, topicName: topic?topic.name:q.topicId}));
   return official.concat(custom);
 }
 function getAllQuestionsPool(){
   const custom = loadCustomQuestions().map(q=>{
-    const topic = TOPICS.find(t=>t.id===q.topicId);
+    const topic = activeTopics.find(t=>t.id===q.topicId);
     return {...q, topicName: topic?topic.name:q.topicId};
   });
-  return ALL_QUESTIONS.concat(custom);
+  return activeQuestions.concat(custom);
 }
 function escapeHtml(str){
   return String(str==null?"":str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
@@ -1127,7 +1135,7 @@ function renderDashboard(){
     </div>
     <h1 style="font-size:18px;">${t("dashboard.progressByTopic")}</h1>
     <div class="card-list">
-      ${TOPICS.map(t2=>{
+      ${activeTopics.map(t2=>{
         const d = byTopic[t2.id] || {ok:0, total:0};
         const pct = d.total ? Math.round(100*d.ok/d.total) : 0;
         return `<div class="topic-card" data-nav="theory-detail" data-topic="${t2.id}">
@@ -1142,7 +1150,7 @@ function renderDashboard(){
 
 function aggregateByTopic(hist){
   const agg = {};
-  TOPICS.forEach(t=> agg[t.id] = {ok:0, total:0, name:t.name});
+  activeTopics.forEach(t=> agg[t.id] = {ok:0, total:0, name:t.name});
   hist.forEach(h=>{
     Object.entries(h.byTopic||{}).forEach(([id,d])=>{
       if(!agg[id]) agg[id] = {ok:0,total:0,name:d.name||id};
@@ -1158,7 +1166,7 @@ function renderTheoryList(){
     <h1>${t("theory.title")}</h1>
     <p class="subtitle">${t("theory.subtitle")}</p>
     <div class="card-list">
-      ${TOPICS.map(tp=>`<div class="topic-card" data-nav="theory-detail" data-topic="${tp.id}">
+      ${activeTopics.map(tp=>`<div class="topic-card" data-nav="theory-detail" data-topic="${tp.id}">
         <h3>${tp.name}</h3>
         <div class="meta">${topicQuestionCount(tp.id)} ${t("theory.practiceQuestions")}</div>
       </div>`).join("")}
@@ -1167,7 +1175,7 @@ function renderTheoryList(){
 }
 
 function renderTheoryDetail(topicId){
-  const tp = TOPICS.find(x=>x.id===topicId) || TOPICS[0];
+  const tp = activeTopics.find(x=>x.id===topicId) || activeTopics[0];
   return `
     <button class="btn secondary small" data-nav="theory-list" style="margin-bottom:16px;">${t("theory.backToTopics")}</button>
     <h1>${tp.name}</h1>
@@ -1180,8 +1188,8 @@ function renderTheoryDetail(topicId){
 
 // ---------------- TEST PER TEMA — CONFIG ----------------
 function renderTopicConfig(){
-  const topicId = state.topicId || TOPICS[0].id;
-  const topic = TOPICS.find(t=>t.id===topicId);
+  const topicId = state.topicId || activeTopics[0].id;
+  const topic = activeTopics.find(t=>t.id===topicId);
   const counts = countsByType(getTopicPool(topicId));
   return `
     <h1>${t("topicConfig.title")}</h1>
@@ -1189,7 +1197,7 @@ function renderTopicConfig(){
     <div class="config-row">
       <label>${t("topicConfig.topicLabel")}</label>
       <select id="cfg-topic">
-        ${TOPICS.map(tp=>`<option value="${tp.id}" ${tp.id===topicId?"selected":""}>${tp.name}</option>`).join("")}
+        ${activeTopics.map(tp=>`<option value="${tp.id}" ${tp.id===topicId?"selected":""}>${tp.name}</option>`).join("")}
       </select>
     </div>
     <div class="config-box">
@@ -1461,13 +1469,13 @@ function renderInfo(){
 
 // ---------------- CUSTOM QUESTIONS SCREEN ----------------
 function defaultDraft(){
-  return { topicId: TOPICS[0].id, type:"single", q:"", opts:["",""], exp:["",""], correct:[], trap:"" };
+  return { topicId: activeTopics[0].id, type:"single", q:"", opts:["",""], exp:["",""], correct:[], trap:"" };
 }
 
 function renderCustom(){
   const list = loadCustomQuestions().slice().sort((a,b)=>b.createdAt-a.createdAt);
   const rows = list.map(q=>{
-    const topic = TOPICS.find(tp=>tp.id===q.topicId);
+    const topic = activeTopics.find(tp=>tp.id===q.topicId);
     return `<div class="custom-row">
       <div class="custom-row-main">
         <span class="custom-row-topic">${typeLabel(q.type)} · ${topic?topic.name:q.topicId}</span>
@@ -1509,7 +1517,7 @@ function renderCustomForm(d){
       <div class="config-row">
         <label>${t("custom.topicLabel")}</label>
         <select data-custom-field="topicId">
-          ${TOPICS.map(tp=>`<option value="${tp.id}" ${tp.id===d.topicId?"selected":""}>${tp.name}</option>`).join("")}
+          ${activeTopics.map(tp=>`<option value="${tp.id}" ${tp.id===d.topicId?"selected":""}>${tp.name}</option>`).join("")}
         </select>
       </div>
       <div class="config-row">
@@ -1614,7 +1622,7 @@ function predictExamScore(hist){
   const overallAvg = hist.reduce((s,h)=>s+h.pct,0)/hist.length;
   const byTopic = aggregateByTopic(hist);
   let weightedSum = 0, totalWeight = 0;
-  TOPICS.forEach(t=>{
+  activeTopics.forEach(t=>{
     const d = byTopic[t.id];
     const weight = t.questions.length || 1;
     const topicPct = (d && d.total>=3) ? (100*d.ok/d.total) : overallAvg;
@@ -1655,7 +1663,7 @@ function renderErrorHistoryTab(){
     .map(([k,label])=>`<div class="tab ${filter===k?'active':''}" data-error-filter="${k}">${label}</div>`).join("");
 
   const rows = filtered.map(e=>{
-    const topic = TOPICS.find(tp=>tp.id===e.topicId);
+    const topic = activeTopics.find(tp=>tp.id===e.topicId);
     const dateStr = e.lastFailedAt ? new Date(e.lastFailedAt).toLocaleDateString() : "—";
     const statusLabel = e.masteredAt ? t("errors.masteredLabel") : t("errors.streakLabel",{n:e.streak});
     return `<div class="custom-row">
@@ -1783,7 +1791,7 @@ function renderStats(){
 
   const topicSelect = `<select class="stats-select" data-stats-topic>
     <option value="all" ${topicFilter==="all"?"selected":""}>${t("stats.allTopics")}</option>
-    ${TOPICS.map(tp=>`<option value="${tp.id}" ${topicFilter===tp.id?"selected":""}>${tp.name}</option>`).join("")}
+    ${activeTopics.map(tp=>`<option value="${tp.id}" ${topicFilter===tp.id?"selected":""}>${tp.name}</option>`).join("")}
   </select>`;
 
   const body = totalTests ? `
@@ -1805,7 +1813,7 @@ function renderStats(){
     <div class="section-title">${t("stats.heatmap")}</div>
     <div class="stats-panel">
       <div class="heatmap-grid">
-        ${TOPICS.map(tp=>{
+        ${activeTopics.map(tp=>{
           const d = byTopic[tp.id] || {ok:0,total:0,name:tp.name};
           const hasData = d.total>0;
           const pct = hasData ? Math.round(100*d.ok/d.total) : null;
@@ -1875,7 +1883,7 @@ function attachHandlers(){
   if(startTopic){
     startTopic.addEventListener("click", ()=>{
       const topicId = document.getElementById("cfg-topic").value;
-      const topic = TOPICS.find(t=>t.id===topicId);
+      const topic = activeTopics.find(t=>t.id===topicId);
       const counts = readCounts();
       const timerOn = document.getElementById("cfg-timer").checked;
       const pool = getTopicPool(topic.id);
@@ -2011,7 +2019,7 @@ function attachHandlers(){
         const secs = lastConfig.timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
         startQuiz(questions, {mode:"general", label:t("mode.general")}, secs);
       } else {
-        const topic = TOPICS.find(tp=>tp.id===lastConfig.topicId);
+        const topic = activeTopics.find(tp=>tp.id===lastConfig.topicId);
         const pool = getTopicPool(topic.id);
         const questions = buildQuestionSet(pool, lastConfig.counts);
         const secs = lastConfig.timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
