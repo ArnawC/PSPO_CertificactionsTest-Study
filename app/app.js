@@ -1,6 +1,69 @@
 const STORAGE_KEY = "pspo_i_trainer_history_v1";
+const CUSTOM_KEY = "pspo_i_trainer_custom_questions_v1";
+const THEME_KEY = "pspo_i_trainer_theme_v1";
 const EXAM_TOTAL_Q = 80;
 const EXAM_TOTAL_SEC = 60 * 60;
+
+// ---------------- THEME ----------------
+function loadTheme(){
+  try{ return localStorage.getItem(THEME_KEY) || "dark"; }catch(e){ return "dark"; }
+}
+function applyTheme(theme){
+  document.documentElement.setAttribute("data-theme", theme);
+}
+let currentTheme = loadTheme();
+applyTheme(currentTheme);
+
+function toggleTheme(){
+  currentTheme = currentTheme==="dark" ? "light" : "dark";
+  try{ localStorage.setItem(THEME_KEY, currentTheme); }catch(e){}
+  applyTheme(currentTheme);
+  render();
+}
+
+// ---------------- CUSTOM QUESTIONS ----------------
+function loadCustomQuestions(){
+  try{
+    const raw = localStorage.getItem(CUSTOM_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }catch(e){ return []; }
+}
+function saveCustomQuestions(list){
+  localStorage.setItem(CUSTOM_KEY, JSON.stringify(list));
+}
+function addCustomQuestion(q){
+  const list = loadCustomQuestions();
+  list.push(q);
+  saveCustomQuestions(list);
+}
+function deleteCustomQuestion(id){
+  saveCustomQuestions(loadCustomQuestions().filter(q=>q.id!==id));
+}
+function topicQuestionCount(topicId){
+  const topic = TOPICS.find(t=>t.id===topicId);
+  const officialCount = topic ? topic.questions.length : 0;
+  const customCount = loadCustomQuestions().filter(q=>q.topicId===topicId).length;
+  return officialCount + customCount;
+}
+function getTopicPool(topicId){
+  const topic = TOPICS.find(t=>t.id===topicId);
+  const official = topic ? topic.questions.map(q=>({...q, topicId:topic.id, topicName:topic.name})) : [];
+  const custom = loadCustomQuestions().filter(q=>q.topicId===topicId).map(q=>({...q, topicName: topic?topic.name:q.topicId}));
+  return official.concat(custom);
+}
+function getAllQuestionsPool(){
+  const custom = loadCustomQuestions().map(q=>{
+    const topic = TOPICS.find(t=>t.id===q.topicId);
+    return {...q, topicName: topic?topic.name:q.topicId};
+  });
+  return ALL_QUESTIONS.concat(custom);
+}
+function escapeHtml(str){
+  return String(str==null?"":str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+function escapeAttr(str){
+  return escapeHtml(str).replace(/"/g,"&quot;");
+}
 
 function loadHistory(){
   try{
@@ -56,6 +119,7 @@ function buildQuestionSet(pool, counts){
 // ---------------- STATE ----------------
 let state = { view:"dashboard" };
 let quiz = null; // active quiz runtime object
+let customDraft = null; // active custom-question form draft
 
 const root = document.getElementById("root");
 
@@ -78,7 +142,13 @@ function render(){
       ${navItem("test-general-config","Test general")}
       ${navItem("test-final-config","Test final (examen)")}
       <div class="nav-sep"></div>
+      ${navItem("custom-questions","Preguntes pròpies")}
+      <div class="nav-sep"></div>
       ${navItem("stats","Historial i estadístiques")}
+      <div class="theme-toggle" data-action="toggle-theme" title="Canvia el tema">
+        ${currentTheme==="dark" ? ICON_SUN : ICON_MOON}
+        <span>${currentTheme==="dark" ? "Mode clar" : "Mode fosc"}</span>
+      </div>
     </div>
     <div class="main" id="main"></div>
   `;
@@ -86,12 +156,16 @@ function render(){
   attachHandlers();
 }
 
+const ICON_SUN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.7M8 12.8v1.7M1.5 8h1.7M12.8 8h1.7M3.6 3.6l1.2 1.2M11.2 11.2l1.2 1.2M3.6 12.4l1.2-1.2M11.2 4.8l1.2-1.2"/></svg>';
+const ICON_MOON = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8Z"/></svg>';
+
 const NAV_ICONS = {
   "dashboard": '<path d="M2.5 8.5 8 3l5.5 5.5"/><path d="M3.8 7.2V13h8.4V7.2"/>',
   "theory-list": '<path d="M2.5 3.2h4a2 2 0 0 1 2 2v8.6a1.6 1.6 0 0 0-1.6-1.6h-4.4Z"/><path d="M13.5 3.2h-4a2 2 0 0 0-2 2v8.6a1.6 1.6 0 0 1 1.6-1.6h4.4Z"/>',
   "test-topic-config": '<circle cx="8" cy="8" r="5.2"/><circle cx="8" cy="8" r="2.1"/>',
   "test-general-config": '<path d="M2.5 5h3.4l2 2.2"/><path d="M2.5 11h3.4l6.6-7.4h1"/><path d="M9.9 9.8l2.6 3.2h1"/><path d="M11.5 2.7 13.5 3.6l-2 1"/><path d="M11.5 13.3 13.5 12.4l-2-1"/>',
   "test-final-config": '<path d="M3.5 2.5v11"/><path d="M3.5 3.2h8l-1.6 2.4 1.6 2.4h-8Z"/>',
+  "custom-questions": '<path d="M9.8 2.9a1.4 1.4 0 0 1 2 2L5.4 11.3l-2.7.6.6-2.7Z"/><path d="M8.7 4l1.9 1.9"/>',
   "stats": '<path d="M3 13V6.5"/><path d="M7.5 13V3"/><path d="M12 13V9"/><path d="M2 13.5h12"/>'
 };
 
@@ -111,6 +185,7 @@ function renderMain(){
     case "test-final-config": return renderFinalConfig();
     case "quiz": return renderQuiz();
     case "score": return renderScore();
+    case "custom-questions": return renderCustom();
     case "stats": return renderStats();
     default: return "";
   }
@@ -134,7 +209,7 @@ function renderDashboard(){
     <div class="grid">
       <div class="stat-card"><div class="lbl">Tests realitzats</div><div class="val">${totalTests}</div></div>
       <div class="stat-card"><div class="lbl">Mitjana global</div><div class="val">${avgPct===null?"—":avgPct+"%"}</div></div>
-      <div class="stat-card"><div class="lbl">Banc de preguntes</div><div class="val">${ALL_QUESTIONS.length}</div></div>
+      <div class="stat-card"><div class="lbl">Banc de preguntes</div><div class="val">${getAllQuestionsPool().length}</div></div>
       <div class="stat-card"><div class="lbl">Tema més fluix</div><div class="val" style="font-size:16px; color:${weakest?'var(--red-line)':'var(--text-mute)'}">${weakest ? weakest.name : "encara no prou dades"}</div></div>
     </div>
     <div style="display:flex; gap:12px; margin-bottom:30px;">
@@ -148,7 +223,7 @@ function renderDashboard(){
         const pct = d.total ? Math.round(100*d.ok/d.total) : 0;
         return `<div class="topic-card" data-nav="theory-detail" data-topic="${t.id}">
           <h3>${t.name}</h3>
-          <div class="meta">${t.questions.length} preguntes al banc · ${d.total ? pct+"% encert" : "sense intents"}</div>
+          <div class="meta">${topicQuestionCount(t.id)} preguntes al banc · ${d.total ? pct+"% encert" : "sense intents"}</div>
           <div class="bar-bg"><div class="bar-fill" style="width:${pct}%; background:${pctColor(pct)}"></div></div>
         </div>`;
       }).join("")}
@@ -176,7 +251,7 @@ function renderTheoryList(){
     <div class="card-list">
       ${TOPICS.map(t=>`<div class="topic-card" data-nav="theory-detail" data-topic="${t.id}">
         <h3>${t.name}</h3>
-        <div class="meta">${t.questions.length} preguntes de pràctica</div>
+        <div class="meta">${topicQuestionCount(t.id)} preguntes de pràctica</div>
       </div>`).join("")}
     </div>
   `;
@@ -198,7 +273,7 @@ function renderTheoryDetail(topicId){
 function renderTopicConfig(){
   const topicId = state.topicId || TOPICS[0].id;
   const topic = TOPICS.find(t=>t.id===topicId);
-  const counts = countsByType(topic.questions);
+  const counts = countsByType(getTopicPool(topicId));
   return `
     <h1>Test per tema</h1>
     <p class="subtitle">Tria el tema i quantes preguntes de cada tipus vols practicar</p>
@@ -236,10 +311,11 @@ function typeRow(key, label, max){
 
 // ---------------- TEST GENERAL — CONFIG ----------------
 function renderGeneralConfig(){
-  const counts = countsByType(ALL_QUESTIONS);
+  const pool = getAllQuestionsPool();
+  const counts = countsByType(pool);
   return `
     <h1>Test general</h1>
-    <p class="subtitle">Preguntes de tots els temes barrejades. Tria quantes vols de cada tipus (fins al màxim disponible: ${ALL_QUESTIONS.length}).</p>
+    <p class="subtitle">Preguntes de tots els temes barrejades. Tria quantes vols de cada tipus (fins al màxim disponible: ${pool.length}).</p>
     <div class="config-box">
       ${typeRow("single","Opció única", counts.single)}
       ${typeRow("multi","Resposta múltiple", counts.multi)}
@@ -255,14 +331,15 @@ function renderGeneralConfig(){
 
 // ---------------- TEST FINAL — CONFIG ----------------
 function renderFinalConfig(){
-  const n = Math.min(EXAM_TOTAL_Q, ALL_QUESTIONS.length);
+  const pool = getAllQuestionsPool();
+  const n = Math.min(EXAM_TOTAL_Q, pool.length);
   const secs = Math.round(EXAM_TOTAL_SEC * n / EXAM_TOTAL_Q);
   const mins = Math.round(secs/60);
   return `
     <h1>Test final — simulació d'examen</h1>
     <p class="subtitle">Barreja tots els temes i tots els tipus de pregunta, amb temporitzador fix, tal com l'examen real (${EXAM_TOTAL_Q} preguntes / 60 min).</p>
     <div class="config-box">
-      <div class="config-row"><label>Preguntes d'aquest test</label><span class="max">${n} de ${ALL_QUESTIONS.length} disponibles</span></div>
+      <div class="config-row"><label>Preguntes d'aquest test</label><span class="max">${n} de ${pool.length} disponibles</span></div>
       <div class="config-row"><label>Temps disponible</label><span class="max">${mins} min (proporcional si hi ha menys de ${EXAM_TOTAL_Q})</span></div>
       <div class="config-row"><label>Ordre</label><span class="max">totalment aleatori, diferent cada vegada</span></div>
       <button class="btn amber" id="btn-start-final" style="width:100%; margin-top:8px;">Començar examen ↗</button>
@@ -440,13 +517,115 @@ function renderScore(){
   `;
 }
 
+// ---------------- CUSTOM QUESTIONS SCREEN ----------------
+function defaultDraft(){
+  return { topicId: TOPICS[0].id, type:"single", q:"", opts:["",""], exp:["",""], correct:[], trap:"" };
+}
+
+function renderCustom(){
+  const list = loadCustomQuestions().slice().sort((a,b)=>b.createdAt-a.createdAt);
+  const rows = list.map(q=>{
+    const topic = TOPICS.find(t=>t.id===q.topicId);
+    return `<div class="custom-row">
+      <div class="custom-row-main">
+        <span class="custom-row-topic">${TYPE_LABELS[q.type]} · ${topic?topic.name:q.topicId}</span>
+        <p class="custom-row-q">${escapeHtml(q.q)}</p>
+      </div>
+      <button class="btn secondary small" data-action="delete-custom" data-id="${q.id}">Elimina</button>
+    </div>`;
+  }).join("");
+
+  return `
+    <h1>Preguntes pròpies</h1>
+    <p class="subtitle">Afegeix preguntes personalitzades que s'integren automàticament als tests per tema, generals i a l'examen final. ${list.length} pregunta${list.length===1?"":"s"} pròpia${list.length===1?"":"es"}.</p>
+    ${customDraft ? renderCustomForm(customDraft) : `<button class="btn amber" data-action="new-custom">+ Nova pregunta</button>`}
+    <div class="section-title" style="margin-top:32px;">Preguntes afegides</div>
+    <div class="custom-list">
+      ${rows || '<div class="empty-hint">Encara no has afegit cap pregunta pròpia.</div>'}
+    </div>
+  `;
+}
+
+function renderCustomForm(d){
+  const isTf = d.type==="tf";
+  const optRows = d.opts.map((opt,i)=>{
+    const checked = d.correct.includes(i);
+    const inputType = d.type==="multi" ? "checkbox" : "radio";
+    return `<div class="custom-opt-row">
+      <input type="${inputType}" name="custom-correct" data-correct-idx="${i}" ${checked?"checked":""}/>
+      ${isTf
+        ? `<span class="custom-opt-tf">${i===0?"Vertader":"Fals"}</span>`
+        : `<input type="text" class="custom-opt-text" placeholder="Text de l'opció ${String.fromCharCode(65+i)}" data-opt-idx="${i}" value="${escapeAttr(opt)}"/>`
+      }
+      <textarea class="custom-exp-text" placeholder="Explicació d'aquesta opció" data-exp-idx="${i}">${escapeHtml(d.exp[i]||"")}</textarea>
+      ${!isTf && d.opts.length>2 ? `<button type="button" class="btn secondary small" data-action="remove-opt" data-idx="${i}">✕</button>` : ""}
+    </div>`;
+  }).join("");
+
+  return `
+    <div class="config-box" style="max-width:640px;">
+      <div class="config-row">
+        <label>Tema</label>
+        <select data-custom-field="topicId">
+          ${TOPICS.map(t=>`<option value="${t.id}" ${t.id===d.topicId?"selected":""}>${t.name}</option>`).join("")}
+        </select>
+      </div>
+      <div class="config-row">
+        <label>Tipus de pregunta</label>
+        <select data-custom-field="type">
+          <option value="single" ${d.type==="single"?"selected":""}>Opció única</option>
+          <option value="multi" ${d.type==="multi"?"selected":""}>Resposta múltiple</option>
+          <option value="tf" ${d.type==="tf"?"selected":""}>Vertader / Fals</option>
+        </select>
+      </div>
+      <div class="custom-field-block">
+        <label>Enunciat</label>
+        <textarea data-custom-field="q" placeholder="Escriu la pregunta...">${escapeHtml(d.q)}</textarea>
+      </div>
+      <div class="custom-field-block">
+        <label>Opcions ${d.type==="multi"?"(marca totes les correctes)":"(marca la correcta)"}</label>
+        ${optRows}
+        ${!isTf && d.opts.length<6 ? `<button type="button" class="btn secondary small" data-action="add-opt">+ Afegir opció</button>` : ""}
+      </div>
+      <div class="custom-field-block">
+        <label>Nota d'examen (trampa habitual)</label>
+        <textarea data-custom-field="trap" placeholder="Ex: no confondre X amb Y...">${escapeHtml(d.trap)}</textarea>
+      </div>
+      <div class="actions" style="margin-top:6px;">
+        <button class="btn secondary" data-action="cancel-custom">Cancel·la</button>
+        <button class="btn amber" data-action="save-custom">Desar pregunta</button>
+      </div>
+    </div>
+  `;
+}
+
 // ---------------- STATS ----------------
 const MODE_LABELS = {topic:"Test per tema", general:"Test general", final:"Test final"};
 const TYPE_LABELS = {single:"Opció única", multi:"Resposta múltiple", tf:"Vertader / Fals"};
+const DAYS_LABELS = {"all":"Tot", "7":"7 dies", "30":"30 dies", "90":"90 dies"};
 
 function filterHistory(hist, filter){
   if(!filter || filter==="all") return hist;
   return hist.filter(h=>h.mode===filter);
+}
+
+function filterByTopic(hist, topicId){
+  if(!topicId || topicId==="all") return hist;
+  return hist.filter(h=> h.byTopic && h.byTopic[topicId]);
+}
+
+function filterByDays(hist, days){
+  if(!days || days==="all") return hist;
+  const cutoff = Date.now() - Number(days)*24*60*60*1000;
+  return hist.filter(h=> h.ts >= cutoff);
+}
+
+function sessionPct(h, topicId){
+  if(topicId && topicId!=="all" && h.byTopic && h.byTopic[topicId]){
+    const d = h.byTopic[topicId];
+    return d.total ? Math.round(100*d.ok/d.total) : 0;
+  }
+  return h.pct;
 }
 
 function aggregateByType(hist){
@@ -469,10 +648,10 @@ function modeBreakdown(hist){
   return agg;
 }
 
-function computeStreak(histDesc){
+function computeStreak(histDesc, topicId){
   let streak = 0;
   for(const h of histDesc){
-    if(h.pct>=80) streak++; else break;
+    if(sessionPct(h, topicId)>=80) streak++; else break;
   }
   return streak;
 }
@@ -503,16 +682,23 @@ function buildSparkline(histAsc){
 
 function renderStats(){
   const filter = state.statsFilter || "all";
+  const topicFilter = state.statsTopic || "all";
+  const daysFilter = state.statsDays || "all";
   const allHist = loadHistory();
-  const hist = filterHistory(allHist, filter).slice().sort((a,b)=>b.ts-a.ts);
+  let hist = filterHistory(allHist, filter);
+  hist = filterByTopic(hist, topicFilter);
+  hist = filterByDays(hist, daysFilter);
+  hist = hist.slice().sort((a,b)=>b.ts-a.ts);
   const histAsc = hist.slice().sort((a,b)=>a.ts-b.ts);
 
   const totalTests = hist.length;
-  const avgPct = totalTests ? Math.round(hist.reduce((s,h)=>s+h.pct,0)/totalTests) : null;
-  const totalQuestions = hist.reduce((s,h)=>s+h.total,0);
+  const avgPct = totalTests ? Math.round(hist.reduce((s,h)=>s+sessionPct(h,topicFilter),0)/totalTests) : null;
+  const totalQuestions = topicFilter==="all"
+    ? hist.reduce((s,h)=>s+h.total,0)
+    : hist.reduce((s,h)=>{ const d=h.byTopic&&h.byTopic[topicFilter]; return s+(d?d.total:0); },0);
   const totalSec = hist.reduce((s,h)=>s+(h.durationSec||0),0);
   const totalHours = Math.floor(totalSec/3600), totalMins = Math.floor((totalSec%3600)/60);
-  const streak = computeStreak(hist);
+  const streak = computeStreak(hist, topicFilter);
 
   const byTopic = aggregateByTopic(hist);
   const topicEntries = Object.entries(byTopic).filter(([id,d])=>d.total>0);
@@ -527,7 +713,7 @@ function renderStats(){
 
   const byType = aggregateByType(hist);
   const modeAgg = modeBreakdown(hist);
-  const sparkline = buildSparkline(histAsc);
+  const sparkline = buildSparkline(histAsc.map(h=>({pct: sessionPct(h, topicFilter)})));
 
   const topicRows = topicEntries
     .sort((a,b)=> (a[1].ok/a[1].total) - (b[1].ok/b[1].total))
@@ -561,11 +747,13 @@ function renderStats(){
 
   const histRows = hist.slice(0,40).map(h=>{
     const date = new Date(h.ts).toLocaleString();
-    const cls = h.pct>=80?"ok":h.pct>=60?"mid":"bad";
+    const scoreD = (topicFilter!=="all" && h.byTopic && h.byTopic[topicFilter]) ? h.byTopic[topicFilter] : {ok:h.correct, total:h.total};
+    const pct = sessionPct(h, topicFilter);
+    const cls = pct>=80?"ok":pct>=60?"mid":"bad";
     const mins = Math.floor(h.durationSec/60), secs = h.durationSec%60;
     return `<tr>
-      <td>${date}</td><td>${h.label}</td><td>${h.correct}/${h.total}</td>
-      <td><span class="pill ${cls}">${h.pct}%</span></td>
+      <td>${date}</td><td>${h.label}</td><td>${scoreD.ok}/${scoreD.total}</td>
+      <td><span class="pill ${cls}">${pct}%</span></td>
       <td>${mins}m ${secs}s${h.timedOut?" · temps esgotat":""}</td>
     </tr>`;
   }).join("");
@@ -574,6 +762,15 @@ function renderStats(){
     const label = f==="all" ? "Tots" : MODE_LABELS[f];
     return `<div class="tab ${filter===f?'active':''}" data-stats-filter="${f}">${label}</div>`;
   }).join("");
+
+  const daysTabs = ["all","7","30","90"].map(d=>{
+    return `<div class="tab ${daysFilter===d?'active':''}" data-stats-days="${d}">${DAYS_LABELS[d]}</div>`;
+  }).join("");
+
+  const topicSelect = `<select class="stats-select" data-stats-topic>
+    <option value="all" ${topicFilter==="all"?"selected":""}>Tots els temes</option>
+    ${TOPICS.map(t=>`<option value="${t.id}" ${topicFilter===t.id?"selected":""}>${t.name}</option>`).join("")}
+  </select>`;
 
   const body = totalTests ? `
     <div class="grid">
@@ -599,12 +796,16 @@ function renderStats(){
 
     <div class="section-title">Progrés per tema</div>
     <div class="stats-panel">${topicRows || '<div class="empty-hint">Encara no hi ha prou dades. Fes algun test!</div>'}</div>
-  ` : `<div class="empty-hint" style="margin-bottom:24px;">Encara no hi ha tests${filter!=="all"?" d'aquest tipus":""} registrats. Fes-ne un per començar a veure estadístiques.</div>`;
+  ` : `<div class="empty-hint" style="margin-bottom:24px;">Encara no hi ha tests que coincideixin amb aquests filtres. Prova d'ampliar-los o fes algun test nou.</div>`;
 
   return `
     <h1>Historial i estadístiques</h1>
     <p class="subtitle">${allHist.length} tests registrats a aquest ordinador</p>
-    <div class="tabs">${tabs}</div>
+    <div class="stats-controls">
+      <div class="tabs">${tabs}</div>
+      ${topicSelect}
+      <div class="tabs">${daysTabs}</div>
+    </div>
     ${body}
     <div class="section-title">Historial detallat</div>
     <table class="history">
@@ -637,7 +838,7 @@ function attachHandlers(){
       const topic = TOPICS.find(t=>t.id===topicId);
       const counts = readCounts();
       const timerOn = document.getElementById("cfg-timer").checked;
-      const pool = topic.questions.map(q=>({...q, topicId:topic.id, topicName:topic.name}));
+      const pool = getTopicPool(topic.id);
       const questions = buildQuestionSet(pool, counts);
       if(!questions.length){ alert("Selecciona almenys una pregunta."); return; }
       const secs = timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
@@ -651,7 +852,7 @@ function attachHandlers(){
     startGeneral.addEventListener("click", ()=>{
       const counts = readCounts();
       const timerOn = document.getElementById("cfg-timer").checked;
-      const questions = buildQuestionSet(ALL_QUESTIONS, counts);
+      const questions = buildQuestionSet(getAllQuestionsPool(), counts);
       if(!questions.length){ alert("Selecciona almenys una pregunta."); return; }
       const secs = timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
       lastConfig = {type:"general", counts, timerOn};
@@ -662,8 +863,9 @@ function attachHandlers(){
   const startFinal = document.getElementById("btn-start-final");
   if(startFinal){
     startFinal.addEventListener("click", ()=>{
-      const n = Math.min(EXAM_TOTAL_Q, ALL_QUESTIONS.length);
-      const questions = shuffle(ALL_QUESTIONS).slice(0,n).map(prepareQuestion);
+      const pool = getAllQuestionsPool();
+      const n = Math.min(EXAM_TOTAL_Q, pool.length);
+      const questions = shuffle(pool).slice(0,n).map(prepareQuestion);
       const secs = Math.round(EXAM_TOTAL_SEC * n / EXAM_TOTAL_Q);
       lastConfig = {type:"final"};
       startQuiz(questions, {mode:"final", label:"Test final (examen)"}, secs);
@@ -703,17 +905,18 @@ function attachHandlers(){
     repeatBtn.addEventListener("click", ()=>{
       if(!lastConfig) { setView("dashboard"); return; }
       if(lastConfig.type==="final"){
-        const n = Math.min(EXAM_TOTAL_Q, ALL_QUESTIONS.length);
-        const questions = shuffle(ALL_QUESTIONS).slice(0,n).map(prepareQuestion);
+        const pool = getAllQuestionsPool();
+        const n = Math.min(EXAM_TOTAL_Q, pool.length);
+        const questions = shuffle(pool).slice(0,n).map(prepareQuestion);
         const secs = Math.round(EXAM_TOTAL_SEC * n / EXAM_TOTAL_Q);
         startQuiz(questions, {mode:"final", label:"Test final (examen)"}, secs);
       } else if(lastConfig.type==="general"){
-        const questions = buildQuestionSet(ALL_QUESTIONS, lastConfig.counts);
+        const questions = buildQuestionSet(getAllQuestionsPool(), lastConfig.counts);
         const secs = lastConfig.timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
         startQuiz(questions, {mode:"general", label:"Test general"}, secs);
       } else {
         const topic = TOPICS.find(t=>t.id===lastConfig.topicId);
-        const pool = topic.questions.map(q=>({...q, topicId:topic.id, topicName:topic.name}));
+        const pool = getTopicPool(topic.id);
         const questions = buildQuestionSet(pool, lastConfig.counts);
         const secs = lastConfig.timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
         startQuiz(questions, {mode:"topic", topicId:topic.id, label:`Tema: ${topic.name}`}, secs);
@@ -723,7 +926,144 @@ function attachHandlers(){
 
   root.querySelectorAll("[data-stats-filter]").forEach(el=>{
     el.addEventListener("click", ()=>{
-      setView("stats", {statsFilter: el.getAttribute("data-stats-filter")});
+      setView("stats", {statsFilter: el.getAttribute("data-stats-filter"), statsTopic: state.statsTopic, statsDays: state.statsDays});
+    });
+  });
+
+  const statsTopicSelect = root.querySelector('[data-stats-topic]');
+  if(statsTopicSelect){
+    statsTopicSelect.addEventListener("change", (e)=>{
+      setView("stats", {statsFilter: state.statsFilter, statsTopic: e.target.value, statsDays: state.statsDays});
+    });
+  }
+
+  root.querySelectorAll("[data-stats-days]").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      setView("stats", {statsFilter: state.statsFilter, statsTopic: state.statsTopic, statsDays: el.getAttribute("data-stats-days")});
+    });
+  });
+
+  const themeToggle = root.querySelector('[data-action="toggle-theme"]');
+  if(themeToggle){
+    themeToggle.addEventListener("click", toggleTheme);
+  }
+
+  const newCustomBtn = root.querySelector('[data-action="new-custom"]');
+  if(newCustomBtn){
+    newCustomBtn.addEventListener("click", ()=>{ customDraft = defaultDraft(); render(); });
+  }
+
+  const cancelCustomBtn = root.querySelector('[data-action="cancel-custom"]');
+  if(cancelCustomBtn){
+    cancelCustomBtn.addEventListener("click", ()=>{ customDraft = null; render(); });
+  }
+
+  const customTopicField = root.querySelector('[data-custom-field="topicId"]');
+  if(customTopicField){
+    customTopicField.addEventListener("change", e=>{ customDraft.topicId = e.target.value; });
+  }
+
+  const customTypeField = root.querySelector('[data-custom-field="type"]');
+  if(customTypeField){
+    customTypeField.addEventListener("change", e=>{
+      const newType = e.target.value;
+      const wasTf = customDraft.type==="tf";
+      customDraft.type = newType;
+      if(newType==="tf"){
+        customDraft.opts = ["Vertader","Fals"];
+        customDraft.exp = [customDraft.exp[0]||"", customDraft.exp[1]||""];
+        customDraft.correct = customDraft.correct.filter(i=>i<2);
+      } else if(wasTf){
+        customDraft.opts = ["",""];
+        customDraft.exp = ["",""];
+        customDraft.correct = [];
+      } else if(newType==="single" && customDraft.correct.length>1){
+        customDraft.correct = [customDraft.correct[0]];
+      }
+      render();
+    });
+  }
+
+  const customQField = root.querySelector('[data-custom-field="q"]');
+  if(customQField){
+    customQField.addEventListener("input", e=>{ customDraft.q = e.target.value; });
+  }
+  const customTrapField = root.querySelector('[data-custom-field="trap"]');
+  if(customTrapField){
+    customTrapField.addEventListener("input", e=>{ customDraft.trap = e.target.value; });
+  }
+
+  root.querySelectorAll('[data-opt-idx]').forEach(el=>{
+    el.addEventListener("input", ()=>{
+      const idx = parseInt(el.getAttribute("data-opt-idx"),10);
+      customDraft.opts[idx] = el.value;
+    });
+  });
+  root.querySelectorAll('[data-exp-idx]').forEach(el=>{
+    el.addEventListener("input", ()=>{
+      const idx = parseInt(el.getAttribute("data-exp-idx"),10);
+      customDraft.exp[idx] = el.value;
+    });
+  });
+  root.querySelectorAll('[data-correct-idx]').forEach(el=>{
+    el.addEventListener("change", ()=>{
+      const idx = parseInt(el.getAttribute("data-correct-idx"),10);
+      if(customDraft.type==="multi"){
+        const pos = customDraft.correct.indexOf(idx);
+        if(el.checked && pos<0) customDraft.correct.push(idx);
+        else if(!el.checked && pos>=0) customDraft.correct.splice(pos,1);
+      } else {
+        customDraft.correct = [idx];
+      }
+    });
+  });
+
+  const addOptBtn = root.querySelector('[data-action="add-opt"]');
+  if(addOptBtn){
+    addOptBtn.addEventListener("click", ()=>{
+      customDraft.opts.push("");
+      customDraft.exp.push("");
+      render();
+    });
+  }
+  root.querySelectorAll('[data-action="remove-opt"]').forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const idx = parseInt(el.getAttribute("data-idx"),10);
+      customDraft.opts.splice(idx,1);
+      customDraft.exp.splice(idx,1);
+      customDraft.correct = customDraft.correct.filter(i=>i!==idx).map(i=>i>idx?i-1:i);
+      render();
+    });
+  });
+
+  const saveCustomBtn = root.querySelector('[data-action="save-custom"]');
+  if(saveCustomBtn){
+    saveCustomBtn.addEventListener("click", ()=>{
+      const d = customDraft;
+      if(!d.q.trim()){ alert("Escriu l'enunciat de la pregunta."); return; }
+      if(d.opts.some(o=>!o.trim())){ alert("Totes les opcions han de tenir text."); return; }
+      if(d.exp.some(e=>!e.trim())){ alert("Cal escriure una explicació per a cada opció."); return; }
+      if(!d.trap.trim()){ alert("Cal afegir una nota d'examen (trampa habitual)."); return; }
+      if(d.type==="multi" && d.correct.length<1){ alert("Marca almenys una opció correcta."); return; }
+      if(d.type!=="multi" && d.correct.length!==1){ alert("Marca exactament una opció correcta."); return; }
+      addCustomQuestion({
+        id: "c"+Date.now()+Math.random().toString(36).slice(2,7),
+        topicId: d.topicId, type: d.type, q: d.q.trim(),
+        opts: d.opts.map(o=>o.trim()), exp: d.exp.map(e=>e.trim()),
+        correct: d.correct.slice(), trap: d.trap.trim(),
+        createdAt: Date.now()
+      });
+      customDraft = null;
+      render();
+    });
+  }
+
+  root.querySelectorAll('[data-action="delete-custom"]').forEach(el=>{
+    el.addEventListener("click", ()=>{
+      if(confirm("Eliminar aquesta pregunta pròpia? Aquesta acció no es pot desfer.")){
+        deleteCustomQuestion(el.getAttribute("data-id"));
+        render();
+      }
     });
   });
 
