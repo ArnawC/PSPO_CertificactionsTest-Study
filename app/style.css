@@ -253,6 +253,8 @@ table.history tr:hover td{background:rgba(255,255,255,.02);}
 .special-card .special-meta{font-size:12px; color:var(--amber-dark); font-family:'Segoe UI',sans-serif; font-weight:600;}
 .special-card .btn{align-self:flex-start; margin-top:2px;}
 .special-card .config-row{margin-bottom:0;}
+.special-card .config-row label{color:var(--ink);}
+.special-card .config-row input[type=number]{background:var(--card-hi); color:var(--ink); border-color:var(--card-border);}
 
 /* ---- Custom questions ---- */
 .custom-field-block{margin-bottom:16px;}

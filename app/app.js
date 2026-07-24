@@ -11,10 +11,9 @@ const STRINGS = {
   es: {
     "brand.subtitle": "Entrenador de examen",
     "nav.dashboard": "Inicio",
-    "nav.theoryList": "Temario por temas",
+    "nav.theoryList": "Temario",
     "nav.topicTest": "Test por tema",
-    "nav.generalTest": "Test general",
-    "nav.finalTest": "Test final (examen)",
+    "nav.testConfig": "Test general y examen",
     "nav.specialModes": "Modos especiales",
     "nav.customQuestions": "Preguntas propias",
     "nav.stats": "Historial y estadísticas",
@@ -48,6 +47,8 @@ const STRINGS = {
     "theory.practiceQuestions": "preguntas de práctica",
     "theory.backToTopics": "← Todos los temas",
     "theory.startTopicTest": "Hacer test de este tema ↗",
+    "theory.viewAll": "Ver todo el temario completo ↗",
+    "theory.viewAllTitle": "Temario completo",
     "typeLabel.single": "Opción única",
     "typeLabel.multi": "Respuesta múltiple",
     "typeLabel.tf": "Verdadero / Falso",
@@ -260,10 +261,9 @@ const STRINGS = {
   en: {
     "brand.subtitle": "Exam trainer",
     "nav.dashboard": "Home",
-    "nav.theoryList": "Theory by topic",
+    "nav.theoryList": "Theory",
     "nav.topicTest": "Test by topic",
-    "nav.generalTest": "General test",
-    "nav.finalTest": "Final test (exam)",
+    "nav.testConfig": "General & final test",
     "nav.specialModes": "Special modes",
     "nav.customQuestions": "Custom questions",
     "nav.stats": "History & statistics",
@@ -297,6 +297,8 @@ const STRINGS = {
     "theory.practiceQuestions": "practice questions",
     "theory.backToTopics": "← All topics",
     "theory.startTopicTest": "Take this topic's test ↗",
+    "theory.viewAll": "View the complete theory ↗",
+    "theory.viewAllTitle": "Complete theory",
     "typeLabel.single": "Single choice",
     "typeLabel.multi": "Multiple choice",
     "typeLabel.tf": "True / False",
@@ -1011,8 +1013,7 @@ function render(){
       ${navItem("theory-list",t("nav.theoryList"))}
       ${navItem("test-topic-config",t("nav.topicTest"))}
       <div class="nav-sep"></div>
-      ${navItem("test-general-config",t("nav.generalTest"))}
-      ${navItem("test-final-config",t("nav.finalTest"))}
+      ${navItem("test-config",t("nav.testConfig"))}
       ${navItem("special-modes",t("nav.specialModes"))}
       <div class="nav-sep"></div>
       ${navItem("custom-questions",t("nav.customQuestions"))}
@@ -1074,8 +1075,7 @@ const NAV_ICONS = {
   "dashboard": '<path d="M2.5 8.5 8 3l5.5 5.5"/><path d="M3.8 7.2V13h8.4V7.2"/>',
   "theory-list": '<path d="M2.5 3.2h4a2 2 0 0 1 2 2v8.6a1.6 1.6 0 0 0-1.6-1.6h-4.4Z"/><path d="M13.5 3.2h-4a2 2 0 0 0-2 2v8.6a1.6 1.6 0 0 1 1.6-1.6h4.4Z"/>',
   "test-topic-config": '<circle cx="8" cy="8" r="5.2"/><circle cx="8" cy="8" r="2.1"/>',
-  "test-general-config": '<path d="M2.5 5h3.4l2 2.2"/><path d="M2.5 11h3.4l6.6-7.4h1"/><path d="M9.9 9.8l2.6 3.2h1"/><path d="M11.5 2.7 13.5 3.6l-2 1"/><path d="M11.5 13.3 13.5 12.4l-2-1"/>',
-  "test-final-config": '<path d="M3.5 2.5v11"/><path d="M3.5 3.2h8l-1.6 2.4 1.6 2.4h-8Z"/>',
+  "test-config": '<path d="M2.5 5h3.4l2 2.2"/><path d="M2.5 11h3.4l6.6-7.4h1"/><path d="M9.9 9.8l2.6 3.2h1"/><path d="M11.5 2.7 13.5 3.6l-2 1"/><path d="M11.5 13.3 13.5 12.4l-2-1"/>',
   "special-modes": '<path d="M8.7 2.2 3.8 8.6h3.1l-1 5.2 5.4-6.9H8.3Z"/>',
   "custom-questions": '<path d="M9.8 2.9a1.4 1.4 0 0 1 2 2L5.4 11.3l-2.7.6.6-2.7Z"/><path d="M8.7 4l1.9 1.9"/>',
   "stats": '<path d="M3 13V6.5"/><path d="M7.5 13V3"/><path d="M12 13V9"/><path d="M2 13.5h12"/>',
@@ -1083,7 +1083,7 @@ const NAV_ICONS = {
 };
 
 function navItem(view, label){
-  const active = state.view===view || (state.view==="theory-detail" && view==="theory-list") ? "active" : "";
+  const active = state.view===view || ((state.view==="theory-detail"||state.view==="theory-all") && view==="theory-list") ? "active" : "";
   const icon = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${NAV_ICONS[view]||""}</svg>`;
   return `<div class="nav-item ${active}" data-nav="${view}">${icon}<span>${label}</span></div>`;
 }
@@ -1093,9 +1093,9 @@ function renderMain(){
     case "dashboard": return renderDashboard();
     case "theory-list": return renderTheoryList();
     case "theory-detail": return renderTheoryDetail(state.topicId);
+    case "theory-all": return renderTheoryAll();
     case "test-topic-config": return renderTopicConfig();
-    case "test-general-config": return renderGeneralConfig();
-    case "test-final-config": return renderFinalConfig();
+    case "test-config": return renderTestConfig();
     case "quiz": return renderQuiz();
     case "score": return renderScore();
     case "special-modes": return renderSpecialModes();
@@ -1130,8 +1130,8 @@ function renderDashboard(){
       <div class="stat-card"><div class="lbl">${t("dashboard.weakestTopic")}</div><div class="val" style="font-size:16px; color:${weakest?'var(--red-line)':'var(--text-mute)'}">${weakest ? weakest.name : t("dashboard.notEnoughData")}</div></div>
     </div>
     <div style="display:flex; gap:12px; margin-bottom:30px;">
-      <button class="btn amber" data-nav="test-general-config">${t("dashboard.startGeneral")}</button>
-      <button class="btn secondary" data-nav="test-final-config">${t("dashboard.startFinal")}</button>
+      <button class="btn amber" data-nav="test-config">${t("dashboard.startGeneral")}</button>
+      <button class="btn secondary" data-nav="test-config">${t("dashboard.startFinal")}</button>
     </div>
     <h1 style="font-size:18px;">${t("dashboard.progressByTopic")}</h1>
     <div class="card-list">
@@ -1165,12 +1165,24 @@ function renderTheoryList(){
   return `
     <h1>${t("theory.title")}</h1>
     <p class="subtitle">${t("theory.subtitle")}</p>
+    <button class="btn amber" data-nav="theory-all" style="width:100%; padding:18px; font-size:16px; margin-bottom:26px;">${t("theory.viewAll")}</button>
     <div class="card-list">
       ${activeTopics.map(tp=>`<div class="topic-card" data-nav="theory-detail" data-topic="${tp.id}">
         <h3>${tp.name}</h3>
         <div class="meta">${topicQuestionCount(tp.id)} ${t("theory.practiceQuestions")}</div>
       </div>`).join("")}
     </div>
+  `;
+}
+
+function renderTheoryAll(){
+  return `
+    <button class="btn secondary small" data-nav="theory-list" style="margin-bottom:16px;">${t("theory.backToTopics")}</button>
+    <h1>${t("theory.viewAllTitle")}</h1>
+    ${activeTopics.map(tp=>`
+      <h2 style="font-size:19px; margin:34px 0 12px;">${tp.name}</h2>
+      <div class="theory-box">${tp.theory}</div>
+    `).join("")}
   `;
 }
 
@@ -1226,12 +1238,17 @@ function typeRow(key, label, max){
   </div>`;
 }
 
-// ---------------- TEST GENERAL — CONFIG ----------------
-function renderGeneralConfig(){
+// ---------------- TEST GENERAL + FINAL — CONFIG (una sola pagina) ----------------
+function renderTestConfig(){
   const pool = getAllQuestionsPool();
   const counts = countsByType(pool);
+  const n = Math.min(EXAM_TOTAL_Q, pool.length);
+  const secs = Math.round(EXAM_TOTAL_SEC * n / EXAM_TOTAL_Q);
+  const mins = Math.round(secs/60);
   return `
-    <h1>${t("generalConfig.title")}</h1>
+    <h1>${t("nav.testConfig")}</h1>
+
+    <h2 style="font-size:19px; margin:0 0 4px;">${t("generalConfig.title")}</h2>
     <p class="subtitle">${t("generalConfig.subtitle",{n:pool.length})}</p>
     <div class="config-box">
       ${typeRow("single",t("typeLabel.single"), counts.single)}
@@ -1243,17 +1260,8 @@ function renderGeneralConfig(){
       </div>
       <button class="btn amber" id="btn-start-general" style="width:100%; margin-top:8px;">${t("action.startTest")}</button>
     </div>
-  `;
-}
 
-// ---------------- TEST FINAL — CONFIG ----------------
-function renderFinalConfig(){
-  const pool = getAllQuestionsPool();
-  const n = Math.min(EXAM_TOTAL_Q, pool.length);
-  const secs = Math.round(EXAM_TOTAL_SEC * n / EXAM_TOTAL_Q);
-  const mins = Math.round(secs/60);
-  return `
-    <h1>${t("finalConfig.title")}</h1>
+    <h2 style="font-size:19px; margin:34px 0 4px;">${t("finalConfig.title")}</h2>
     <p class="subtitle">${t("finalConfig.subtitle",{n:EXAM_TOTAL_Q})}</p>
     <div class="config-box">
       <div class="config-row"><label>${t("finalConfig.questionsInTest")}</label><span class="max">${t("finalConfig.available",{n,total:pool.length})}</span></div>
