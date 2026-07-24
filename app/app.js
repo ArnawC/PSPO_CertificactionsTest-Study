@@ -2,8 +2,528 @@ const STORAGE_KEY = "pspo_i_trainer_history_v1";
 const CUSTOM_KEY = "pspo_i_trainer_custom_questions_v1";
 const THEME_KEY = "pspo_i_trainer_theme_v1";
 const ERROR_KEY = "pspo_i_trainer_errors_v1";
+const LANG_KEY = "pspo_i_trainer_lang_v1";
 const EXAM_TOTAL_Q = 80;
 const EXAM_TOTAL_SEC = 60 * 60;
+
+// ---------------- I18N ----------------
+const STRINGS = {
+  es: {
+    "brand.subtitle": "Entrenador de examen",
+    "nav.dashboard": "Inicio",
+    "nav.theoryList": "Temario por temas",
+    "nav.topicTest": "Test por tema",
+    "nav.generalTest": "Test general",
+    "nav.finalTest": "Test final (examen)",
+    "nav.specialModes": "Modos especiales",
+    "nav.customQuestions": "Preguntas propias",
+    "nav.stats": "Historial y estadísticas",
+    "nav.info": "Sobre la app",
+    "pomo.focus": "Enfoque",
+    "pomo.break": "Descanso",
+    "pomo.start": "Iniciar",
+    "pomo.pause": "Pausa",
+    "pomo.resetTitle": "Reiniciar",
+    "theme.toLight": "Modo claro",
+    "theme.toDark": "Modo oscuro",
+    "theme.switchTitle": "Cambiar el tema",
+    "lang.switchTitle": "Cambiar idioma / Switch language",
+    "lang.toEnglish": "English",
+    "lang.toSpanish": "Español",
+    "dashboard.welcome": "Bienvenido/a de nuevo",
+    "dashboard.subtitle": "Preparación para el PSPO I — Scrum Guide 2020",
+    "dashboard.testsCompleted": "Tests realizados",
+    "dashboard.globalAvg": "Media global",
+    "dashboard.questionBank": "Banco de preguntas",
+    "dashboard.weakestTopic": "Tema más flojo",
+    "dashboard.notEnoughData": "aún no hay suficientes datos",
+    "dashboard.startGeneral": "Hacer un test general ↗",
+    "dashboard.startFinal": "Simular examen completo ↗",
+    "dashboard.progressByTopic": "Progreso por tema",
+    "dashboard.questionsInBank": "preguntas en el banco",
+    "dashboard.correctPct": "% acierto",
+    "dashboard.noAttempts": "sin intentos",
+    "theory.title": "Temario",
+    "theory.subtitle": "Repasa cada bloque antes de hacer el test correspondiente",
+    "theory.practiceQuestions": "preguntas de práctica",
+    "theory.backToTopics": "← Todos los temas",
+    "theory.startTopicTest": "Hacer test de este tema ↗",
+    "typeLabel.single": "Opción única",
+    "typeLabel.multi": "Respuesta múltiple",
+    "typeLabel.tf": "Verdadero / Falso",
+    "topicConfig.title": "Test por tema",
+    "topicConfig.subtitle": "Elige el tema y cuántas preguntas de cada tipo quieres practicar",
+    "topicConfig.topicLabel": "Tema",
+    "topicConfig.max": "máx.",
+    "topicConfig.randomOrder": "Orden aleatorio y preguntas distintas cada vez",
+    "topicConfig.alwaysOn": "siempre activo",
+    "topicConfig.timer": "Temporizador (relativo a 60 min / 80 preguntas)",
+    "action.startTest": "Empezar test ↗",
+    "generalConfig.title": "Test general",
+    "generalConfig.subtitle": "Preguntas de todos los temas mezcladas. Elige cuántas quieres de cada tipo (hasta el máximo disponible: {n}).",
+    "finalConfig.title": "Test final — simulación de examen",
+    "finalConfig.subtitle": "Mezcla todos los temas y todos los tipos de pregunta, con temporizador fijo, igual que el examen real ({n} preguntas / 60 min).",
+    "finalConfig.questionsInTest": "Preguntas de este test",
+    "finalConfig.available": "{n} de {total} disponibles",
+    "finalConfig.timeAvailable": "Tiempo disponible",
+    "finalConfig.proportional": "{mins} min (proporcional si hay menos de {n})",
+    "finalConfig.order": "Orden",
+    "finalConfig.randomOrder": "totalmente aleatorio, distinto cada vez",
+    "finalConfig.startExam": "Empezar examen ↗",
+    "quiz.questionOf": "Pregunta {i} / {n} — {label}",
+    "quiz.listen": "Escuchar",
+    "quiz.listenTitle": "Escuchar la pregunta",
+    "quiz.markReview": "Marcar para revisar",
+    "quiz.marked": "Marcada",
+    "quiz.markReviewTitle": "Marcar para revisar (Duda Extrema)",
+    "quiz.selectAll": "Selecciona todas las que correspondan",
+    "quiz.correct": "Correcto.",
+    "quiz.incorrect": "Incorrecto.",
+    "quiz.examNote": "Nota de examen:",
+    "quiz.abandon": "Abandonar",
+    "quiz.viewResult": "Ver resultado",
+    "quiz.next": "Siguiente",
+    "quiz.check": "Comprobar",
+    "quiz.confirmAbandon": "¿Seguro que quieres abandonar el test? Se perderá el progreso actual.",
+    "quiz.ttsUnsupported": "Este entorno no admite la lectura en voz alta.",
+    "quiz.selectAtLeastOne": "Selecciona al menos una pregunta.",
+    "mode.topicPrefix": "Tema: {name}",
+    "score.timeUp": "Tiempo agotado — ",
+    "score.result": "Resultado: {label}",
+    "score.correctOf": "{correct} de {total} correctas · {mins} min {secs}s",
+    "score.topic": "Tema",
+    "score.hits": "Aciertos",
+    "score.markedForReview": "Marcadas para revisar (Duda Extrema)",
+    "score.hit": "Acertada",
+    "score.missed": "Fallada",
+    "score.topicsToReview": "Temas a repasar: {names}. Quedan anotados en el historial.",
+    "score.perfect": "100% en todos los temas de este test.",
+    "score.backHome": "Volver al inicio",
+    "score.repeat": "Repetir con la misma configuración ↗",
+    "special.title": "Modos especiales",
+    "special.subtitle": "Estrategias de repaso pensadas para reforzar exactamente lo que te falta.",
+    "special.loopTitle": "Bucle de fallo continuo",
+    "special.loopDesc": "Repite solo las preguntas que has fallado, en bucle, hasta que las aciertes 3 veces seguidas.",
+    "special.loopMeta": "{n} pregunta{s} activa{s} en el registro de errores",
+    "special.loopStart": "Empezar bucle ↗",
+    "special.redemptionTitle": "Test de redención",
+    "special.redemptionDesc": "Un test normal, de una sola vez, con todas las preguntas que actualmente tienes pendientes en el registro de errores.",
+    "special.redemptionMeta": "{n} pregunta{s} disponible{s}",
+    "special.redemptionStart": "Empezar redención ↗",
+    "special.tfTitle": "Verdadero / Falso masivo",
+    "special.tfDesc": "Transforma cada opción de las preguntas de opción única y múltiple en una pregunta independiente de Verdadero/Falso. Procesa el triple de conceptos en menos tiempo.",
+    "special.tfMeta": "{n} preguntas base · hasta {m} ítems V/F posibles",
+    "special.tfCountLabel": "Número de ítems",
+    "special.tfStart": "Empezar ↗",
+    "special.trapTitle": "Preguntas trampa",
+    "special.trapDesc": "Agrupa preguntas con palabras típicas de trampa de examen (\"siempre\", \"nunca\", \"únicamente\"...) u opciones muy parecidas, para entrenar la atención.",
+    "special.trapMeta": "{n} pregunta{s} detectada{s}",
+    "special.trapStart": "Empezar ↗",
+    "special.noErrorsAlert": "No tienes preguntas pendientes en el registro de errores.",
+    "special.notEnoughMcAlert": "No hay suficientes preguntas de opción única/múltiple para generar este modo.",
+    "special.noTrapAlert": "No se han detectado preguntas trampa en el banco actual.",
+    "tfmassive.template": "Verdadero o falso: \"{opt}\" es una respuesta correcta para — {q}",
+    "tfmassive.correctExp": "Esta opción sí es una respuesta correcta a la pregunta original.",
+    "tfmassive.incorrectExp": "Esta opción no es una respuesta correcta a la pregunta original.",
+    "loop.header": "Bucle de fallo continuo · quedan {n} preguntas activas",
+    "loop.streak": "Racha: {n}/3",
+    "loop.confirmAbandon": "¿Seguro que quieres abandonar el bucle? El progreso de racha ya hecho se conserva.",
+    "loop.completedTitle": "Bucle de fallo continuo completado",
+    "loop.completedDesc": "Has dominado todas las preguntas activas (3 aciertos seguidos cada una)",
+    "loop.backToSpecial": "Volver a modos especiales",
+    "custom.title": "Preguntas propias",
+    "custom.subtitle": "Añade preguntas personalizadas que se integran automáticamente en los tests por tema, generales y en el examen final. {n} pregunta{s} propia{s}.",
+    "custom.newQuestion": "+ Nueva pregunta",
+    "custom.added": "Preguntas añadidas",
+    "custom.noneYet": "Aún no has añadido ninguna pregunta propia.",
+    "custom.delete": "Eliminar",
+    "custom.topicLabel": "Tema",
+    "custom.typeLabel": "Tipo de pregunta",
+    "custom.questionLabel": "Enunciado",
+    "custom.questionPlaceholder": "Escribe la pregunta...",
+    "custom.optionsLabelMulti": "Opciones (marca todas las correctas)",
+    "custom.optionsLabelSingle": "Opciones (marca la correcta)",
+    "custom.optionPlaceholder": "Texto de la opción {letter}",
+    "custom.explanationPlaceholder": "Explicación de esta opción",
+    "custom.addOption": "+ Añadir opción",
+    "custom.trapLabel": "Nota de examen (trampa habitual)",
+    "custom.trapPlaceholder": "Ej: no confundir X con Y...",
+    "custom.cancel": "Cancelar",
+    "custom.save": "Guardar pregunta",
+    "custom.confirmDelete": "¿Eliminar esta pregunta propia? Esta acción no se puede deshacer.",
+    "custom.alertNoQuestion": "Escribe el enunciado de la pregunta.",
+    "custom.alertOptionsText": "Todas las opciones deben tener texto.",
+    "custom.alertExplanations": "Hay que escribir una explicación para cada opción.",
+    "custom.alertTrap": "Hay que añadir una nota de examen (trampa habitual).",
+    "custom.alertOneCorrectMulti": "Marca al menos una opción correcta.",
+    "custom.alertExactlyOneCorrect": "Marca exactamente una opción correcta.",
+    "stats.title": "Historial y estadísticas",
+    "stats.testsRegistered": "{n} tests registrados en este ordenador",
+    "stats.tabSummary": "Resumen y evolución",
+    "stats.tabErrors": "Historial de errores ({n})",
+    "stats.all": "Todos",
+    "stats.allTopics": "Todos los temas",
+    "stats.tests": "Tests",
+    "stats.avg": "Media",
+    "stats.questionsAnswered": "Preguntas respondidas",
+    "stats.timeSpent": "Tiempo dedicado",
+    "stats.currentStreak": "Racha actual (≥80%)",
+    "stats.testsInARow": "tests seguidos",
+    "stats.strongestTopic": "Tema más fuerte",
+    "stats.topicToImprove": "Tema a reforzar",
+    "stats.predictedGrade": "Predicción de nota (global)",
+    "stats.needMoreTests": "haz algún test",
+    "stats.aboveThreshold": "por encima del ",
+    "stats.belowThreshold": "por debajo del ",
+    "stats.passThreshold": "umbral de aprobado ({n}%)",
+    "stats.heatmap": "Mapa de calor de conocimiento",
+    "stats.evolution": "Evolución del rendimiento",
+    "stats.needTwoTests": "Haz al menos 2 tests para ver la curva de evolución.",
+    "stats.accuracyByType": "Precisión por tipo de pregunta",
+    "stats.noData": "sin datos",
+    "stats.performanceByTestType": "Rendimiento por tipo de test",
+    "stats.test": "test",
+    "stats.testsPlural": "tests",
+    "stats.progressByTopic": "Progreso por tema",
+    "stats.noDataYet": "Aún no hay suficientes datos. ¡Haz algún test!",
+    "stats.noMatchFilters": "No hay tests que coincidan con estos filtros. Prueba a ampliarlos o haz algún test nuevo.",
+    "stats.detailedHistory": "Historial detallado",
+    "stats.date": "Fecha",
+    "stats.testCol": "Test",
+    "stats.score": "Puntuación",
+    "stats.percent": "%",
+    "stats.duration": "Duración",
+    "stats.noHistoryYet": "Sin historial todavía.",
+    "stats.clearHistory": "Borrar historial",
+    "stats.confirmClearHistory": "¿Borrar todo el historial de tests? Esta acción no se puede deshacer.",
+    "stats.timedOutSuffix": " · tiempo agotado",
+    "errors.active": "Activas",
+    "errors.mastered": "Dominadas",
+    "errors.all": "Todas",
+    "errors.masteredLabel": "Dominada",
+    "errors.streakLabel": "Racha {n}/3",
+    "errors.failedCount": "{n} fallo{s}",
+    "errors.noneInCategory": "Ninguna pregunta en esta categoría.",
+    "errors.clear": "Borrar registro de errores",
+    "errors.confirmClear": "¿Borrar todo el registro de errores? Se perderá el progreso de rachas de dominio.",
+    "mode.topic": "Test por tema",
+    "mode.general": "Test general",
+    "mode.final": "Test final",
+    "mode.redemption": "Test de redención",
+    "mode.tfmassive": "V/F masivo",
+    "mode.trap": "Preguntas trampa",
+    "days.all": "Todo",
+    "days.7": "7 días",
+    "days.30": "30 días",
+    "days.90": "90 días",
+    "info.title": "Sobre la aplicación",
+    "info.subtitle": "Todo lo que puedes hacer con el Entrenador PSPO I",
+    "info.html": `
+      <h3>Temario</h3>
+      <p>Repasa la teoría de cada tema (basada en la Scrum Guide noviembre 2020) antes de hacer el test correspondiente.</p>
+      <h3>Tests estándar</h3>
+      <ul>
+        <li><b>Test por tema:</b> elige un tema y cuántas preguntas de cada tipo quieres practicar.</li>
+        <li><b>Test general:</b> preguntas de todos los temas mezcladas.</li>
+        <li><b>Test final (examen):</b> simulación completa con temporizador fijo, igual que el examen real ({examQ} preguntas / 60 min).</li>
+      </ul>
+      <h3>Modos especiales</h3>
+      <ul>
+        <li><b>Bucle de fallo continuo:</b> repite solo las preguntas que has fallado, en bucle, hasta acertarlas 3 veces seguidas.</li>
+        <li><b>Test de redención:</b> un test normal, de una sola vez, con todas las preguntas pendientes del registro de errores.</li>
+        <li><b>Verdadero/Falso masivo:</b> convierte cada opción de las preguntas de opción única y múltiple en un ítem independiente de Verdadero/Falso.</li>
+        <li><b>Preguntas trampa:</b> agrupa preguntas con palabras o patrones típicos de trampa de examen ("siempre", "nunca", "únicamente"...).</li>
+      </ul>
+      <h3>Durante el test</h3>
+      <ul>
+        <li><b>Escuchar:</b> lectura en voz alta de la pregunta y las opciones.</li>
+        <li><b>Marcar para revisar (Duda Extrema):</b> señala preguntas que has acertado por pura suerte, para repasarlas al final del test.</li>
+      </ul>
+      <h3>Preguntas propias</h3>
+      <p>Crea preguntas personalizadas (opción única, múltiple o Verdadero/Falso) con explicación por opción y nota de examen. Se integran automáticamente en el Test por tema, Test general y Test final.</p>
+      <h3>Historial y estadísticas</h3>
+      <ul>
+        <li>Resumen global, evolución del rendimiento, precisión por tipo de pregunta y rendimiento por tipo de test.</li>
+        <li><b>Mapa de calor de conocimiento:</b> visión rápida de qué temas dominas y cuáles necesitas repasar.</li>
+        <li><b>Predicción de nota:</b> estimación de la nota que sacarías en el examen real, según tu progreso actual.</li>
+        <li><b>Historial de errores:</b> todas las preguntas falladas, con su racha de aciertos consecutivos.</li>
+        <li>Filtros combinables por tipo de test, tema y rango de días.</li>
+      </ul>
+      <h3>Otros</h3>
+      <ul>
+        <li><b>Modo claro / oscuro</b> conmutable desde el sidebar.</li>
+        <li><b>Idioma (ES/EN)</b> conmutable desde el sidebar.</li>
+        <li><b>Pomodoro:</b> temporizador de estudio ({focusMin} min de enfoque / {breakMin} min de descanso) integrado en el sidebar.</li>
+      </ul>
+    `
+  },
+  en: {
+    "brand.subtitle": "Exam trainer",
+    "nav.dashboard": "Home",
+    "nav.theoryList": "Theory by topic",
+    "nav.topicTest": "Test by topic",
+    "nav.generalTest": "General test",
+    "nav.finalTest": "Final test (exam)",
+    "nav.specialModes": "Special modes",
+    "nav.customQuestions": "Custom questions",
+    "nav.stats": "History & statistics",
+    "nav.info": "About the app",
+    "pomo.focus": "Focus",
+    "pomo.break": "Break",
+    "pomo.start": "Start",
+    "pomo.pause": "Pause",
+    "pomo.resetTitle": "Reset",
+    "theme.toLight": "Light mode",
+    "theme.toDark": "Dark mode",
+    "theme.switchTitle": "Switch theme",
+    "lang.switchTitle": "Switch language / Cambiar idioma",
+    "lang.toEnglish": "English",
+    "lang.toSpanish": "Español",
+    "dashboard.welcome": "Welcome back",
+    "dashboard.subtitle": "Preparation for the PSPO I — Scrum Guide 2020",
+    "dashboard.testsCompleted": "Tests completed",
+    "dashboard.globalAvg": "Global average",
+    "dashboard.questionBank": "Question bank",
+    "dashboard.weakestTopic": "Weakest topic",
+    "dashboard.notEnoughData": "not enough data yet",
+    "dashboard.startGeneral": "Take a general test ↗",
+    "dashboard.startFinal": "Simulate full exam ↗",
+    "dashboard.progressByTopic": "Progress by topic",
+    "dashboard.questionsInBank": "questions in bank",
+    "dashboard.correctPct": "% correct",
+    "dashboard.noAttempts": "no attempts",
+    "theory.title": "Theory",
+    "theory.subtitle": "Review each block before taking its test",
+    "theory.practiceQuestions": "practice questions",
+    "theory.backToTopics": "← All topics",
+    "theory.startTopicTest": "Take this topic's test ↗",
+    "typeLabel.single": "Single choice",
+    "typeLabel.multi": "Multiple choice",
+    "typeLabel.tf": "True / False",
+    "topicConfig.title": "Test by topic",
+    "topicConfig.subtitle": "Choose the topic and how many questions of each type you want to practice",
+    "topicConfig.topicLabel": "Topic",
+    "topicConfig.max": "max.",
+    "topicConfig.randomOrder": "Random order and different questions each time",
+    "topicConfig.alwaysOn": "always on",
+    "topicConfig.timer": "Timer (relative to 60 min / 80 questions)",
+    "action.startTest": "Start test ↗",
+    "generalConfig.title": "General test",
+    "generalConfig.subtitle": "Questions from every topic mixed together. Choose how many of each type you want (up to the available maximum: {n}).",
+    "finalConfig.title": "Final test — exam simulation",
+    "finalConfig.subtitle": "Mixes every topic and every question type, with a fixed timer, just like the real exam ({n} questions / 60 min).",
+    "finalConfig.questionsInTest": "Questions in this test",
+    "finalConfig.available": "{n} out of {total} available",
+    "finalConfig.timeAvailable": "Time available",
+    "finalConfig.proportional": "{mins} min (proportional if fewer than {n})",
+    "finalConfig.order": "Order",
+    "finalConfig.randomOrder": "fully random, different each time",
+    "finalConfig.startExam": "Start exam ↗",
+    "quiz.questionOf": "Question {i} / {n} — {label}",
+    "quiz.listen": "Listen",
+    "quiz.listenTitle": "Listen to the question",
+    "quiz.markReview": "Mark for review",
+    "quiz.marked": "Marked",
+    "quiz.markReviewTitle": "Mark for review (Extreme Doubt)",
+    "quiz.selectAll": "Select all that apply",
+    "quiz.correct": "Correct.",
+    "quiz.incorrect": "Incorrect.",
+    "quiz.examNote": "Exam note:",
+    "quiz.abandon": "Abandon",
+    "quiz.viewResult": "View result",
+    "quiz.next": "Next",
+    "quiz.check": "Check",
+    "quiz.confirmAbandon": "Are you sure you want to abandon the test? Current progress will be lost.",
+    "quiz.ttsUnsupported": "This environment doesn't support text-to-speech.",
+    "quiz.selectAtLeastOne": "Select at least one question.",
+    "mode.topicPrefix": "Topic: {name}",
+    "score.timeUp": "Time's up — ",
+    "score.result": "Result: {label}",
+    "score.correctOf": "{correct} out of {total} correct · {mins} min {secs}s",
+    "score.topic": "Topic",
+    "score.hits": "Correct",
+    "score.markedForReview": "Marked for review (Extreme Doubt)",
+    "score.hit": "Correct",
+    "score.missed": "Missed",
+    "score.topicsToReview": "Topics to review: {names}. They're noted in your history.",
+    "score.perfect": "100% across every topic in this test.",
+    "score.backHome": "Back to home",
+    "score.repeat": "Repeat with the same setup ↗",
+    "special.title": "Special modes",
+    "special.subtitle": "Review strategies designed to reinforce exactly what you're missing.",
+    "special.loopTitle": "Continuous-failure loop",
+    "special.loopDesc": "Repeats only the questions you've gotten wrong, on a loop, until you get each one right 3 times in a row.",
+    "special.loopMeta": "{n} active question{s} in the error log",
+    "special.loopStart": "Start loop ↗",
+    "special.redemptionTitle": "Redemption test",
+    "special.redemptionDesc": "A normal, one-pass test with every question currently pending in your error log.",
+    "special.redemptionMeta": "{n} question{s} available",
+    "special.redemptionStart": "Start redemption ↗",
+    "special.tfTitle": "Mass True / False",
+    "special.tfDesc": "Turns each option of single- and multiple-choice questions into an independent True/False question. Process three times the concepts in less time.",
+    "special.tfMeta": "{n} base questions · up to {m} possible T/F items",
+    "special.tfCountLabel": "Number of items",
+    "special.tfStart": "Start ↗",
+    "special.trapTitle": "Trap questions",
+    "special.trapDesc": "Groups questions with typical exam-trap words (\"always\", \"never\", \"only\"...) or very similar options, to train your attention.",
+    "special.trapMeta": "{n} question{s} detected",
+    "special.trapStart": "Start ↗",
+    "special.noErrorsAlert": "You have no pending questions in the error log.",
+    "special.notEnoughMcAlert": "There aren't enough single/multiple-choice questions to generate this mode.",
+    "special.noTrapAlert": "No trap questions were detected in the current bank.",
+    "tfmassive.template": "True or false: \"{opt}\" is a correct answer for — {q}",
+    "tfmassive.correctExp": "This option is indeed a correct answer to the original question.",
+    "tfmassive.incorrectExp": "This option is not a correct answer to the original question.",
+    "loop.header": "Continuous-failure loop · {n} active questions left",
+    "loop.streak": "Streak: {n}/3",
+    "loop.confirmAbandon": "Are you sure you want to abandon the loop? Streak progress already made is kept.",
+    "loop.completedTitle": "Continuous-failure loop completed",
+    "loop.completedDesc": "You've mastered every active question (3 correct answers in a row each)",
+    "loop.backToSpecial": "Back to special modes",
+    "custom.title": "Custom questions",
+    "custom.subtitle": "Add custom questions that are automatically included in topic tests, general tests, and the final test. {n} custom question{s}.",
+    "custom.newQuestion": "+ New question",
+    "custom.added": "Added questions",
+    "custom.noneYet": "You haven't added any custom questions yet.",
+    "custom.delete": "Delete",
+    "custom.topicLabel": "Topic",
+    "custom.typeLabel": "Question type",
+    "custom.questionLabel": "Question text",
+    "custom.questionPlaceholder": "Write the question...",
+    "custom.optionsLabelMulti": "Options (mark all correct ones)",
+    "custom.optionsLabelSingle": "Options (mark the correct one)",
+    "custom.optionPlaceholder": "Text for option {letter}",
+    "custom.explanationPlaceholder": "Explanation for this option",
+    "custom.addOption": "+ Add option",
+    "custom.trapLabel": "Exam note (common trap)",
+    "custom.trapPlaceholder": "E.g.: don't confuse X with Y...",
+    "custom.cancel": "Cancel",
+    "custom.save": "Save question",
+    "custom.confirmDelete": "Delete this custom question? This action cannot be undone.",
+    "custom.alertNoQuestion": "Write the question text.",
+    "custom.alertOptionsText": "Every option must have text.",
+    "custom.alertExplanations": "An explanation is required for every option.",
+    "custom.alertTrap": "You must add an exam note (common trap).",
+    "custom.alertOneCorrectMulti": "Mark at least one correct option.",
+    "custom.alertExactlyOneCorrect": "Mark exactly one correct option.",
+    "stats.title": "History & statistics",
+    "stats.testsRegistered": "{n} tests recorded on this computer",
+    "stats.tabSummary": "Summary & evolution",
+    "stats.tabErrors": "Error history ({n})",
+    "stats.all": "All",
+    "stats.allTopics": "All topics",
+    "stats.tests": "Tests",
+    "stats.avg": "Average",
+    "stats.questionsAnswered": "Questions answered",
+    "stats.timeSpent": "Time spent",
+    "stats.currentStreak": "Current streak (≥80%)",
+    "stats.testsInARow": "tests in a row",
+    "stats.strongestTopic": "Strongest topic",
+    "stats.topicToImprove": "Topic to reinforce",
+    "stats.predictedGrade": "Predicted grade (global)",
+    "stats.needMoreTests": "take a test first",
+    "stats.aboveThreshold": "above the ",
+    "stats.belowThreshold": "below the ",
+    "stats.passThreshold": "passing threshold ({n}%)",
+    "stats.heatmap": "Knowledge heatmap",
+    "stats.evolution": "Performance over time",
+    "stats.needTwoTests": "Take at least 2 tests to see the evolution curve.",
+    "stats.accuracyByType": "Accuracy by question type",
+    "stats.noData": "no data",
+    "stats.performanceByTestType": "Performance by test type",
+    "stats.test": "test",
+    "stats.testsPlural": "tests",
+    "stats.progressByTopic": "Progress by topic",
+    "stats.noDataYet": "Not enough data yet. Take a test!",
+    "stats.noMatchFilters": "No tests match these filters. Try widening them or take a new test.",
+    "stats.detailedHistory": "Detailed history",
+    "stats.date": "Date",
+    "stats.testCol": "Test",
+    "stats.score": "Score",
+    "stats.percent": "%",
+    "stats.duration": "Duration",
+    "stats.noHistoryYet": "No history yet.",
+    "stats.clearHistory": "Clear history",
+    "stats.confirmClearHistory": "Clear the entire test history? This action cannot be undone.",
+    "stats.timedOutSuffix": " · timed out",
+    "errors.active": "Active",
+    "errors.mastered": "Mastered",
+    "errors.all": "All",
+    "errors.masteredLabel": "Mastered",
+    "errors.streakLabel": "Streak {n}/3",
+    "errors.failedCount": "{n} failure{s}",
+    "errors.noneInCategory": "No questions in this category.",
+    "errors.clear": "Clear error log",
+    "errors.confirmClear": "Clear the entire error log? Mastery streak progress will be lost.",
+    "mode.topic": "Test by topic",
+    "mode.general": "General test",
+    "mode.final": "Final test",
+    "mode.redemption": "Redemption test",
+    "mode.tfmassive": "Mass T/F",
+    "mode.trap": "Trap questions",
+    "days.all": "All",
+    "days.7": "7 days",
+    "days.30": "30 days",
+    "days.90": "90 days",
+    "info.title": "About the app",
+    "info.subtitle": "Everything you can do with the PSPO I Trainer",
+    "info.html": `
+      <h3>Theory</h3>
+      <p>Review the theory for each topic (based on the November 2020 Scrum Guide) before taking its test.</p>
+      <h3>Standard tests</h3>
+      <ul>
+        <li><b>Test by topic:</b> choose a topic and how many questions of each type you want to practice.</li>
+        <li><b>General test:</b> questions from every topic, mixed together.</li>
+        <li><b>Final test (exam):</b> a full simulation with a fixed timer, just like the real exam ({examQ} questions / 60 min).</li>
+      </ul>
+      <h3>Special modes</h3>
+      <ul>
+        <li><b>Continuous-failure loop:</b> repeats only the questions you've missed, on a loop, until you get each one right 3 times in a row.</li>
+        <li><b>Redemption test:</b> a normal, one-pass test with every question pending in your error log.</li>
+        <li><b>Mass True/False:</b> turns each option of single/multiple-choice questions into an independent True/False item.</li>
+        <li><b>Trap questions:</b> groups questions with typical exam-trap words or patterns ("always", "never", "only"...).</li>
+      </ul>
+      <h3>During the test</h3>
+      <ul>
+        <li><b>Listen:</b> text-to-speech reading of the question and its options.</li>
+        <li><b>Mark for review (Extreme Doubt):</b> flag questions you got right by pure luck, to review at the end of the test.</li>
+      </ul>
+      <h3>Custom questions</h3>
+      <p>Create your own questions (single choice, multiple choice, or True/False) with an explanation per option and an exam note. They're automatically included in the topic test, general test, and final test.</p>
+      <h3>History & statistics</h3>
+      <ul>
+        <li>Global summary, performance over time, accuracy by question type, and performance by test type.</li>
+        <li><b>Knowledge heatmap:</b> a quick view of which topics you've mastered and which need review.</li>
+        <li><b>Grade prediction:</b> an estimate of the score you'd get on the real exam, based on your current progress.</li>
+        <li><b>Error history:</b> every question you've missed, with its consecutive-correct streak.</li>
+        <li>Combinable filters by test type, topic, and day range.</li>
+      </ul>
+      <h3>Other</h3>
+      <ul>
+        <li><b>Light / dark mode</b> switchable from the sidebar.</li>
+        <li><b>Language (ES/EN)</b> switchable from the sidebar.</li>
+        <li><b>Pomodoro:</b> a study timer ({focusMin} min focus / {breakMin} min break) built into the sidebar.</li>
+      </ul>
+    `
+  }
+};
+
+function loadLang(){
+  try{ return localStorage.getItem(LANG_KEY) || "es"; }catch(e){ return "es"; }
+}
+let currentLang = loadLang();
+document.documentElement.lang = currentLang;
+function t(key, vars){
+  let str = (STRINGS[currentLang] && STRINGS[currentLang][key]) || STRINGS.es[key] || key;
+  if(vars) Object.keys(vars).forEach(k=>{ str = str.split("{"+k+"}").join(vars[k]); });
+  return str;
+}
+function toggleLang(){
+  currentLang = currentLang==="es" ? "en" : "es";
+  try{ localStorage.setItem(LANG_KEY, currentLang); }catch(e){}
+  document.documentElement.lang = currentLang;
+  render();
+}
 
 // ---------------- ERROR LOG ----------------
 function simpleHash(str){
@@ -74,12 +594,12 @@ function buildTfMassivePool(count, topicId){
       const isCorrectOpt = correctSet.includes(i);
       items.push({
         type:"tf",
-        q: `Vertader o fals: "${opt}" és una resposta correcta per a — ${q.q}`,
+        q: t("tfmassive.template",{opt, q:q.q}),
         opts: ["Vertader","Fals"],
         correct: [isCorrectOpt?0:1],
         exp: [
-          isCorrectOpt ? (q.exp[i]||"Correcte.") : "Aquesta opció no és una resposta correcta a la pregunta original.",
-          !isCorrectOpt ? (q.exp[i]||"Incorrecte.") : "Aquesta opció sí és una resposta correcta a la pregunta original."
+          isCorrectOpt ? (q.exp[i]||t("quiz.correct")) : t("tfmassive.incorrectExp"),
+          !isCorrectOpt ? (q.exp[i]||t("quiz.incorrect")) : t("tfmassive.correctExp")
         ],
         trap: q.trap, topicId: q.topicId, topicName: q.topicName
       });
@@ -90,25 +610,25 @@ function buildTfMassivePool(count, topicId){
 
 function startRedemptionMode(){
   const pool = activeErrors().map(e=>({type:e.type, q:e.q, opts:e.opts, exp:e.exp, correct:e.correct, trap:e.trap, topicId:e.topicId, topicName:e.topicName}));
-  if(!pool.length){ alert("No tens preguntes pendents al registre d'errors."); return; }
+  if(!pool.length){ alert(t("special.noErrorsAlert")); return; }
   const questions = shuffle(pool).map(prepareQuestion);
-  startQuiz(questions, {mode:"redemption", label:"Test de redempció"}, null);
+  startQuiz(questions, {mode:"redemption", label:t("mode.redemption")}, null);
 }
 
 function startTfMassiveMode(){
   const countInput = document.getElementById("tfmassive-count");
   const count = countInput ? (parseInt(countInput.value,10)||20) : 20;
   const items = buildTfMassivePool(count, "all");
-  if(!items.length){ alert("No hi ha prou preguntes d'opció única/múltiple per generar aquest mode."); return; }
+  if(!items.length){ alert(t("special.notEnoughMcAlert")); return; }
   const questions = items.map(prepareQuestion);
-  startQuiz(questions, {mode:"tfmassive", label:"Vertader/Fals massiu"}, null);
+  startQuiz(questions, {mode:"tfmassive", label:t("mode.tfmassive")}, null);
 }
 
 function startTrapMode(){
   const pool = detectTrapQuestions(getAllQuestionsPool());
-  if(!pool.length){ alert("No s'han detectat preguntes trampa al banc actual."); return; }
+  if(!pool.length){ alert(t("special.noTrapAlert")); return; }
   const questions = shuffle(pool).map(prepareQuestion);
-  startQuiz(questions, {mode:"trap", label:"Preguntes trampa"}, null);
+  startQuiz(questions, {mode:"trap", label:t("mode.trap")}, null);
 }
 
 function renderSpecialModes(){
@@ -116,41 +636,42 @@ function renderSpecialModes(){
   const mcPool = getAllQuestionsPool().filter(q=>q.type!=="tf");
   const tfMax = mcPool.reduce((s,q)=>s+q.opts.length,0);
   const trapPool = detectTrapQuestions(getAllQuestionsPool());
+  const es = n => n===1?"":"s";
 
   return `
-    <h1>Modes especials</h1>
-    <p class="subtitle">Estratègies de repàs pensades per reforçar exactament el que et falta.</p>
+    <h1>${t("special.title")}</h1>
+    <p class="subtitle">${t("special.subtitle")}</p>
     <div class="special-grid">
       <div class="special-card">
-        <h3>Bucle de fallada contínua</h3>
-        <p>Repeteix només les preguntes que has fallat, en bucle, fins que les encertis 3 vegades seguides.</p>
-        <div class="special-meta">${activeErr.length} pregunta${activeErr.length===1?"":"es"} activa${activeErr.length===1?"":"es"} al registre d'errors</div>
-        <button class="btn amber" data-action="start-loop-mode" ${activeErr.length===0?"disabled":""}>Començar bucle ↗</button>
+        <h3>${t("special.loopTitle")}</h3>
+        <p>${t("special.loopDesc")}</p>
+        <div class="special-meta">${t("special.loopMeta",{n:activeErr.length, s:es(activeErr.length)})}</div>
+        <button class="btn amber" data-action="start-loop-mode" ${activeErr.length===0?"disabled":""}>${t("special.loopStart")}</button>
       </div>
 
       <div class="special-card">
-        <h3>Test de redempció</h3>
-        <p>Un test normal, d'una sola volta, amb totes les preguntes que actualment tens pendents al registre d'errors.</p>
-        <div class="special-meta">${activeErr.length} pregunta${activeErr.length===1?"":"es"} disponible${activeErr.length===1?"":"s"}</div>
-        <button class="btn amber" data-action="start-redemption-mode" ${activeErr.length===0?"disabled":""}>Començar redempció ↗</button>
+        <h3>${t("special.redemptionTitle")}</h3>
+        <p>${t("special.redemptionDesc")}</p>
+        <div class="special-meta">${t("special.redemptionMeta",{n:activeErr.length, s:es(activeErr.length)})}</div>
+        <button class="btn amber" data-action="start-redemption-mode" ${activeErr.length===0?"disabled":""}>${t("special.redemptionStart")}</button>
       </div>
 
       <div class="special-card">
-        <h3>Vertader / Fals massiu</h3>
-        <p>Transforma cada opció de les preguntes d'opció única i múltiple en una pregunta independent de Vertader/Fals. Processa el triple de conceptes en menys temps.</p>
-        <div class="special-meta">${mcPool.length} preguntes base · fins a ${tfMax} ítems V/F possibles</div>
+        <h3>${t("special.tfTitle")}</h3>
+        <p>${t("special.tfDesc")}</p>
+        <div class="special-meta">${t("special.tfMeta",{n:mcPool.length, m:tfMax})}</div>
         <div class="config-row">
-          <label>Nombre d'ítems</label>
+          <label>${t("special.tfCountLabel")}</label>
           <input type="number" min="5" max="${Math.max(tfMax,5)}" value="${Math.min(20,tfMax)||5}" id="tfmassive-count"/>
         </div>
-        <button class="btn amber" data-action="start-tfmassive-mode" ${tfMax===0?"disabled":""}>Començar ↗</button>
+        <button class="btn amber" data-action="start-tfmassive-mode" ${tfMax===0?"disabled":""}>${t("special.tfStart")}</button>
       </div>
 
       <div class="special-card">
-        <h3>Preguntes trampa</h3>
-        <p>Agrupa preguntes amb paraules típiques de trampa d'examen ("sempre", "mai", "únicament"...) o opcions molt semblants, per entrenar l'atenció.</p>
-        <div class="special-meta">${trapPool.length} pregunta${trapPool.length===1?"":"es"} detectada${trapPool.length===1?"":"es"}</div>
-        <button class="btn amber" data-action="start-trap-mode" ${trapPool.length===0?"disabled":""}>Començar ↗</button>
+        <h3>${t("special.trapTitle")}</h3>
+        <p>${t("special.trapDesc")}</p>
+        <div class="special-meta">${t("special.trapMeta",{n:trapPool.length, s:es(trapPool.length)})}</div>
+        <button class="btn amber" data-action="start-trap-mode" ${trapPool.length===0?"disabled":""}>${t("special.trapStart")}</button>
       </div>
     </div>
   `;
@@ -183,7 +704,7 @@ function advanceLoop(){
 
 function startLoopMode(){
   const active = activeErrors();
-  if(!active.length){ alert("No tens preguntes pendents al registre d'errors."); return; }
+  if(!active.length){ alert(t("special.noErrorsAlert")); return; }
   if(window.speechSynthesis) window.speechSynthesis.cancel();
   loopQuiz = {
     queue: shuffle(active.map(e=>e.uid)),
@@ -242,32 +763,32 @@ function renderLoopQuiz(){
     }
     return `<button class="${cls}" data-loop-pick="${i}" ${loopQuiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}</button>`;
   }).join("");
-  let hint = q.type==="multi" ? '<div class="hint">Selecciona totes les que corresponguin</div>' : "";
+  let hint = q.type==="multi" ? `<div class="hint">${t("quiz.selectAll")}</div>` : "";
   let feedbackHtml = "";
   if(loopQuiz.locked){
     feedbackHtml = `<div class="feedback ${loopQuiz.lastResult?'ok':'bad'}">
-      <strong>${loopQuiz.lastResult?"Correcte.":"Incorrecte."}</strong>
+      <strong>${loopQuiz.lastResult?t("quiz.correct"):t("quiz.incorrect")}</strong>
       <ul class="explist">${q.exp.map((e,i)=>`<li><b>${String.fromCharCode(65+i)}.</b> ${e}</li>`).join("")}</ul>
-      <span class="trap">Nota d'examen: ${q.trap}</span>
+      <span class="trap">${t("quiz.examNote")} ${q.trap}</span>
     </div>`;
   }
   return `
     <div class="topbar-quiz">
-      <span>Bucle de fallada contínua · queden ${loopQuiz.queue.length} preguntes actives</span>
-      <span class="timer">Ratxa: ${entry?entry.streak:0}/3</span>
+      <span>${t("loop.header",{n:loopQuiz.queue.length})}</span>
+      <span class="timer">${t("loop.streak",{n:entry?entry.streak:0})}</span>
     </div>
     <div class="card">
-      <span class="block-tag">${q.type==="multi"?"Resposta múltiple":q.type==="tf"?"Vertader / Fals":"Opció única"} · ${q.topicName}</span>
+      <span class="block-tag">${q.type==="multi"?t("typeLabel.multi"):q.type==="tf"?t("typeLabel.tf"):t("typeLabel.single")} · ${q.topicName}</span>
       <div class="quiz-toolbar">
-        <button type="button" class="icon-btn" data-action="speak-loop-question" title="Escolta la pregunta">${ICON_SPEAKER}Escolta</button>
+        <button type="button" class="icon-btn" data-action="speak-loop-question" title="${t('quiz.listenTitle')}">${ICON_SPEAKER}${t("quiz.listen")}</button>
       </div>
       <p class="qtext">${q.q}</p>
       ${hint}
       ${optsHtml}
       ${feedbackHtml}
       <div class="actions">
-        <button class="btn secondary" data-action="quit-loop">Abandonar</button>
-        <button class="btn" id="btn-loop-next" ${(!loopQuiz.locked && loopQuiz.selected.length===0)?"disabled":""}>${loopQuiz.locked?"Següent":"Comprovar"}</button>
+        <button class="btn secondary" data-action="quit-loop">${t("quiz.abandon")}</button>
+        <button class="btn" id="btn-loop-next" ${(!loopQuiz.locked && loopQuiz.selected.length===0)?"disabled":""}>${loopQuiz.locked?t("quiz.next"):t("quiz.check")}</button>
       </div>
     </div>
   `;
@@ -276,12 +797,12 @@ function renderLoopQuiz(){
 function renderLoopScore(){
   return `
     <div class="score-screen">
-      <div class="score-lbl">Bucle de fallada contínua completat</div>
+      <div class="score-lbl">${t("loop.completedTitle")}</div>
       <div class="score-num">✓</div>
-      <div class="score-lbl">Has dominat totes les preguntes actives (3 encerts seguits cadascuna)</div>
+      <div class="score-lbl">${t("loop.completedDesc")}</div>
       <div style="display:flex; gap:10px; justify-content:center; margin-top:18px;">
-        <button class="btn secondary" data-nav="dashboard">Tornar a l'inici</button>
-        <button class="btn amber" data-nav="special-modes">Tornar als modes especials</button>
+        <button class="btn secondary" data-nav="dashboard">${t("score.backHome")}</button>
+        <button class="btn amber" data-nav="special-modes">${t("loop.backToSpecial")}</button>
       </div>
     </div>
   `;
@@ -476,33 +997,37 @@ function render(){
     <div class="sidebar">
       <div class="brand">
         <img src="logo.svg" alt="logo"/>
-        <div class="name"><b>PSPO I</b>Entrenador d'examen</div>
+        <div class="name"><b>PSPO I</b>${t("brand.subtitle")}</div>
       </div>
-      ${navItem("dashboard","Inici")}
-      ${navItem("theory-list","Temari per temes")}
-      ${navItem("test-topic-config","Test per tema")}
+      ${navItem("dashboard",t("nav.dashboard"))}
+      ${navItem("theory-list",t("nav.theoryList"))}
+      ${navItem("test-topic-config",t("nav.topicTest"))}
       <div class="nav-sep"></div>
-      ${navItem("test-general-config","Test general")}
-      ${navItem("test-final-config","Test final (examen)")}
-      ${navItem("special-modes","Modes especials")}
+      ${navItem("test-general-config",t("nav.generalTest"))}
+      ${navItem("test-final-config",t("nav.finalTest"))}
+      ${navItem("special-modes",t("nav.specialModes"))}
       <div class="nav-sep"></div>
-      ${navItem("custom-questions","Preguntes pròpies")}
+      ${navItem("custom-questions",t("nav.customQuestions"))}
       <div class="nav-sep"></div>
-      ${navItem("stats","Historial i estadístiques")}
+      ${navItem("stats",t("nav.stats"))}
       <div class="nav-sep"></div>
-      ${navItem("info","Sobre l'app")}
+      ${navItem("info",t("nav.info"))}
       <div class="sidebar-bottom">
         <div class="pomodoro-widget">
-          <div class="pomo-label">${pomodoro.phase==="focus"?"Enfocament":"Descans"}</div>
+          <div class="pomo-label">${pomodoro.phase==="focus"?t("pomo.focus"):t("pomo.break")}</div>
           <div class="pomo-time" id="pomodoro-time">${fmtTime(pomodoro.secondsLeft)}</div>
           <div class="pomo-controls">
-            <button type="button" class="icon-btn" data-action="pomodoro-toggle">${pomodoro.running?"Pausa":"Inicia"}</button>
-            <button type="button" class="icon-btn" data-action="pomodoro-reset" title="Reinicia">↺</button>
+            <button type="button" class="icon-btn" data-action="pomodoro-toggle">${pomodoro.running?t("pomo.pause"):t("pomo.start")}</button>
+            <button type="button" class="icon-btn" data-action="pomodoro-reset" title="${t('pomo.resetTitle')}">↺</button>
           </div>
         </div>
-        <div class="theme-toggle" data-action="toggle-theme" title="Canvia el tema">
+        <div class="theme-toggle" data-action="toggle-lang" title="${t('lang.switchTitle')}">
+          ${ICON_LANG}
+          <span>${currentLang==="es" ? t("lang.toEnglish") : t("lang.toSpanish")}</span>
+        </div>
+        <div class="theme-toggle" data-action="toggle-theme" title="${t('theme.switchTitle')}">
           ${currentTheme==="dark" ? ICON_SUN : ICON_MOON}
-          <span>${currentTheme==="dark" ? "Mode clar" : "Mode fosc"}</span>
+          <span>${currentTheme==="dark" ? t("theme.toLight") : t("theme.toDark")}</span>
         </div>
       </div>
     </div>
@@ -516,7 +1041,7 @@ const ICON_SPEAKER = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none
 const ICON_FLAG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2.5h8v11l-4-2.6-4 2.6Z"/></svg>';
 
 function speakQuestion(){
-  if(!('speechSynthesis' in window)){ alert("Aquest entorn no admet la lectura en veu alta."); return; }
+  if(!('speechSynthesis' in window)){ alert(t("quiz.ttsUnsupported")); return; }
   const q = quiz.questions[quiz.idx];
   const parts = [q.q];
   q.opts.forEach((o,i)=> parts.push(`Opció ${String.fromCharCode(65+i)}: ${o}`));
@@ -533,6 +1058,7 @@ function toggleFlag(){
   render();
 }
 
+const ICON_LANG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5.5"/><path d="M2.5 8h11"/><path d="M8 2.5c1.7 1.6 1.7 9.4 0 11M8 2.5c-1.7 1.6-1.7 9.4 0 11"/></svg>';
 const ICON_SUN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.7M8 12.8v1.7M1.5 8h1.7M12.8 8h1.7M3.6 3.6l1.2 1.2M11.2 11.2l1.2 1.2M3.6 12.4l1.2-1.2M11.2 4.8l1.2-1.2"/></svg>';
 const ICON_MOON = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8Z"/></svg>';
 
@@ -587,26 +1113,26 @@ function renderDashboard(){
   });
 
   return `
-    <h1>Benvingut/a de nou</h1>
-    <p class="subtitle">Preparació per al PSPO I — Scrum Guide 2020</p>
+    <h1>${t("dashboard.welcome")}</h1>
+    <p class="subtitle">${t("dashboard.subtitle")}</p>
     <div class="grid">
-      <div class="stat-card"><div class="lbl">Tests realitzats</div><div class="val">${totalTests}</div></div>
-      <div class="stat-card"><div class="lbl">Mitjana global</div><div class="val">${avgPct===null?"—":avgPct+"%"}</div></div>
-      <div class="stat-card"><div class="lbl">Banc de preguntes</div><div class="val">${getAllQuestionsPool().length}</div></div>
-      <div class="stat-card"><div class="lbl">Tema més fluix</div><div class="val" style="font-size:16px; color:${weakest?'var(--red-line)':'var(--text-mute)'}">${weakest ? weakest.name : "encara no prou dades"}</div></div>
+      <div class="stat-card"><div class="lbl">${t("dashboard.testsCompleted")}</div><div class="val">${totalTests}</div></div>
+      <div class="stat-card"><div class="lbl">${t("dashboard.globalAvg")}</div><div class="val">${avgPct===null?"—":avgPct+"%"}</div></div>
+      <div class="stat-card"><div class="lbl">${t("dashboard.questionBank")}</div><div class="val">${getAllQuestionsPool().length}</div></div>
+      <div class="stat-card"><div class="lbl">${t("dashboard.weakestTopic")}</div><div class="val" style="font-size:16px; color:${weakest?'var(--red-line)':'var(--text-mute)'}">${weakest ? weakest.name : t("dashboard.notEnoughData")}</div></div>
     </div>
     <div style="display:flex; gap:12px; margin-bottom:30px;">
-      <button class="btn amber" data-nav="test-general-config">Fer un test general ↗</button>
-      <button class="btn secondary" data-nav="test-final-config">Simular examen complet ↗</button>
+      <button class="btn amber" data-nav="test-general-config">${t("dashboard.startGeneral")}</button>
+      <button class="btn secondary" data-nav="test-final-config">${t("dashboard.startFinal")}</button>
     </div>
-    <h1 style="font-size:18px;">Progrés per tema</h1>
+    <h1 style="font-size:18px;">${t("dashboard.progressByTopic")}</h1>
     <div class="card-list">
-      ${TOPICS.map(t=>{
-        const d = byTopic[t.id] || {ok:0, total:0};
+      ${TOPICS.map(t2=>{
+        const d = byTopic[t2.id] || {ok:0, total:0};
         const pct = d.total ? Math.round(100*d.ok/d.total) : 0;
-        return `<div class="topic-card" data-nav="theory-detail" data-topic="${t.id}">
-          <h3>${t.name}</h3>
-          <div class="meta">${topicQuestionCount(t.id)} preguntes al banc · ${d.total ? pct+"% encert" : "sense intents"}</div>
+        return `<div class="topic-card" data-nav="theory-detail" data-topic="${t2.id}">
+          <h3>${t2.name}</h3>
+          <div class="meta">${topicQuestionCount(t2.id)} ${t("dashboard.questionsInBank")} · ${d.total ? pct+t("dashboard.correctPct") : t("dashboard.noAttempts")}</div>
           <div class="bar-bg"><div class="bar-fill" style="width:${pct}%; background:${pctColor(pct)}"></div></div>
         </div>`;
       }).join("")}
@@ -629,25 +1155,25 @@ function aggregateByTopic(hist){
 // ---------------- THEORY ----------------
 function renderTheoryList(){
   return `
-    <h1>Temari</h1>
-    <p class="subtitle">Repassa cada bloc abans de fer el test corresponent</p>
+    <h1>${t("theory.title")}</h1>
+    <p class="subtitle">${t("theory.subtitle")}</p>
     <div class="card-list">
-      ${TOPICS.map(t=>`<div class="topic-card" data-nav="theory-detail" data-topic="${t.id}">
-        <h3>${t.name}</h3>
-        <div class="meta">${topicQuestionCount(t.id)} preguntes de pràctica</div>
+      ${TOPICS.map(tp=>`<div class="topic-card" data-nav="theory-detail" data-topic="${tp.id}">
+        <h3>${tp.name}</h3>
+        <div class="meta">${topicQuestionCount(tp.id)} ${t("theory.practiceQuestions")}</div>
       </div>`).join("")}
     </div>
   `;
 }
 
 function renderTheoryDetail(topicId){
-  const t = TOPICS.find(x=>x.id===topicId) || TOPICS[0];
+  const tp = TOPICS.find(x=>x.id===topicId) || TOPICS[0];
   return `
-    <button class="btn secondary small" data-nav="theory-list" style="margin-bottom:16px;">← Tots els temes</button>
-    <h1>${t.name}</h1>
-    <div class="theory-box">${t.theory}</div>
+    <button class="btn secondary small" data-nav="theory-list" style="margin-bottom:16px;">${t("theory.backToTopics")}</button>
+    <h1>${tp.name}</h1>
+    <div class="theory-box">${tp.theory}</div>
     <div style="margin-top:20px;">
-      <button class="btn amber" data-action="start-topic-test" data-topic="${t.id}">Fer test d'aquest tema ↗</button>
+      <button class="btn amber" data-action="start-topic-test" data-topic="${tp.id}">${t("theory.startTopicTest")}</button>
     </div>
   `;
 }
@@ -658,27 +1184,27 @@ function renderTopicConfig(){
   const topic = TOPICS.find(t=>t.id===topicId);
   const counts = countsByType(getTopicPool(topicId));
   return `
-    <h1>Test per tema</h1>
-    <p class="subtitle">Tria el tema i quantes preguntes de cada tipus vols practicar</p>
+    <h1>${t("topicConfig.title")}</h1>
+    <p class="subtitle">${t("topicConfig.subtitle")}</p>
     <div class="config-row">
-      <label>Tema</label>
+      <label>${t("topicConfig.topicLabel")}</label>
       <select id="cfg-topic">
-        ${TOPICS.map(t=>`<option value="${t.id}" ${t.id===topicId?"selected":""}>${t.name}</option>`).join("")}
+        ${TOPICS.map(tp=>`<option value="${tp.id}" ${tp.id===topicId?"selected":""}>${tp.name}</option>`).join("")}
       </select>
     </div>
     <div class="config-box">
-      ${typeRow("single","Opció única", counts.single)}
-      ${typeRow("multi","Resposta múltiple", counts.multi)}
-      ${typeRow("tf","Vertader / Fals", counts.tf)}
+      ${typeRow("single",t("typeLabel.single"), counts.single)}
+      ${typeRow("multi",t("typeLabel.multi"), counts.multi)}
+      ${typeRow("tf",t("typeLabel.tf"), counts.tf)}
       <div class="config-row">
-        <label>Ordre aleatori i preguntes diferents cada vegada</label>
-        <span class="max">sempre actiu</span>
+        <label>${t("topicConfig.randomOrder")}</label>
+        <span class="max">${t("topicConfig.alwaysOn")}</span>
       </div>
       <div class="config-row">
-        <label>Temporitzador (relatiu a 60 min / 80 preguntes)</label>
+        <label>${t("topicConfig.timer")}</label>
         <input type="checkbox" id="cfg-timer"/>
       </div>
-      <button class="btn amber" id="btn-start-topic" style="width:100%; margin-top:8px;">Començar test ↗</button>
+      <button class="btn amber" id="btn-start-topic" style="width:100%; margin-top:8px;">${t("action.startTest")}</button>
     </div>
   `;
 }
@@ -687,7 +1213,7 @@ function typeRow(key, label, max){
   const def = Math.min(max, key==="tf"?6:8);
   return `<div class="config-row">
     <label>${label}</label>
-    <span class="max">màx. ${max}</span>
+    <span class="max">${t("topicConfig.max")} ${max}</span>
     <input type="number" min="0" max="${max}" value="${def}" data-count="${key}" id="cnt-${key}"/>
   </div>`;
 }
@@ -697,17 +1223,17 @@ function renderGeneralConfig(){
   const pool = getAllQuestionsPool();
   const counts = countsByType(pool);
   return `
-    <h1>Test general</h1>
-    <p class="subtitle">Preguntes de tots els temes barrejades. Tria quantes vols de cada tipus (fins al màxim disponible: ${pool.length}).</p>
+    <h1>${t("generalConfig.title")}</h1>
+    <p class="subtitle">${t("generalConfig.subtitle",{n:pool.length})}</p>
     <div class="config-box">
-      ${typeRow("single","Opció única", counts.single)}
-      ${typeRow("multi","Resposta múltiple", counts.multi)}
-      ${typeRow("tf","Vertader / Fals", counts.tf)}
+      ${typeRow("single",t("typeLabel.single"), counts.single)}
+      ${typeRow("multi",t("typeLabel.multi"), counts.multi)}
+      ${typeRow("tf",t("typeLabel.tf"), counts.tf)}
       <div class="config-row">
-        <label>Temporitzador (relatiu a 60 min / 80 preguntes)</label>
+        <label>${t("topicConfig.timer")}</label>
         <input type="checkbox" id="cfg-timer"/>
       </div>
-      <button class="btn amber" id="btn-start-general" style="width:100%; margin-top:8px;">Començar test ↗</button>
+      <button class="btn amber" id="btn-start-general" style="width:100%; margin-top:8px;">${t("action.startTest")}</button>
     </div>
   `;
 }
@@ -719,13 +1245,13 @@ function renderFinalConfig(){
   const secs = Math.round(EXAM_TOTAL_SEC * n / EXAM_TOTAL_Q);
   const mins = Math.round(secs/60);
   return `
-    <h1>Test final — simulació d'examen</h1>
-    <p class="subtitle">Barreja tots els temes i tots els tipus de pregunta, amb temporitzador fix, tal com l'examen real (${EXAM_TOTAL_Q} preguntes / 60 min).</p>
+    <h1>${t("finalConfig.title")}</h1>
+    <p class="subtitle">${t("finalConfig.subtitle",{n:EXAM_TOTAL_Q})}</p>
     <div class="config-box">
-      <div class="config-row"><label>Preguntes d'aquest test</label><span class="max">${n} de ${pool.length} disponibles</span></div>
-      <div class="config-row"><label>Temps disponible</label><span class="max">${mins} min (proporcional si hi ha menys de ${EXAM_TOTAL_Q})</span></div>
-      <div class="config-row"><label>Ordre</label><span class="max">totalment aleatori, diferent cada vegada</span></div>
-      <button class="btn amber" id="btn-start-final" style="width:100%; margin-top:8px;">Començar examen ↗</button>
+      <div class="config-row"><label>${t("finalConfig.questionsInTest")}</label><span class="max">${t("finalConfig.available",{n,total:pool.length})}</span></div>
+      <div class="config-row"><label>${t("finalConfig.timeAvailable")}</label><span class="max">${t("finalConfig.proportional",{mins,n:EXAM_TOTAL_Q})}</span></div>
+      <div class="config-row"><label>${t("finalConfig.order")}</label><span class="max">${t("finalConfig.randomOrder")}</span></div>
+      <button class="btn amber" id="btn-start-final" style="width:100%; margin-top:8px;">${t("finalConfig.startExam")}</button>
     </div>
   `;
 }
@@ -787,14 +1313,14 @@ function renderQuiz(){
     return `<button class="${cls}" data-pick="${i}" ${quiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}</button>`;
   }).join("");
 
-  let hint = q.type==="multi" ? '<div class="hint">Selecciona totes les que corresponguin</div>' : "";
+  let hint = q.type==="multi" ? `<div class="hint">${t("quiz.selectAll")}</div>` : "";
   let feedbackHtml = "";
   if(quiz.locked){
     const isRight = quiz.results[quiz.idx];
     feedbackHtml = `<div class="feedback ${isRight?'ok':'bad'}">
-      <strong>${isRight?"Correcte.":"Incorrecte."}</strong>
+      <strong>${isRight?t("quiz.correct"):t("quiz.incorrect")}</strong>
       <ul class="explist">${q.exp.map((e,i)=>`<li><b>${String.fromCharCode(65+i)}.</b> ${e}</li>`).join("")}</ul>
-      <span class="trap">Nota d'examen: ${q.trap}</span>
+      <span class="trap">${t("quiz.examNote")} ${q.trap}</span>
     </div>`;
   }
 
@@ -805,22 +1331,22 @@ function renderQuiz(){
   return `
     <div class="track">${dots}</div>
     <div class="topbar-quiz">
-      <span>Pregunta ${quiz.idx+1} / ${quiz.questions.length} — ${quiz.meta.label}</span>
+      <span>${t("quiz.questionOf",{i:quiz.idx+1,n:quiz.questions.length,label:quiz.meta.label})}</span>
       ${timerHtml}
     </div>
     <div class="card">
-      <span class="block-tag">${q.type==="multi"?"Resposta múltiple":q.type==="tf"?"Vertader / Fals":"Opció única"} · ${q.topicName}</span>
+      <span class="block-tag">${q.type==="multi"?t("typeLabel.multi"):q.type==="tf"?t("typeLabel.tf"):t("typeLabel.single")} · ${q.topicName}</span>
       <div class="quiz-toolbar">
-        <button type="button" class="icon-btn" data-action="speak-question" title="Escolta la pregunta">${ICON_SPEAKER}Escolta</button>
-        <button type="button" class="icon-btn ${isFlagged?'active':''}" data-action="toggle-flag" title="Marca per revisar (Dubte Extrem)">${ICON_FLAG}${isFlagged?"Marcada":"Marca per revisar"}</button>
+        <button type="button" class="icon-btn" data-action="speak-question" title="${t('quiz.listenTitle')}">${ICON_SPEAKER}${t("quiz.listen")}</button>
+        <button type="button" class="icon-btn ${isFlagged?'active':''}" data-action="toggle-flag" title="${t('quiz.markReviewTitle')}">${ICON_FLAG}${isFlagged?t("quiz.marked"):t("quiz.markReview")}</button>
       </div>
       <p class="qtext">${q.q}</p>
       ${hint}
       ${optsHtml}
       ${feedbackHtml}
       <div class="actions">
-        <button class="btn secondary" data-action="quit-quiz">Abandonar</button>
-        <button class="btn" id="btn-quiz-next" ${(!quiz.locked && quiz.selected.length===0)?"disabled":""}>${quiz.locked ? (isLast?"Veure resultat":"Següent") : "Comprovar"}</button>
+        <button class="btn secondary" data-action="quit-quiz">${t("quiz.abandon")}</button>
+        <button class="btn" id="btn-quiz-next" ${(!quiz.locked && quiz.selected.length===0)?"disabled":""}>${quiz.locked ? (isLast?t("quiz.viewResult"):t("quiz.next")) : t("quiz.check")}</button>
       </div>
     </div>
   `;
@@ -894,29 +1420,29 @@ function renderScore(){
   const flaggedIdxs = (quiz && quiz.flagged) || [];
   const flaggedHtml = flaggedIdxs.length ? `
     <div class="breakdown" style="margin-top:16px;">
-      <div class="brow"><b>Marcades per revisar (Dubte Extrem)</b><b></b></div>
+      <div class="brow"><b>${t("score.markedForReview")}</b><b></b></div>
       ${flaggedIdxs.map(i=>{
         const fq = quiz.questions[i];
         const ok = quiz.results[i];
-        return `<div class="brow"><span>${escapeHtml(fq.q)}</span><span${ok?'':' class="bad-block"'}>${ok?"Encertada":"Fallada"}</span></div>`;
+        return `<div class="brow"><span>${escapeHtml(fq.q)}</span><span${ok?'':' class="bad-block"'}>${ok?t("score.hit"):t("score.missed")}</span></div>`;
       }).join("")}
     </div>
   ` : "";
 
   return `
     <div class="score-screen">
-      <div class="score-lbl">${e.timedOut ? "Temps esgotat — " : ""}Resultat: ${e.label}</div>
+      <div class="score-lbl">${e.timedOut ? t("score.timeUp") : ""}${t("score.result",{label:e.label})}</div>
       <div class="score-num">${e.pct}%</div>
-      <div class="score-lbl">${e.correct} de ${e.total} correctes · ${mins} min ${secs}s</div>
+      <div class="score-lbl">${t("score.correctOf",{correct:e.correct,total:e.total,mins,secs})}</div>
       <div class="breakdown">
-        <div class="brow"><b>Tema</b><b>Encerts</b></div>
+        <div class="brow"><b>${t("score.topic")}</b><b>${t("score.hits")}</b></div>
         ${rows}
       </div>
       ${flaggedHtml}
-      ${weakNames.length ? `<p class="muted">Temes a repassar: ${weakNames.join(", ")}. Queden anotats a l'historial.</p>` : `<p class="muted">100% en tots els temes d'aquest test.</p>`}
+      ${weakNames.length ? `<p class="muted">${t("score.topicsToReview",{names:weakNames.join(", ")})}</p>` : `<p class="muted">${t("score.perfect")}</p>`}
       <div style="display:flex; gap:10px; justify-content:center; margin-top:18px;">
-        <button class="btn secondary" data-nav="dashboard">Tornar a l'inici</button>
-        <button class="btn amber" data-action="repeat-same-config">Repetir amb la mateixa configuració ↗</button>
+        <button class="btn secondary" data-nav="dashboard">${t("score.backHome")}</button>
+        <button class="btn amber" data-action="repeat-same-config">${t("score.repeat")}</button>
       </div>
     </div>
   `;
@@ -925,50 +1451,10 @@ function renderScore(){
 // ---------------- INFO ----------------
 function renderInfo(){
   return `
-    <h1>Sobre l'aplicació</h1>
-    <p class="subtitle">Tot el que pots fer amb l'Entrenador PSPO I</p>
+    <h1>${t("info.title")}</h1>
+    <p class="subtitle">${t("info.subtitle")}</p>
     <div class="theory-box">
-      <h3>Temari</h3>
-      <p>Repassa la teoria de cada tema (basada en la Scrum Guide novembre 2020) abans de fer-ne el test corresponent.</p>
-
-      <h3>Tests estàndard</h3>
-      <ul>
-        <li><b>Test per tema:</b> tria un tema i quantes preguntes de cada tipus vols practicar.</li>
-        <li><b>Test general:</b> preguntes de tots els temes barrejades.</li>
-        <li><b>Test final (examen):</b> simulació completa amb temporitzador fix, igual que l'examen real (${EXAM_TOTAL_Q} preguntes / 60 min).</li>
-      </ul>
-
-      <h3>Modes especials</h3>
-      <ul>
-        <li><b>Bucle de fallada contínua:</b> repeteix només les preguntes que has fallat, en bucle, fins a encertar-les 3 vegades seguides.</li>
-        <li><b>Test de redempció:</b> un test normal, d'una sola volta, amb totes les preguntes pendents del registre d'errors.</li>
-        <li><b>Vertader/Fals massiu:</b> converteix cada opció de les preguntes d'opció única i múltiple en un ítem independent de Vertader/Fals.</li>
-        <li><b>Preguntes trampa:</b> agrupa preguntes amb paraules o patrons típics de trampa d'examen ("sempre", "mai", "únicament"...).</li>
-      </ul>
-
-      <h3>Durant el test</h3>
-      <ul>
-        <li><b>Escolta:</b> lectura en veu alta de la pregunta i les opcions.</li>
-        <li><b>Marca per revisar (Dubte Extrem):</b> senyala preguntes que has encertat per pur atzar, per repassar-les al final del test.</li>
-      </ul>
-
-      <h3>Preguntes pròpies</h3>
-      <p>Crea preguntes personalitzades (opció única, múltiple o Vertader/Fals) amb explicació per opció i nota d'examen. S'integren automàticament al Test per tema, Test general i Test final.</p>
-
-      <h3>Historial i estadístiques</h3>
-      <ul>
-        <li>Resum global, evolució del rendiment, precisió per tipus de pregunta i rendiment per tipus de test.</li>
-        <li><b>Mapa de calor de coneixement:</b> visió ràpida de quins temes domines i quins necessites repassar.</li>
-        <li><b>Predicció de nota:</b> estimació de la nota que trauries a l'examen real, segons el teu progrés actual.</li>
-        <li><b>Historial d'errors:</b> totes les preguntes fallades, amb la seva ratxa d'encerts consecutius.</li>
-        <li>Filtres combinables per tipus de test, tema i rang de dies.</li>
-      </ul>
-
-      <h3>Altres</h3>
-      <ul>
-        <li><b>Mode clar / fosc</b> commutable des del sidebar.</li>
-        <li><b>Pomodoro:</b> temporitzador d'estudi (${pomodoro.focusMin} min d'enfocament / ${pomodoro.breakMin} min de descans) integrat al sidebar.</li>
-      </ul>
+      ${t("info.html",{examQ:EXAM_TOTAL_Q, focusMin:pomodoro.focusMin, breakMin:pomodoro.breakMin})}
     </div>
   `;
 }
@@ -981,23 +1467,23 @@ function defaultDraft(){
 function renderCustom(){
   const list = loadCustomQuestions().slice().sort((a,b)=>b.createdAt-a.createdAt);
   const rows = list.map(q=>{
-    const topic = TOPICS.find(t=>t.id===q.topicId);
+    const topic = TOPICS.find(tp=>tp.id===q.topicId);
     return `<div class="custom-row">
       <div class="custom-row-main">
-        <span class="custom-row-topic">${TYPE_LABELS[q.type]} · ${topic?topic.name:q.topicId}</span>
+        <span class="custom-row-topic">${typeLabel(q.type)} · ${topic?topic.name:q.topicId}</span>
         <p class="custom-row-q">${escapeHtml(q.q)}</p>
       </div>
-      <button class="btn secondary small" data-action="delete-custom" data-id="${q.id}">Elimina</button>
+      <button class="btn secondary small" data-action="delete-custom" data-id="${q.id}">${t("custom.delete")}</button>
     </div>`;
   }).join("");
 
   return `
-    <h1>Preguntes pròpies</h1>
-    <p class="subtitle">Afegeix preguntes personalitzades que s'integren automàticament als tests per tema, generals i a l'examen final. ${list.length} pregunta${list.length===1?"":"s"} pròpia${list.length===1?"":"es"}.</p>
-    ${customDraft ? renderCustomForm(customDraft) : `<button class="btn amber" data-action="new-custom">+ Nova pregunta</button>`}
-    <div class="section-title" style="margin-top:32px;">Preguntes afegides</div>
+    <h1>${t("custom.title")}</h1>
+    <p class="subtitle">${t("custom.subtitle",{n:list.length, s:list.length===1?"":"s"})}</p>
+    ${customDraft ? renderCustomForm(customDraft) : `<button class="btn amber" data-action="new-custom">${t("custom.newQuestion")}</button>`}
+    <div class="section-title" style="margin-top:32px;">${t("custom.added")}</div>
     <div class="custom-list">
-      ${rows || '<div class="empty-hint">Encara no has afegit cap pregunta pròpia.</div>'}
+      ${rows || `<div class="empty-hint">${t("custom.noneYet")}</div>`}
     </div>
   `;
 }
@@ -1011,9 +1497,9 @@ function renderCustomForm(d){
       <input type="${inputType}" name="custom-correct" data-correct-idx="${i}" ${checked?"checked":""}/>
       ${isTf
         ? `<span class="custom-opt-tf">${i===0?"Vertader":"Fals"}</span>`
-        : `<input type="text" class="custom-opt-text" placeholder="Text de l'opció ${String.fromCharCode(65+i)}" data-opt-idx="${i}" value="${escapeAttr(opt)}"/>`
+        : `<input type="text" class="custom-opt-text" placeholder="${t('custom.optionPlaceholder',{letter:String.fromCharCode(65+i)})}" data-opt-idx="${i}" value="${escapeAttr(opt)}"/>`
       }
-      <textarea class="custom-exp-text" placeholder="Explicació d'aquesta opció" data-exp-idx="${i}">${escapeHtml(d.exp[i]||"")}</textarea>
+      <textarea class="custom-exp-text" placeholder="${t('custom.explanationPlaceholder')}" data-exp-idx="${i}">${escapeHtml(d.exp[i]||"")}</textarea>
       ${!isTf && d.opts.length>2 ? `<button type="button" class="btn secondary small" data-action="remove-opt" data-idx="${i}">✕</button>` : ""}
     </div>`;
   }).join("");
@@ -1021,45 +1507,45 @@ function renderCustomForm(d){
   return `
     <div class="config-box" style="max-width:640px;">
       <div class="config-row">
-        <label>Tema</label>
+        <label>${t("custom.topicLabel")}</label>
         <select data-custom-field="topicId">
-          ${TOPICS.map(t=>`<option value="${t.id}" ${t.id===d.topicId?"selected":""}>${t.name}</option>`).join("")}
+          ${TOPICS.map(tp=>`<option value="${tp.id}" ${tp.id===d.topicId?"selected":""}>${tp.name}</option>`).join("")}
         </select>
       </div>
       <div class="config-row">
-        <label>Tipus de pregunta</label>
+        <label>${t("custom.typeLabel")}</label>
         <select data-custom-field="type">
-          <option value="single" ${d.type==="single"?"selected":""}>Opció única</option>
-          <option value="multi" ${d.type==="multi"?"selected":""}>Resposta múltiple</option>
-          <option value="tf" ${d.type==="tf"?"selected":""}>Vertader / Fals</option>
+          <option value="single" ${d.type==="single"?"selected":""}>${t("typeLabel.single")}</option>
+          <option value="multi" ${d.type==="multi"?"selected":""}>${t("typeLabel.multi")}</option>
+          <option value="tf" ${d.type==="tf"?"selected":""}>${t("typeLabel.tf")}</option>
         </select>
       </div>
       <div class="custom-field-block">
-        <label>Enunciat</label>
-        <textarea data-custom-field="q" placeholder="Escriu la pregunta...">${escapeHtml(d.q)}</textarea>
+        <label>${t("custom.questionLabel")}</label>
+        <textarea data-custom-field="q" placeholder="${t('custom.questionPlaceholder')}">${escapeHtml(d.q)}</textarea>
       </div>
       <div class="custom-field-block">
-        <label>Opcions ${d.type==="multi"?"(marca totes les correctes)":"(marca la correcta)"}</label>
+        <label>${d.type==="multi"?t("custom.optionsLabelMulti"):t("custom.optionsLabelSingle")}</label>
         ${optRows}
-        ${!isTf && d.opts.length<6 ? `<button type="button" class="btn secondary small" data-action="add-opt">+ Afegir opció</button>` : ""}
+        ${!isTf && d.opts.length<6 ? `<button type="button" class="btn secondary small" data-action="add-opt">${t("custom.addOption")}</button>` : ""}
       </div>
       <div class="custom-field-block">
-        <label>Nota d'examen (trampa habitual)</label>
-        <textarea data-custom-field="trap" placeholder="Ex: no confondre X amb Y...">${escapeHtml(d.trap)}</textarea>
+        <label>${t("custom.trapLabel")}</label>
+        <textarea data-custom-field="trap" placeholder="${t('custom.trapPlaceholder')}">${escapeHtml(d.trap)}</textarea>
       </div>
       <div class="actions" style="margin-top:6px;">
-        <button class="btn secondary" data-action="cancel-custom">Cancel·la</button>
-        <button class="btn amber" data-action="save-custom">Desar pregunta</button>
+        <button class="btn secondary" data-action="cancel-custom">${t("custom.cancel")}</button>
+        <button class="btn amber" data-action="save-custom">${t("custom.save")}</button>
       </div>
     </div>
   `;
 }
 
 // ---------------- STATS ----------------
-const MODE_LABELS = {topic:"Test per tema", general:"Test general", final:"Test final", redemption:"Test de redempció", tfmassive:"V/F massiu", trap:"Preguntes trampa"};
 const CORE_MODES = ["topic","general","final"];
-const TYPE_LABELS = {single:"Opció única", multi:"Resposta múltiple", tf:"Vertader / Fals"};
-const DAYS_LABELS = {"all":"Tot", "7":"7 dies", "30":"30 dies", "90":"90 dies"};
+function modeLabel(m){ return t("mode."+m) || m; }
+function typeLabel(tt){ return t("typeLabel."+tt) || tt; }
+function daysLabel(d){ return t("days."+d) || d; }
 
 function filterHistory(hist, filter){
   if(!filter || filter==="all") return hist;
@@ -1165,16 +1651,16 @@ function renderErrorHistoryTab(){
   const masteredCount = log.filter(e=>e.masteredAt).length;
   const filtered = filter==="all" ? log : filter==="mastered" ? log.filter(e=>e.masteredAt) : log.filter(e=>!e.masteredAt);
 
-  const errTabs = [["active",`Actives (${activeCount})`],["mastered",`Dominades (${masteredCount})`],["all",`Totes (${log.length})`]]
+  const errTabs = [["active",`${t("errors.active")} (${activeCount})`],["mastered",`${t("errors.mastered")} (${masteredCount})`],["all",`${t("errors.all")} (${log.length})`]]
     .map(([k,label])=>`<div class="tab ${filter===k?'active':''}" data-error-filter="${k}">${label}</div>`).join("");
 
   const rows = filtered.map(e=>{
-    const topic = TOPICS.find(t=>t.id===e.topicId);
+    const topic = TOPICS.find(tp=>tp.id===e.topicId);
     const dateStr = e.lastFailedAt ? new Date(e.lastFailedAt).toLocaleDateString() : "—";
-    const statusLabel = e.masteredAt ? "Dominada" : `Ratxa ${e.streak}/3`;
+    const statusLabel = e.masteredAt ? t("errors.masteredLabel") : t("errors.streakLabel",{n:e.streak});
     return `<div class="custom-row">
       <div class="custom-row-main">
-        <span class="custom-row-topic">${topic?topic.name:e.topicId} · ${statusLabel} · ${e.failCount} fallada${e.failCount===1?"":"es"}</span>
+        <span class="custom-row-topic">${topic?topic.name:e.topicId} · ${statusLabel} · ${t("errors.failedCount",{n:e.failCount, s:e.failCount===1?"":"s"})}</span>
         <p class="custom-row-q">${escapeHtml(e.q)}</p>
       </div>
       <span class="muted" style="white-space:nowrap;">${dateStr}</span>
@@ -1183,8 +1669,8 @@ function renderErrorHistoryTab(){
 
   return `
     <div class="tabs" style="margin-bottom:18px;">${errTabs}</div>
-    <div class="custom-list">${rows || '<div class="empty-hint">Cap pregunta en aquesta categoria.</div>'}</div>
-    ${log.length ? '<button class="btn secondary small" id="btn-clear-errors" style="margin-top:18px;">Esborrar registre d\'errors</button>' : ""}
+    <div class="custom-list">${rows || `<div class="empty-hint">${t("errors.noneInCategory")}</div>`}</div>
+    ${log.length ? `<button class="btn secondary small" id="btn-clear-errors" style="margin-top:18px;">${t("errors.clear")}</button>` : ""}
   `;
 }
 
@@ -1193,15 +1679,15 @@ function renderStats(){
   const allHistRaw = loadHistory();
   const viewTabs = `
     <div class="tabs" style="margin-bottom:22px;">
-      <div class="tab ${statsView==='summary'?'active':''}" data-stats-view="summary">Resum i evolució</div>
-      <div class="tab ${statsView==='errors'?'active':''}" data-stats-view="errors">Historial d'errors (${activeErrors().length})</div>
+      <div class="tab ${statsView==='summary'?'active':''}" data-stats-view="summary">${t("stats.tabSummary")}</div>
+      <div class="tab ${statsView==='errors'?'active':''}" data-stats-view="errors">${t("stats.tabErrors",{n:activeErrors().length})}</div>
     </div>
   `;
 
   if(statsView==="errors"){
     return `
-      <h1>Historial i estadístiques</h1>
-      <p class="subtitle">${allHistRaw.length} tests registrats a aquest ordinador</p>
+      <h1>${t("stats.title")}</h1>
+      <p class="subtitle">${t("stats.testsRegistered",{n:allHistRaw.length})}</p>
       ${viewTabs}
       ${renderErrorHistoryTab()}
     `;
@@ -1252,13 +1738,13 @@ function renderStats(){
       </div>`;
     }).join("");
 
-  const typeRows = ["single","multi","tf"].map(t=>{
-    const d = byType[t];
+  const typeRows = ["single","multi","tf"].map(tt=>{
+    const d = byType[tt];
     const pct = d.total ? Math.round(100*d.ok/d.total) : 0;
     return `<div class="type-bar-row">
-      <span class="tlabel">${TYPE_LABELS[t]}</span>
+      <span class="tlabel">${typeLabel(tt)}</span>
       <div class="tbar-bg"><div class="tbar-fill" style="width:${pct}%; background:${d.total?pctColor(pct):'transparent'};"></div></div>
-      <span class="tval">${d.total ? pct+"% ("+d.ok+"/"+d.total+")" : "sense dades"}</span>
+      <span class="tval">${d.total ? pct+"% ("+d.ok+"/"+d.total+")" : t("stats.noData")}</span>
     </div>`;
   }).join("");
 
@@ -1267,9 +1753,9 @@ function renderStats(){
     const d = modeAgg[m] || {n:0,sum:0};
     const avg = d.n ? Math.round(d.sum/d.n) : null;
     return `<div class="mode-card">
-      <div class="mlbl">${MODE_LABELS[m]||m}</div>
+      <div class="mlbl">${modeLabel(m)}</div>
       <div class="mval">${avg===null?"—":avg+"%"}</div>
-      <div class="msub">${d.n} test${d.n===1?"":"s"}</div>
+      <div class="msub">${d.n} ${d.n===1?t("stats.test"):t("stats.testsPlural")}</div>
     </div>`;
   }).join("");
 
@@ -1282,78 +1768,78 @@ function renderStats(){
     return `<tr>
       <td>${date}</td><td>${h.label}</td><td>${scoreD.ok}/${scoreD.total}</td>
       <td><span class="pill ${cls}">${pct}%</span></td>
-      <td>${mins}m ${secs}s${h.timedOut?" · temps esgotat":""}</td>
+      <td>${mins}m ${secs}s${h.timedOut?t("stats.timedOutSuffix"):""}</td>
     </tr>`;
   }).join("");
 
   const tabs = ["all","topic","general","final"].map(f=>{
-    const label = f==="all" ? "Tots" : MODE_LABELS[f];
+    const label = f==="all" ? t("stats.all") : modeLabel(f);
     return `<div class="tab ${filter===f?'active':''}" data-stats-filter="${f}">${label}</div>`;
   }).join("");
 
   const daysTabs = ["all","7","30","90"].map(d=>{
-    return `<div class="tab ${daysFilter===d?'active':''}" data-stats-days="${d}">${DAYS_LABELS[d]}</div>`;
+    return `<div class="tab ${daysFilter===d?'active':''}" data-stats-days="${d}">${daysLabel(d)}</div>`;
   }).join("");
 
   const topicSelect = `<select class="stats-select" data-stats-topic>
-    <option value="all" ${topicFilter==="all"?"selected":""}>Tots els temes</option>
-    ${TOPICS.map(t=>`<option value="${t.id}" ${topicFilter===t.id?"selected":""}>${t.name}</option>`).join("")}
+    <option value="all" ${topicFilter==="all"?"selected":""}>${t("stats.allTopics")}</option>
+    ${TOPICS.map(tp=>`<option value="${tp.id}" ${topicFilter===tp.id?"selected":""}>${tp.name}</option>`).join("")}
   </select>`;
 
   const body = totalTests ? `
     <div class="grid">
-      <div class="stat-card"><div class="lbl">Tests</div><div class="val">${totalTests}</div></div>
-      <div class="stat-card"><div class="lbl">Mitjana</div><div class="val">${avgPct}%</div></div>
-      <div class="stat-card"><div class="lbl">Preguntes respostes</div><div class="val">${totalQuestions}</div></div>
-      <div class="stat-card"><div class="lbl">Temps dedicat</div><div class="val small">${totalHours}h ${totalMins}m</div></div>
-      <div class="stat-card"><div class="lbl">Ratxa actual (≥80%)</div><div class="val">${streak}</div><div class="sub">tests seguits</div></div>
-      <div class="stat-card"><div class="lbl">Tema més fort</div><div class="val small" style="color:${strongest?'var(--green-line)':'var(--text-mute)'}">${strongest ? strongest.name : "encara no prou dades"}</div></div>
-      <div class="stat-card"><div class="lbl">Tema a reforçar</div><div class="val small" style="color:${weakest?'var(--red-line)':'var(--text-mute)'}">${weakest ? weakest.name : "encara no prou dades"}</div></div>
+      <div class="stat-card"><div class="lbl">${t("stats.tests")}</div><div class="val">${totalTests}</div></div>
+      <div class="stat-card"><div class="lbl">${t("stats.avg")}</div><div class="val">${avgPct}%</div></div>
+      <div class="stat-card"><div class="lbl">${t("stats.questionsAnswered")}</div><div class="val">${totalQuestions}</div></div>
+      <div class="stat-card"><div class="lbl">${t("stats.timeSpent")}</div><div class="val small">${totalHours}h ${totalMins}m</div></div>
+      <div class="stat-card"><div class="lbl">${t("stats.currentStreak")}</div><div class="val">${streak}</div><div class="sub">${t("stats.testsInARow")}</div></div>
+      <div class="stat-card"><div class="lbl">${t("stats.strongestTopic")}</div><div class="val small" style="color:${strongest?'var(--green-line)':'var(--text-mute)'}">${strongest ? strongest.name : t("dashboard.notEnoughData")}</div></div>
+      <div class="stat-card"><div class="lbl">${t("stats.topicToImprove")}</div><div class="val small" style="color:${weakest?'var(--red-line)':'var(--text-mute)'}">${weakest ? weakest.name : t("dashboard.notEnoughData")}</div></div>
       <div class="stat-card">
-        <div class="lbl">Predicció nota (global)</div>
+        <div class="lbl">${t("stats.predictedGrade")}</div>
         <div class="val" style="color:${predictedScore===null?'var(--text-mute)':predictedScore>=EXAM_PASS_THRESHOLD?'var(--green-line)':'var(--red-line)'}">${predictedScore===null?"—":predictedScore+"%"}</div>
-        <div class="sub">${predictedScore===null?"cal fer algun test":(predictedScore>=EXAM_PASS_THRESHOLD?"per sobre del ":"per sota del ")+"llindar d'aprovat ("+EXAM_PASS_THRESHOLD+"%)"}</div>
+        <div class="sub">${predictedScore===null?t("stats.needMoreTests"):(predictedScore>=EXAM_PASS_THRESHOLD?t("stats.aboveThreshold"):t("stats.belowThreshold"))+t("stats.passThreshold",{n:EXAM_PASS_THRESHOLD})}</div>
       </div>
     </div>
 
-    <div class="section-title">Mapa de calor de coneixement</div>
+    <div class="section-title">${t("stats.heatmap")}</div>
     <div class="stats-panel">
       <div class="heatmap-grid">
-        ${TOPICS.map(t=>{
-          const d = byTopic[t.id] || {ok:0,total:0,name:t.name};
+        ${TOPICS.map(tp=>{
+          const d = byTopic[tp.id] || {ok:0,total:0,name:tp.name};
           const hasData = d.total>0;
           const pct = hasData ? Math.round(100*d.ok/d.total) : null;
           const bg = hasData ? heatColor(pct) : "var(--bg-panel-hi)";
           const color = hasData ? "#fff" : "var(--text-mute)";
           return `<div class="heat-tile" style="background:${bg}; color:${color};">
-            <div class="htitle">${t.name}</div>
+            <div class="htitle">${tp.name}</div>
             <div>
               <div class="hpct">${hasData?pct+"%":"—"}</div>
-              <div class="hsub">${hasData?d.ok+"/"+d.total:"sense intents"}</div>
+              <div class="hsub">${hasData?d.ok+"/"+d.total:t("dashboard.noAttempts")}</div>
             </div>
           </div>`;
         }).join("")}
       </div>
     </div>
 
-    <div class="section-title">Evolució del rendiment</div>
+    <div class="section-title">${t("stats.evolution")}</div>
     <div class="stats-panel">
-      ${sparkline ? `<div class="chart-wrap">${sparkline}</div>` : `<div class="empty-hint">Fes almenys 2 tests per veure la corba d'evolució.</div>`}
+      ${sparkline ? `<div class="chart-wrap">${sparkline}</div>` : `<div class="empty-hint">${t("stats.needTwoTests")}</div>`}
     </div>
 
-    <div class="section-title">Precisió per tipus de pregunta</div>
+    <div class="section-title">${t("stats.accuracyByType")}</div>
     <div class="stats-panel"><div class="type-bars">${typeRows}</div></div>
 
-    <div class="section-title">Rendiment per tipus de test</div>
+    <div class="section-title">${t("stats.performanceByTestType")}</div>
     <div class="stats-panel"><div class="mode-cards">${modeCards}</div></div>
 
-    <div class="section-title">Progrés per tema</div>
-    <div class="stats-panel">${topicRows || '<div class="empty-hint">Encara no hi ha prou dades. Fes algun test!</div>'}</div>
-  ` : `<div class="empty-hint" style="margin-bottom:24px;">Encara no hi ha tests que coincideixin amb aquests filtres. Prova d'ampliar-los o fes algun test nou.</div>`;
+    <div class="section-title">${t("stats.progressByTopic")}</div>
+    <div class="stats-panel">${topicRows || `<div class="empty-hint">${t("stats.noDataYet")}</div>`}</div>
+  ` : `<div class="empty-hint" style="margin-bottom:24px;">${t("stats.noMatchFilters")}</div>`;
 
   return `
-    <h1>Historial i estadístiques</h1>
-    <p class="subtitle">${allHist.length} tests registrats a aquest ordinador</p>
+    <h1>${t("stats.title")}</h1>
+    <p class="subtitle">${t("stats.testsRegistered",{n:allHist.length})}</p>
     ${viewTabs}
     <div class="stats-controls">
       <div class="tabs">${tabs}</div>
@@ -1361,12 +1847,12 @@ function renderStats(){
       <div class="tabs">${daysTabs}</div>
     </div>
     ${body}
-    <div class="section-title">Historial detallat</div>
+    <div class="section-title">${t("stats.detailedHistory")}</div>
     <table class="history">
-      <tr><th>Data</th><th>Test</th><th>Puntuació</th><th>%</th><th>Durada</th></tr>
-      ${histRows || '<tr><td colspan="5">Sense historial encara.</td></tr>'}
+      <tr><th>${t("stats.date")}</th><th>${t("stats.testCol")}</th><th>${t("stats.score")}</th><th>${t("stats.percent")}</th><th>${t("stats.duration")}</th></tr>
+      ${histRows || `<tr><td colspan="5">${t("stats.noHistoryYet")}</td></tr>`}
     </table>
-    ${allHist.length ? '<button class="btn secondary small" id="btn-clear-history" style="margin-top:18px;">Esborrar historial</button>' : ""}
+    ${allHist.length ? `<button class="btn secondary small" id="btn-clear-history" style="margin-top:18px;">${t("stats.clearHistory")}</button>` : ""}
   `;
 }
 
@@ -1394,10 +1880,10 @@ function attachHandlers(){
       const timerOn = document.getElementById("cfg-timer").checked;
       const pool = getTopicPool(topic.id);
       const questions = buildQuestionSet(pool, counts);
-      if(!questions.length){ alert("Selecciona almenys una pregunta."); return; }
+      if(!questions.length){ alert(t("quiz.selectAtLeastOne")); return; }
       const secs = timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
       lastConfig = {type:"topic", topicId, counts, timerOn};
-      startQuiz(questions, {mode:"topic", topicId, label:`Tema: ${topic.name}`}, secs);
+      startQuiz(questions, {mode:"topic", topicId, label:t("mode.topicPrefix",{name:topic.name})}, secs);
     });
   }
 
@@ -1407,10 +1893,10 @@ function attachHandlers(){
       const counts = readCounts();
       const timerOn = document.getElementById("cfg-timer").checked;
       const questions = buildQuestionSet(getAllQuestionsPool(), counts);
-      if(!questions.length){ alert("Selecciona almenys una pregunta."); return; }
+      if(!questions.length){ alert(t("quiz.selectAtLeastOne")); return; }
       const secs = timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
       lastConfig = {type:"general", counts, timerOn};
-      startQuiz(questions, {mode:"general", label:"Test general"}, secs);
+      startQuiz(questions, {mode:"general", label:t("mode.general")}, secs);
     });
   }
 
@@ -1422,7 +1908,7 @@ function attachHandlers(){
       const questions = shuffle(pool).slice(0,n).map(prepareQuestion);
       const secs = Math.round(EXAM_TOTAL_SEC * n / EXAM_TOTAL_Q);
       lastConfig = {type:"final"};
-      startQuiz(questions, {mode:"final", label:"Test final (examen)"}, secs);
+      startQuiz(questions, {mode:"final", label:t("mode.final")}, secs);
     });
   }
 
@@ -1440,7 +1926,7 @@ function attachHandlers(){
   const quitBtn = root.querySelector('[data-action="quit-quiz"]');
   if(quitBtn){
     quitBtn.addEventListener("click", ()=>{
-      if(confirm("Segur que vols abandonar el test? Es perdrà el progrés actual.")){
+      if(confirm(t("quiz.confirmAbandon"))){
         if(window.speechSynthesis) window.speechSynthesis.cancel();
         if(quiz && quiz.timerHandle) clearInterval(quiz.timerHandle);
         setView("dashboard");
@@ -1496,7 +1982,7 @@ function attachHandlers(){
   const quitLoopBtn = root.querySelector('[data-action="quit-loop"]');
   if(quitLoopBtn){
     quitLoopBtn.addEventListener("click", ()=>{
-      if(confirm("Segur que vols abandonar el bucle? El progrés de ratxa ja fet es conserva.")){
+      if(confirm(t("loop.confirmAbandon"))){
         if(window.speechSynthesis) window.speechSynthesis.cancel();
         setView("special-modes");
       }
@@ -1519,17 +2005,17 @@ function attachHandlers(){
         const n = Math.min(EXAM_TOTAL_Q, pool.length);
         const questions = shuffle(pool).slice(0,n).map(prepareQuestion);
         const secs = Math.round(EXAM_TOTAL_SEC * n / EXAM_TOTAL_Q);
-        startQuiz(questions, {mode:"final", label:"Test final (examen)"}, secs);
+        startQuiz(questions, {mode:"final", label:t("mode.final")}, secs);
       } else if(lastConfig.type==="general"){
         const questions = buildQuestionSet(getAllQuestionsPool(), lastConfig.counts);
         const secs = lastConfig.timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
-        startQuiz(questions, {mode:"general", label:"Test general"}, secs);
+        startQuiz(questions, {mode:"general", label:t("mode.general")}, secs);
       } else {
-        const topic = TOPICS.find(t=>t.id===lastConfig.topicId);
+        const topic = TOPICS.find(tp=>tp.id===lastConfig.topicId);
         const pool = getTopicPool(topic.id);
         const questions = buildQuestionSet(pool, lastConfig.counts);
         const secs = lastConfig.timerOn ? Math.round(EXAM_TOTAL_SEC * questions.length / EXAM_TOTAL_Q) : null;
-        startQuiz(questions, {mode:"topic", topicId:topic.id, label:`Tema: ${topic.name}`}, secs);
+        startQuiz(questions, {mode:"topic", topicId:topic.id, label:t("mode.topicPrefix",{name:topic.name})}, secs);
       }
     });
   }
@@ -1549,7 +2035,7 @@ function attachHandlers(){
   const clearErrBtn = document.getElementById("btn-clear-errors");
   if(clearErrBtn){
     clearErrBtn.addEventListener("click", ()=>{
-      if(confirm("Esborrar tot el registre d'errors? Es perdrà el progrés de ratxes de dominis.")){
+      if(confirm(t("errors.confirmClear"))){
         clearErrorLog();
         render();
       }
@@ -1578,6 +2064,11 @@ function attachHandlers(){
   const themeToggle = root.querySelector('[data-action="toggle-theme"]');
   if(themeToggle){
     themeToggle.addEventListener("click", toggleTheme);
+  }
+
+  const langToggle = root.querySelector('[data-action="toggle-lang"]');
+  if(langToggle){
+    langToggle.addEventListener("click", toggleLang);
   }
 
   const pomodoroToggleBtn = root.querySelector('[data-action="pomodoro-toggle"]');
@@ -1681,12 +2172,12 @@ function attachHandlers(){
   if(saveCustomBtn){
     saveCustomBtn.addEventListener("click", ()=>{
       const d = customDraft;
-      if(!d.q.trim()){ alert("Escriu l'enunciat de la pregunta."); return; }
-      if(d.opts.some(o=>!o.trim())){ alert("Totes les opcions han de tenir text."); return; }
-      if(d.exp.some(e=>!e.trim())){ alert("Cal escriure una explicació per a cada opció."); return; }
-      if(!d.trap.trim()){ alert("Cal afegir una nota d'examen (trampa habitual)."); return; }
-      if(d.type==="multi" && d.correct.length<1){ alert("Marca almenys una opció correcta."); return; }
-      if(d.type!=="multi" && d.correct.length!==1){ alert("Marca exactament una opció correcta."); return; }
+      if(!d.q.trim()){ alert(t("custom.alertNoQuestion")); return; }
+      if(d.opts.some(o=>!o.trim())){ alert(t("custom.alertOptionsText")); return; }
+      if(d.exp.some(e=>!e.trim())){ alert(t("custom.alertExplanations")); return; }
+      if(!d.trap.trim()){ alert(t("custom.alertTrap")); return; }
+      if(d.type==="multi" && d.correct.length<1){ alert(t("custom.alertOneCorrectMulti")); return; }
+      if(d.type!=="multi" && d.correct.length!==1){ alert(t("custom.alertExactlyOneCorrect")); return; }
       addCustomQuestion({
         id: "c"+Date.now()+Math.random().toString(36).slice(2,7),
         topicId: d.topicId, type: d.type, q: d.q.trim(),
@@ -1701,7 +2192,7 @@ function attachHandlers(){
 
   root.querySelectorAll('[data-action="delete-custom"]').forEach(el=>{
     el.addEventListener("click", ()=>{
-      if(confirm("Eliminar aquesta pregunta pròpia? Aquesta acció no es pot desfer.")){
+      if(confirm(t("custom.confirmDelete"))){
         deleteCustomQuestion(el.getAttribute("data-id"));
         render();
       }
@@ -1711,7 +2202,7 @@ function attachHandlers(){
   const clearBtn = document.getElementById("btn-clear-history");
   if(clearBtn){
     clearBtn.addEventListener("click", ()=>{
-      if(confirm("Esborrar tot l'historial de tests? Aquesta acció no es pot desfer.")){
+      if(confirm(t("stats.confirmClearHistory"))){
         clearHistory();
         render();
       }

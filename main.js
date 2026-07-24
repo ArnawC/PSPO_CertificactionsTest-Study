@@ -7,7 +7,7 @@ function createWindow(){
     height: 800,
     minWidth: 900,
     minHeight: 600,
-    title: "PSPO I — Entrenador d'examen",
+    title: "PSPO I Trainer",
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: false,
