@@ -992,6 +992,27 @@ function pctColor(pct){
   return pct>=80 ? "var(--green-line)" : pct>=60 ? "var(--amber)" : "var(--red-line)";
 }
 
+function heatColor(pct){
+  const hue = Math.max(0, Math.min(120, pct*1.2));
+  return `hsl(${hue}, 55%, 42%)`;
+}
+
+const EXAM_PASS_THRESHOLD = 85;
+function predictExamScore(hist){
+  if(!hist.length) return null;
+  const overallAvg = hist.reduce((s,h)=>s+h.pct,0)/hist.length;
+  const byTopic = aggregateByTopic(hist);
+  let weightedSum = 0, totalWeight = 0;
+  TOPICS.forEach(t=>{
+    const d = byTopic[t.id];
+    const weight = t.questions.length || 1;
+    const topicPct = (d && d.total>=3) ? (100*d.ok/d.total) : overallAvg;
+    weightedSum += topicPct * weight;
+    totalWeight += weight;
+  });
+  return totalWeight ? Math.round(weightedSum/totalWeight) : Math.round(overallAvg);
+}
+
 function buildSparkline(histAsc){
   const pts = histAsc.slice(-25);
   if(pts.length<2) return null;
@@ -1012,11 +1033,60 @@ function buildSparkline(histAsc){
   </svg>`;
 }
 
+function renderErrorHistoryTab(){
+  const filter = state.errorFilter || "active";
+  const log = loadErrorLog().slice().sort((a,b)=>(b.lastFailedAt||0)-(a.lastFailedAt||0));
+  const activeCount = log.filter(e=>!e.masteredAt).length;
+  const masteredCount = log.filter(e=>e.masteredAt).length;
+  const filtered = filter==="all" ? log : filter==="mastered" ? log.filter(e=>e.masteredAt) : log.filter(e=>!e.masteredAt);
+
+  const errTabs = [["active",`Actives (${activeCount})`],["mastered",`Dominades (${masteredCount})`],["all",`Totes (${log.length})`]]
+    .map(([k,label])=>`<div class="tab ${filter===k?'active':''}" data-error-filter="${k}">${label}</div>`).join("");
+
+  const rows = filtered.map(e=>{
+    const topic = TOPICS.find(t=>t.id===e.topicId);
+    const dateStr = e.lastFailedAt ? new Date(e.lastFailedAt).toLocaleDateString() : "—";
+    const statusLabel = e.masteredAt ? "Dominada" : `Ratxa ${e.streak}/3`;
+    return `<div class="custom-row">
+      <div class="custom-row-main">
+        <span class="custom-row-topic">${topic?topic.name:e.topicId} · ${statusLabel} · ${e.failCount} fallada${e.failCount===1?"":"es"}</span>
+        <p class="custom-row-q">${escapeHtml(e.q)}</p>
+      </div>
+      <span class="muted" style="white-space:nowrap;">${dateStr}</span>
+    </div>`;
+  }).join("");
+
+  return `
+    <div class="tabs" style="margin-bottom:18px;">${errTabs}</div>
+    <div class="custom-list">${rows || '<div class="empty-hint">Cap pregunta en aquesta categoria.</div>'}</div>
+    ${log.length ? '<button class="btn secondary small" id="btn-clear-errors" style="margin-top:18px;">Esborrar registre d\'errors</button>' : ""}
+  `;
+}
+
 function renderStats(){
+  const statsView = state.statsView || "summary";
+  const allHistRaw = loadHistory();
+  const viewTabs = `
+    <div class="tabs" style="margin-bottom:22px;">
+      <div class="tab ${statsView==='summary'?'active':''}" data-stats-view="summary">Resum i evolució</div>
+      <div class="tab ${statsView==='errors'?'active':''}" data-stats-view="errors">Historial d'errors (${activeErrors().length})</div>
+    </div>
+  `;
+
+  if(statsView==="errors"){
+    return `
+      <h1>Historial i estadístiques</h1>
+      <p class="subtitle">${allHistRaw.length} tests registrats a aquest ordinador</p>
+      ${viewTabs}
+      ${renderErrorHistoryTab()}
+    `;
+  }
+
   const filter = state.statsFilter || "all";
   const topicFilter = state.statsTopic || "all";
   const daysFilter = state.statsDays || "all";
-  const allHist = loadHistory();
+  const allHist = allHistRaw;
+  const predictedScore = predictExamScore(allHist);
   let hist = filterHistory(allHist, filter);
   hist = filterByTopic(hist, topicFilter);
   hist = filterByDays(hist, daysFilter);
@@ -1114,6 +1184,31 @@ function renderStats(){
       <div class="stat-card"><div class="lbl">Ratxa actual (≥80%)</div><div class="val">${streak}</div><div class="sub">tests seguits</div></div>
       <div class="stat-card"><div class="lbl">Tema més fort</div><div class="val small" style="color:${strongest?'var(--green-line)':'var(--text-mute)'}">${strongest ? strongest.name : "encara no prou dades"}</div></div>
       <div class="stat-card"><div class="lbl">Tema a reforçar</div><div class="val small" style="color:${weakest?'var(--red-line)':'var(--text-mute)'}">${weakest ? weakest.name : "encara no prou dades"}</div></div>
+      <div class="stat-card">
+        <div class="lbl">Predicció nota (global)</div>
+        <div class="val" style="color:${predictedScore===null?'var(--text-mute)':predictedScore>=EXAM_PASS_THRESHOLD?'var(--green-line)':'var(--red-line)'}">${predictedScore===null?"—":predictedScore+"%"}</div>
+        <div class="sub">${predictedScore===null?"cal fer algun test":(predictedScore>=EXAM_PASS_THRESHOLD?"per sobre del ":"per sota del ")+"llindar d'aprovat ("+EXAM_PASS_THRESHOLD+"%)"}</div>
+      </div>
+    </div>
+
+    <div class="section-title">Mapa de calor de coneixement</div>
+    <div class="stats-panel">
+      <div class="heatmap-grid">
+        ${TOPICS.map(t=>{
+          const d = byTopic[t.id] || {ok:0,total:0,name:t.name};
+          const hasData = d.total>0;
+          const pct = hasData ? Math.round(100*d.ok/d.total) : null;
+          const bg = hasData ? heatColor(pct) : "var(--bg-panel-hi)";
+          const color = hasData ? "#fff" : "var(--text-mute)";
+          return `<div class="heat-tile" style="background:${bg}; color:${color};">
+            <div class="htitle">${t.name}</div>
+            <div>
+              <div class="hpct">${hasData?pct+"%":"—"}</div>
+              <div class="hsub">${hasData?d.ok+"/"+d.total:"sense intents"}</div>
+            </div>
+          </div>`;
+        }).join("")}
+      </div>
     </div>
 
     <div class="section-title">Evolució del rendiment</div>
@@ -1134,6 +1229,7 @@ function renderStats(){
   return `
     <h1>Historial i estadístiques</h1>
     <p class="subtitle">${allHist.length} tests registrats a aquest ordinador</p>
+    ${viewTabs}
     <div class="stats-controls">
       <div class="tabs">${tabs}</div>
       ${topicSelect}
@@ -1313,22 +1409,44 @@ function attachHandlers(){
     });
   }
 
+  root.querySelectorAll("[data-stats-view]").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      setView("stats", {statsView: el.getAttribute("data-stats-view"), statsFilter: state.statsFilter, statsTopic: state.statsTopic, statsDays: state.statsDays});
+    });
+  });
+
+  root.querySelectorAll("[data-error-filter]").forEach(el=>{
+    el.addEventListener("click", ()=>{
+      setView("stats", {statsView:"errors", errorFilter: el.getAttribute("data-error-filter")});
+    });
+  });
+
+  const clearErrBtn = document.getElementById("btn-clear-errors");
+  if(clearErrBtn){
+    clearErrBtn.addEventListener("click", ()=>{
+      if(confirm("Esborrar tot el registre d'errors? Es perdrà el progrés de ratxes de dominis.")){
+        clearErrorLog();
+        render();
+      }
+    });
+  }
+
   root.querySelectorAll("[data-stats-filter]").forEach(el=>{
     el.addEventListener("click", ()=>{
-      setView("stats", {statsFilter: el.getAttribute("data-stats-filter"), statsTopic: state.statsTopic, statsDays: state.statsDays});
+      setView("stats", {statsView: state.statsView, statsFilter: el.getAttribute("data-stats-filter"), statsTopic: state.statsTopic, statsDays: state.statsDays});
     });
   });
 
   const statsTopicSelect = root.querySelector('[data-stats-topic]');
   if(statsTopicSelect){
     statsTopicSelect.addEventListener("change", (e)=>{
-      setView("stats", {statsFilter: state.statsFilter, statsTopic: e.target.value, statsDays: state.statsDays});
+      setView("stats", {statsView: state.statsView, statsFilter: state.statsFilter, statsTopic: e.target.value, statsDays: state.statsDays});
     });
   }
 
   root.querySelectorAll("[data-stats-days]").forEach(el=>{
     el.addEventListener("click", ()=>{
-      setView("stats", {statsFilter: state.statsFilter, statsTopic: state.statsTopic, statsDays: el.getAttribute("data-stats-days")});
+      setView("stats", {statsView: state.statsView, statsFilter: state.statsFilter, statsTopic: state.statsTopic, statsDays: el.getAttribute("data-stats-days")});
     });
   });
 
