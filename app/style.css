@@ -192,6 +192,8 @@ mark{background:#fdf3e2; color:inherit; padding:0 2px; border-radius:3px;}
 .opt:hover:not(.locked){border-color:var(--amber); transform:translateX(2px);}
 .opt.selected{border-color:var(--amber-dark); background:#fdf3e2;}
 .opt.correct{background:var(--green); border-color:var(--green-line); color:var(--green-ink);}
+.opt.correct-missed{background:#fff; border:1.5px dashed var(--green-line); color:var(--green-ink);}
+.opt-tag{float:right; font-size:11px; text-transform:uppercase; letter-spacing:.04em; font-family:'Segoe UI',sans-serif; font-weight:600; color:var(--green-line);}
 .opt.incorrect{background:var(--red); border-color:var(--red-line); color:var(--red-ink);}
 .opt.locked{cursor:default;}
 .opt b{font-family:'Courier New',monospace; margin-right:9px;}

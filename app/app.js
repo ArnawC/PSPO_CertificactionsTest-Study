@@ -91,6 +91,7 @@ const STRINGS = {
     "quiz.markReviewTitle": "Marcar para revisar (Duda Extrema)",
     "quiz.selectAll": "Selecciona todas las que correspondan",
     "quiz.keyboardHint": "Atajos: 1-6 o A-F para elegir · Enter para comprobar/continuar",
+    "quiz.missedTag": "correcta, no marcada",
     "quiz.correct": "Correcto.",
     "quiz.incorrect": "Incorrecto.",
     "quiz.examNote": "Nota de examen:",
@@ -386,6 +387,7 @@ const STRINGS = {
     "quiz.markReviewTitle": "Mark for review (Extreme Doubt)",
     "quiz.selectAll": "Select all that apply",
     "quiz.keyboardHint": "Shortcuts: 1-6 or A-F to pick · Enter to check/continue",
+    "quiz.missedTag": "correct, not selected",
     "quiz.correct": "Correct.",
     "quiz.incorrect": "Incorrect.",
     "quiz.examNote": "Exam note:",
@@ -1011,16 +1013,19 @@ function renderLoopQuiz(){
   const entry = currentLoopEntry();
   let optsHtml = q.opts.map((o,i)=>{
     let cls="opt";
+    let tag = "";
     if(loopQuiz.locked){
       cls+=" locked";
       const isCorrect = q.correct.includes(i);
       const wasSelected = loopQuiz.selected.includes(i);
-      if(isCorrect) cls+=" correct";
-      else if(wasSelected) cls+=" incorrect";
+      if(isCorrect){
+        cls += wasSelected ? " correct" : " correct-missed";
+        if(!wasSelected) tag = `<span class="opt-tag">${t("quiz.missedTag")}</span>`;
+      } else if(wasSelected) cls+=" incorrect";
     } else if(loopQuiz.selected.includes(i)){
       cls+=" selected";
     }
-    return `<button class="${cls}" data-loop-pick="${i}" ${loopQuiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}</button>`;
+    return `<button class="${cls}" data-loop-pick="${i}" ${loopQuiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}${tag}</button>`;
   }).join("");
   let hint = (q.type==="multi" ? `<div class="hint">${t("quiz.selectAll")}</div>` : "") + `<div class="hint">${t("quiz.keyboardHint")}</div>`;
   let feedbackHtml = "";
@@ -1733,16 +1738,19 @@ function renderQuiz(){
 
   let optsHtml = q.opts.map((o,i)=>{
     let cls="opt";
+    let tag = "";
     if(quiz.locked){
       cls+=" locked";
       const isCorrect = q.correct.includes(i);
       const wasSelected = quiz.selected.includes(i);
-      if(isCorrect) cls+=" correct";
-      else if(wasSelected) cls+=" incorrect";
+      if(isCorrect){
+        cls += wasSelected ? " correct" : " correct-missed";
+        if(!wasSelected) tag = `<span class="opt-tag">${t("quiz.missedTag")}</span>`;
+      } else if(wasSelected) cls+=" incorrect";
     } else if(quiz.selected.includes(i)){
       cls+=" selected";
     }
-    return `<button class="${cls}" data-pick="${i}" ${quiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}</button>`;
+    return `<button class="${cls}" data-pick="${i}" ${quiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}${tag}</button>`;
   }).join("");
 
   let hint = (q.type==="multi" ? `<div class="hint">${t("quiz.selectAll")}</div>` : "") + `<div class="hint">${t("quiz.keyboardHint")}</div>`;
