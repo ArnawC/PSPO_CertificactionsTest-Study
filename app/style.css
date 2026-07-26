@@ -137,6 +137,10 @@ button, select, input{font-family:'Segoe UI', Georgia, serif;}
 .theory-box th, .theory-box td{border-bottom:1px solid var(--card-border); padding:6px 10px;}
 mark{background:#fdf3e2; color:inherit; padding:0 2px; border-radius:3px;}
 
+.flashcard-card{min-height:220px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; cursor:pointer; transition:transform .12s;}
+.flashcard-card:hover{transform:translateY(-2px);}
+.flashcard-card .flashcard-text{font-size:21px; margin:16px 0 0; max-width:560px;}
+
 .btn{background:var(--ink); color:#fff; border:none; border-radius:8px; padding:10px 19px; font-size:14px; cursor:pointer; font-family:'Segoe UI',sans-serif; transition:transform .1s, box-shadow .1s, opacity .1s;}
 .btn:hover:not(:disabled){transform:translateY(-1px); box-shadow:var(--shadow-sm);}
 .btn:disabled{opacity:.35; cursor:default;}
@@ -309,3 +313,20 @@ table.history tr:hover td{background:rgba(255,255,255,.02);}
   .theory-box{padding:18px 18px;}
   .card, .config-box{padding:20px 18px;}
 }
+
+/* ---- Adjustable font size (reading content only) ---- */
+#root.font-lg .theory-box{font-size:17px;}
+#root.font-lg .qtext{font-size:20px;}
+#root.font-lg .opt{font-size:17px;}
+#root.font-lg .feedback{font-size:15px;}
+#root.font-lg .explist{font-size:14.5px;}
+#root.font-lg .hint{font-size:13.5px;}
+#root.font-lg .topic-card h3{font-size:17.5px;}
+
+#root.font-xl .theory-box{font-size:19px;}
+#root.font-xl .qtext{font-size:22px;}
+#root.font-xl .opt{font-size:19px;}
+#root.font-xl .feedback{font-size:16px;}
+#root.font-xl .explist{font-size:15.5px;}
+#root.font-xl .hint{font-size:14.5px;}
+#root.font-xl .topic-card h3{font-size:19px;}

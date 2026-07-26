@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.20.0 — 2026-07-26
+Afegeix mida de lletra ajustable (Normal/Grande/Muy grande) i un nou mode Flashcards a Modos especiales, amb targetes terme/definició extretes del temari.
+
 ## v1.19.0 — 2026-07-26
 Afegeix repàs espaiat (SM-2) com a nou mode especial, dreceres de teclat al test (1-6/A-F i Enter) i cercador de conceptes al temari.
 

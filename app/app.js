@@ -3,6 +3,7 @@ const CUSTOM_KEY = "pspo_i_trainer_custom_questions_v1";
 const THEME_KEY = "pspo_i_trainer_theme_v1";
 const ERROR_KEY = "pspo_i_trainer_errors_v1";
 const LANG_KEY = "pspo_i_trainer_lang_v1";
+const FONT_SIZE_KEY = "pspo_i_trainer_fontsize_v1";
 const EXAM_TOTAL_Q = 80;
 const EXAM_TOTAL_SEC = 60 * 60;
 
@@ -27,6 +28,11 @@ const STRINGS = {
     "theme.toLight": "Modo claro",
     "theme.toDark": "Modo oscuro",
     "theme.switchTitle": "Cambiar el tema",
+    "fontsize.switchTitle": "Cambiar el tamaño de letra",
+    "fontsize.label": "Tamaño de letra",
+    "fontsize.normal": "Normal",
+    "fontsize.large": "Grande",
+    "fontsize.xlarge": "Muy grande",
     "lang.switchTitle": "Cambiar idioma / Switch language",
     "lang.toEnglish": "English",
     "lang.toSpanish": "Español",
@@ -108,6 +114,7 @@ const STRINGS = {
     "score.perfect": "100% en todos los temas de este test.",
     "score.backHome": "Volver al inicio",
     "score.repeat": "Repetir con la misma configuración ↗",
+    "flashcards.repeat": "Repetir ↗",
     "special.title": "Modos especiales",
     "special.subtitle": "Estrategias de repaso pensadas para reforzar exactamente lo que te falta.",
     "special.loopTitle": "Bucle de fallo continuo",
@@ -136,6 +143,18 @@ const STRINGS = {
     "special.noErrorsAlert": "No tienes preguntas pendientes en el registro de errores.",
     "special.notEnoughMcAlert": "No hay suficientes preguntas de opción única/múltiple para generar este modo.",
     "special.noTrapAlert": "No se han detectado preguntas trampa en el banco actual.",
+    "special.flashcardsTitle": "Flashcards",
+    "special.flashcardsDesc": "Tarjetas rápidas con un concepto clave por un lado y su definición por el otro, extraídas directamente del temario.",
+    "special.flashcardsMeta": "{n} tarjeta{s} disponible{s}",
+    "special.flashcardsStart": "Empezar ↗",
+    "special.noFlashcardsAlert": "No se han encontrado tarjetas en el temario actual.",
+    "flashcards.progress": "Tarjeta {i} de {n}",
+    "flashcards.tapToFlip": "Toca la tarjeta para ver la definición",
+    "flashcards.didntKnow": "No lo sabía",
+    "flashcards.knew": "Lo sabía",
+    "flashcards.resultTitle": "Repaso completado",
+    "flashcards.resultDesc": "tarjetas que ya te sabías",
+    "flashcards.keyboardHint": "Atajos: Espacio/Enter para voltear · Enter = la sabía · Retroceso = no la sabía",
     "tfmassive.template": "Verdadero o falso: \"{opt}\" es una respuesta correcta para — {q}",
     "tfmassive.correctExp": "Esta opción sí es una respuesta correcta a la pregunta original.",
     "tfmassive.incorrectExp": "Esta opción no es una respuesta correcta a la pregunta original.",
@@ -304,6 +323,11 @@ const STRINGS = {
     "theme.toLight": "Light mode",
     "theme.toDark": "Dark mode",
     "theme.switchTitle": "Switch theme",
+    "fontsize.switchTitle": "Change font size",
+    "fontsize.label": "Font size",
+    "fontsize.normal": "Normal",
+    "fontsize.large": "Large",
+    "fontsize.xlarge": "Extra large",
     "lang.switchTitle": "Switch language / Cambiar idioma",
     "lang.toEnglish": "English",
     "lang.toSpanish": "Español",
@@ -385,6 +409,7 @@ const STRINGS = {
     "score.perfect": "100% across every topic in this test.",
     "score.backHome": "Back to home",
     "score.repeat": "Repeat with the same setup ↗",
+    "flashcards.repeat": "Repeat ↗",
     "special.title": "Special modes",
     "special.subtitle": "Review strategies designed to reinforce exactly what you're missing.",
     "special.loopTitle": "Continuous-failure loop",
@@ -413,6 +438,18 @@ const STRINGS = {
     "special.noErrorsAlert": "You have no pending questions in the error log.",
     "special.notEnoughMcAlert": "There aren't enough single/multiple-choice questions to generate this mode.",
     "special.noTrapAlert": "No trap questions were detected in the current bank.",
+    "special.flashcardsTitle": "Flashcards",
+    "special.flashcardsDesc": "Quick cards with a key concept on one side and its definition on the other, pulled straight from the theory.",
+    "special.flashcardsMeta": "{n} card{s} available",
+    "special.flashcardsStart": "Start ↗",
+    "special.noFlashcardsAlert": "No flashcards were found in the current content.",
+    "flashcards.progress": "Card {i} of {n}",
+    "flashcards.tapToFlip": "Tap the card to reveal the definition",
+    "flashcards.didntKnow": "Didn't know it",
+    "flashcards.knew": "Knew it",
+    "flashcards.resultTitle": "Review complete",
+    "flashcards.resultDesc": "cards you already knew",
+    "flashcards.keyboardHint": "Shortcuts: Space/Enter to flip · Enter = knew it · Backspace = didn't know it",
     "tfmassive.template": "True or false: \"{opt}\" is a correct answer for — {q}",
     "tfmassive.correctExp": "This option is indeed a correct answer to the original question.",
     "tfmassive.incorrectExp": "This option is not a correct answer to the original question.",
@@ -732,12 +769,114 @@ function startTrapMode(){
   startQuiz(questions, {mode:"trap", label:t("mode.trap")}, null);
 }
 
+// ---------------- FLASHCARDS ----------------
+// Extreu targetes "terme: definició" dels <li><b>Terme</b>: definició...</li> ja presents al temari.
+function extractFlashcards(topic){
+  const tmp = document.createElement("div");
+  tmp.innerHTML = topic.theory;
+  const cards = [];
+  tmp.querySelectorAll("li").forEach(li=>{
+    const b = li.querySelector("b");
+    if(!b || li.firstElementChild !== b) return;
+    const boldText = b.textContent.trim();
+    const fullText = li.textContent;
+    if(!boldText || !fullText.startsWith(boldText)) return;
+    let rest = fullText.slice(boldText.length).trim();
+    if(!rest.startsWith(":")) return;
+    rest = rest.slice(1).trim();
+    if(!rest) return;
+    cards.push({front:boldText, back:rest, topicId:topic.id, topicName:topic.name});
+  });
+  return cards;
+}
+function allFlashcards(){
+  return activeTopics.flatMap(extractFlashcards);
+}
+
+let flashcards = null;
+
+function startFlashcardsMode(){
+  const cards = shuffle(allFlashcards());
+  if(!cards.length){ alert(t("special.noFlashcardsAlert")); return; }
+  flashcards = { cards, idx:0, flipped:false, results:[] };
+  setView("flashcards");
+}
+function flipFlashcard(){
+  flashcards.flipped = true;
+  render();
+}
+function answerFlashcard(knew){
+  flashcards.results[flashcards.idx] = knew;
+  if(flashcards.idx < flashcards.cards.length-1){
+    flashcards.idx++;
+    flashcards.flipped = false;
+    render();
+  } else {
+    setView("flashcards-score");
+  }
+}
+function quitFlashcards(){
+  flashcards = null;
+  setView("special-modes");
+}
+
+function renderFlashcards(){
+  const fc = flashcards;
+  const card = fc.cards[fc.idx];
+  const dots = fc.cards.map((_,i)=>{
+    let cls = "dot";
+    if(fc.results[i]===true) cls += " done";
+    else if(fc.results[i]===false) cls += " wrong";
+    return `<div class="${cls}"></div>`;
+  }).join("");
+
+  return `
+    <div class="track">${dots}</div>
+    <div class="topbar-quiz">
+      <span>${t("flashcards.progress",{i:fc.idx+1,n:fc.cards.length})}</span>
+    </div>
+    <div class="card flashcard-card" data-action="flip-flashcard">
+      <span class="block-tag">${card.topicName}</span>
+      <p class="qtext flashcard-text">${escapeHtml(fc.flipped ? card.back : card.front)}</p>
+      ${!fc.flipped ? `<div class="hint" style="text-align:center; margin-top:10px;">${t("flashcards.tapToFlip")}</div>` : ""}
+    </div>
+    ${fc.flipped ? `
+      <div class="actions" style="justify-content:center; gap:16px; margin-top:20px;">
+        <button class="btn secondary" data-action="flashcard-no">${t("flashcards.didntKnow")}</button>
+        <button class="btn amber" data-action="flashcard-yes">${t("flashcards.knew")}</button>
+      </div>
+    ` : `
+      <div class="actions" style="justify-content:center; margin-top:20px;">
+        <button class="btn secondary" data-action="quit-flashcards">${t("quiz.abandon")}</button>
+      </div>
+    `}
+    <div class="hint" style="text-align:center; margin-top:16px;">${t("flashcards.keyboardHint")}</div>
+  `;
+}
+
+function renderFlashcardsScore(){
+  const fc = flashcards;
+  const known = fc.results.filter(r=>r===true).length;
+  return `
+    <div class="score-screen">
+      <div class="score-lbl">${t("flashcards.resultTitle")}</div>
+      <div class="score-num">${known}/${fc.cards.length}</div>
+      <div class="score-lbl">${t("flashcards.resultDesc")}</div>
+      <div style="display:flex; gap:10px; justify-content:center; margin-top:18px;">
+        <button class="btn secondary" data-nav="special-modes">${t("loop.backToSpecial")}</button>
+        <button class="btn amber" data-action="repeat-flashcards">${t("flashcards.repeat")}</button>
+      </div>
+    </div>
+  `;
+}
+
 function renderSpecialModes(){
   const activeErr = activeErrors();
   const due = dueErrors();
   const mcPool = getAllQuestionsPool().filter(q=>q.type!=="tf");
   const tfMax = mcPool.reduce((s,q)=>s+q.opts.length,0);
   const trapPool = detectTrapQuestions(getAllQuestionsPool());
+  const flashcardsPool = allFlashcards();
   const es = n => n===1?"":"s";
 
   return `
@@ -785,6 +924,13 @@ function renderSpecialModes(){
         <p>${t("special.trapDesc")}</p>
         <div class="special-meta">${t("special.trapMeta",{n:trapPool.length, s:es(trapPool.length)})}</div>
         <button class="btn amber" data-action="start-trap-mode" ${trapPool.length===0?"disabled":""}>${t("special.trapStart")}</button>
+      </div>
+
+      <div class="special-card">
+        <h3>${t("special.flashcardsTitle")}</h3>
+        <p>${t("special.flashcardsDesc")}</p>
+        <div class="special-meta">${t("special.flashcardsMeta",{n:flashcardsPool.length, s:es(flashcardsPool.length)})}</div>
+        <button class="btn amber" data-action="start-flashcards-mode" ${flashcardsPool.length===0?"disabled":""}>${t("special.flashcardsStart")}</button>
       </div>
     </div>
   `;
@@ -936,6 +1082,22 @@ function toggleTheme(){
   try{ localStorage.setItem(THEME_KEY, currentTheme); }catch(e){}
   applyTheme(currentTheme);
   render();
+}
+
+// ---------------- FONT SIZE ----------------
+const FONT_SIZE_CLASSES = ["", "font-lg", "font-xl"];
+function loadFontSize(){
+  try{ return parseInt(localStorage.getItem(FONT_SIZE_KEY),10) || 0; }catch(e){ return 0; }
+}
+let fontSizeLevel = loadFontSize();
+
+function cycleFontSize(){
+  fontSizeLevel = (fontSizeLevel + 1) % FONT_SIZE_CLASSES.length;
+  try{ localStorage.setItem(FONT_SIZE_KEY, String(fontSizeLevel)); }catch(e){}
+  render();
+}
+function fontSizeLabel(){
+  return [t("fontsize.normal"), t("fontsize.large"), t("fontsize.xlarge")][fontSizeLevel];
 }
 
 // ---------------- POMODORO ----------------
@@ -1158,6 +1320,7 @@ function setView(view, params={}){
 }
 
 function render(){
+  root.className = FONT_SIZE_CLASSES[fontSizeLevel];
   root.innerHTML = `
     <button type="button" class="menu-toggle" data-action="toggle-sidebar" aria-label="${t('nav.menu')}">${ICON_MENU}</button>
     <div class="sidebar-overlay ${sidebarOpen?'visible':''}" data-action="close-sidebar"></div>
@@ -1194,6 +1357,10 @@ function render(){
         <div class="theme-toggle" data-action="toggle-theme" title="${t('theme.switchTitle')}">
           ${currentTheme==="dark" ? ICON_SUN : ICON_MOON}
           <span>${currentTheme==="dark" ? t("theme.toLight") : t("theme.toDark")}</span>
+        </div>
+        <div class="theme-toggle" data-action="cycle-fontsize" title="${t('fontsize.switchTitle')}">
+          ${ICON_FONTSIZE}
+          <span>${t("fontsize.label")}: ${fontSizeLabel()}</span>
         </div>
       </div>
     </div>
@@ -1283,6 +1450,7 @@ const ICON_LANG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" s
 const ICON_SUN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.7M8 12.8v1.7M1.5 8h1.7M12.8 8h1.7M3.6 3.6l1.2 1.2M11.2 11.2l1.2 1.2M3.6 12.4l1.2-1.2M11.2 4.8l1.2-1.2"/></svg>';
 const ICON_MOON = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8Z"/></svg>';
 const ICON_MENU = '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/></svg>';
+const ICON_FONTSIZE = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12.5 5.2 4h1.1l3.2 8.5"/><path d="M2.9 10h4.6"/><path d="M11 12.5 13 7.2h.7l2 5.3"/><path d="M11.5 11h3.4"/></svg>';
 
 let sidebarOpen = false;
 let versionsOpen = false;
@@ -1318,6 +1486,8 @@ function renderMain(){
     case "special-modes": return renderSpecialModes();
     case "loop-quiz": return renderLoopQuiz();
     case "loop-score": return renderLoopScore();
+    case "flashcards": return renderFlashcards();
+    case "flashcards-score": return renderFlashcardsScore();
     case "custom-questions": return renderCustom();
     case "stats": return renderStats();
     case "info": return renderInfo();
@@ -2301,6 +2471,26 @@ function attachHandlers(){
   const startTrapBtn = root.querySelector('[data-action="start-trap-mode"]');
   if(startTrapBtn){ startTrapBtn.addEventListener("click", startTrapMode); }
 
+  const startFlashcardsBtn = root.querySelector('[data-action="start-flashcards-mode"]');
+  if(startFlashcardsBtn){ startFlashcardsBtn.addEventListener("click", startFlashcardsMode); }
+
+  const flipFlashcardEl = root.querySelector('[data-action="flip-flashcard"]');
+  if(flipFlashcardEl){
+    flipFlashcardEl.addEventListener("click", ()=>{ if(!flashcards.flipped) flipFlashcard(); });
+  }
+
+  const flashcardYesBtn = root.querySelector('[data-action="flashcard-yes"]');
+  if(flashcardYesBtn){ flashcardYesBtn.addEventListener("click", ()=>answerFlashcard(true)); }
+
+  const flashcardNoBtn = root.querySelector('[data-action="flashcard-no"]');
+  if(flashcardNoBtn){ flashcardNoBtn.addEventListener("click", ()=>answerFlashcard(false)); }
+
+  const quitFlashcardsBtn = root.querySelector('[data-action="quit-flashcards"]');
+  if(quitFlashcardsBtn){ quitFlashcardsBtn.addEventListener("click", quitFlashcards); }
+
+  const repeatFlashcardsBtn = root.querySelector('[data-action="repeat-flashcards"]');
+  if(repeatFlashcardsBtn){ repeatFlashcardsBtn.addEventListener("click", startFlashcardsMode); }
+
   root.querySelectorAll("[data-loop-pick]").forEach(el=>{
     el.addEventListener("click", ()=> pickLoopOption(parseInt(el.getAttribute("data-loop-pick"),10)));
   });
@@ -2409,6 +2599,11 @@ function attachHandlers(){
   const themeToggle = root.querySelector('[data-action="toggle-theme"]');
   if(themeToggle){
     themeToggle.addEventListener("click", toggleTheme);
+  }
+
+  const fontSizeToggle = root.querySelector('[data-action="cycle-fontsize"]');
+  if(fontSizeToggle){
+    fontSizeToggle.addEventListener("click", cycleFontSize);
   }
 
   const langToggle = root.querySelector('[data-action="toggle-lang"]');
@@ -2584,6 +2779,18 @@ let lastConfig = null;
 // ---------------- KEYBOARD SHORTCUTS (quiz) ----------------
 const OPTION_KEY_INDEX = {"1":0,"2":1,"3":2,"4":3,"5":4,"6":5,"a":0,"b":1,"c":2,"d":3,"e":4,"f":5};
 function handleQuizKeydown(e){
+  if(state.view === "flashcards"){
+    const tag = document.activeElement ? document.activeElement.tagName : "";
+    if(tag==="INPUT" || tag==="TEXTAREA" || tag==="SELECT") return;
+    if(!flashcards.flipped){
+      if(e.key===" " || e.key==="Enter"){ e.preventDefault(); flipFlashcard(); }
+      return;
+    }
+    if(e.key==="Enter" || e.key==="ArrowRight"){ e.preventDefault(); answerFlashcard(true); }
+    else if(e.key==="Backspace" || e.key.toLowerCase()==="n" || e.key==="ArrowLeft"){ e.preventDefault(); answerFlashcard(false); }
+    return;
+  }
+
   if(state.view !== "quiz" && state.view !== "loop-quiz") return;
   const tag = document.activeElement ? document.activeElement.tagName : "";
   if(tag==="INPUT" || tag==="TEXTAREA" || tag==="SELECT") return;
