@@ -10,6 +10,7 @@ const EXAM_TOTAL_SEC = 60 * 60;
 const STRINGS = {
   es: {
     "brand.subtitle": "Entrenador de examen",
+    "nav.menu": "Menú",
     "nav.dashboard": "Inicio",
     "nav.theoryList": "Temario",
     "nav.topicTest": "Test por tema",
@@ -263,6 +264,7 @@ const STRINGS = {
   },
   en: {
     "brand.subtitle": "Exam trainer",
+    "nav.menu": "Menu",
     "nav.dashboard": "Home",
     "nav.theoryList": "Theory",
     "nav.topicTest": "Test by topic",
@@ -1018,7 +1020,9 @@ function setView(view, params={}){
 
 function render(){
   root.innerHTML = `
-    <div class="sidebar">
+    <button type="button" class="menu-toggle" data-action="toggle-sidebar" aria-label="${t('nav.menu')}">${ICON_MENU}</button>
+    <div class="sidebar-overlay ${sidebarOpen?'visible':''}" data-action="close-sidebar"></div>
+    <div class="sidebar ${sidebarOpen?'open':''}">
       <div class="brand">
         <img src="logo.svg" alt="logo"/>
         <div class="name"><b>PSPO I</b>${t("brand.subtitle")}</div>
@@ -1139,6 +1143,9 @@ function toggleFlag(){
 const ICON_LANG = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5.5"/><path d="M2.5 8h11"/><path d="M8 2.5c1.7 1.6 1.7 9.4 0 11M8 2.5c-1.7 1.6-1.7 9.4 0 11"/></svg>';
 const ICON_SUN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><path d="M8 1.5v1.7M8 12.8v1.7M1.5 8h1.7M12.8 8h1.7M3.6 3.6l1.2 1.2M11.2 11.2l1.2 1.2M3.6 12.4l1.2-1.2M11.2 4.8l1.2-1.2"/></svg>';
 const ICON_MOON = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 9.6A5.6 5.6 0 0 1 6.4 2.8a5.6 5.6 0 1 0 6.8 6.8Z"/></svg>';
+const ICON_MENU = '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/></svg>';
+
+let sidebarOpen = false;
 
 const NAV_ICONS = {
   "dashboard": '<path d="M2.5 8.5 8 3l5.5 5.5"/><path d="M3.8 7.2V13h8.4V7.2"/>',
@@ -1279,7 +1286,7 @@ function renderTopicConfig(){
   return `
     <h1>${t("topicConfig.title")}</h1>
     <p class="subtitle">${t("topicConfig.subtitle")}</p>
-    <div class="config-row">
+    <div class="config-row config-row-tight">
       <label>${t("topicConfig.topicLabel")}</label>
       <select id="cfg-topic">
         ${activeTopics.map(tp=>`<option value="${tp.id}" ${tp.id===topicId?"selected":""}>${tp.name}</option>`).join("")}
@@ -1951,9 +1958,20 @@ function attachHandlers(){
     el.addEventListener("click", ()=>{
       const view = el.getAttribute("data-nav");
       const topic = el.getAttribute("data-topic");
+      sidebarOpen = false;
       setView(view, topic ? {topicId:topic} : {});
     });
   });
+
+  const menuToggleBtn = root.querySelector('[data-action="toggle-sidebar"]');
+  if(menuToggleBtn){
+    menuToggleBtn.addEventListener("click", ()=>{ sidebarOpen = !sidebarOpen; render(); });
+  }
+
+  const sidebarOverlay = root.querySelector('[data-action="close-sidebar"]');
+  if(sidebarOverlay){
+    sidebarOverlay.addEventListener("click", ()=>{ sidebarOpen = false; render(); });
+  }
 
   const topicSelect = document.getElementById("cfg-topic");
   if(topicSelect){
