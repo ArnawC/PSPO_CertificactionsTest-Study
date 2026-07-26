@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.18.0 — 2026-07-26
+Afegeix botons de descarregar i importar còpia de seguretat (historial, preguntes pròpies i errors) a Historial i estadístiques.
+
 ## v1.17.0 — 2026-07-26
 Corregeix el contrast del botó "Abandonar" dins la targeta de pregunta i fa que la barra de progrés mostri les respostes correctes en verd (abans taronja).
 

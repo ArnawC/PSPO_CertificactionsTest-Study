@@ -202,6 +202,13 @@ const STRINGS = {
     "stats.clearHistory": "Borrar historial",
     "stats.confirmClearHistory": "¿Borrar todo el historial de tests? Esta acción no se puede deshacer.",
     "stats.timedOutSuffix": " · tiempo agotado",
+    "stats.backupTitle": "Copia de seguridad",
+    "stats.backupDesc": "Descarga tus datos (historial, preguntas propias y errores) para poder continuar en otro dispositivo o si borras la caché/cookies.",
+    "stats.exportData": "Descargar copia de seguridad ↓",
+    "stats.importData": "Importar copia de seguridad ↑",
+    "stats.importConfirmOverwrite": "Ya tienes datos guardados en este dispositivo. ¿Quieres sobrescribirlos con la copia importada?",
+    "stats.importSuccess": "Datos importados correctamente. La app se recargará.",
+    "stats.importInvalidFile": "El archivo seleccionado no es una copia de seguridad válida.",
     "errors.active": "Activas",
     "errors.mastered": "Dominadas",
     "errors.all": "Todas",
@@ -462,6 +469,13 @@ const STRINGS = {
     "stats.clearHistory": "Clear history",
     "stats.confirmClearHistory": "Clear the entire test history? This action cannot be undone.",
     "stats.timedOutSuffix": " · timed out",
+    "stats.backupTitle": "Backup",
+    "stats.backupDesc": "Download your data (history, custom questions, and errors) so you can continue on another device or if you clear your cache/cookies.",
+    "stats.exportData": "Download backup ↓",
+    "stats.importData": "Import backup ↑",
+    "stats.importConfirmOverwrite": "You already have data saved on this device. Overwrite it with the imported backup?",
+    "stats.importSuccess": "Data imported successfully. The app will reload.",
+    "stats.importInvalidFile": "The selected file isn't a valid backup.",
     "errors.active": "Active",
     "errors.mastered": "Mastered",
     "errors.all": "All",
@@ -972,6 +986,50 @@ function saveSession(entry){
 }
 function clearHistory(){
   localStorage.removeItem(STORAGE_KEY);
+}
+
+function hasBackupData(){
+  return loadHistory().length>0 || loadCustomQuestions().length>0 || loadErrorLog().length>0;
+}
+
+function exportBackupData(){
+  const payload = {
+    app: "pspo-i-trainer",
+    exportedAt: new Date().toISOString(),
+    appVersion: APP_VERSION,
+    history: loadHistory(),
+    customQuestions: loadCustomQuestions(),
+    errors: loadErrorLog()
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `pspo-i-trainer-backup-${payload.exportedAt.slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+function importBackupFile(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    let data;
+    try{ data = JSON.parse(reader.result); }
+    catch(e){ alert(t("stats.importInvalidFile")); return; }
+    if(!data || typeof data !== "object" || !Array.isArray(data.history) || !Array.isArray(data.customQuestions) || !Array.isArray(data.errors)){
+      alert(t("stats.importInvalidFile"));
+      return;
+    }
+    if(hasBackupData() && !confirm(t("stats.importConfirmOverwrite"))) return;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data.history));
+    localStorage.setItem(CUSTOM_KEY, JSON.stringify(data.customQuestions));
+    localStorage.setItem(ERROR_KEY, JSON.stringify(data.errors));
+    alert(t("stats.importSuccess"));
+    location.reload();
+  };
+  reader.readAsText(file);
 }
 
 function shuffle(arr){
@@ -1798,6 +1856,20 @@ function renderErrorHistoryTab(){
   `;
 }
 
+function renderBackupControls(){
+  return `
+    <div class="stats-panel" style="margin-bottom:22px;">
+      <div class="section-title" style="margin-top:0;">${t("stats.backupTitle")}</div>
+      <p class="subtitle" style="margin-bottom:14px;">${t("stats.backupDesc")}</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button type="button" class="btn secondary small" id="btn-export-data">${t("stats.exportData")}</button>
+        <button type="button" class="btn secondary small" id="btn-import-data">${t("stats.importData")}</button>
+      </div>
+      <input type="file" id="import-file-input" accept="application/json,.json" style="display:none;"/>
+    </div>
+  `;
+}
+
 function renderStats(){
   const statsView = state.statsView || "summary";
   const allHistRaw = loadHistory();
@@ -1813,6 +1885,7 @@ function renderStats(){
       <h1>${t("stats.title")}</h1>
       <p class="subtitle">${t("stats.testsRegistered",{n:allHistRaw.length})}</p>
       ${viewTabs}
+      ${renderBackupControls()}
       ${renderErrorHistoryTab()}
     `;
   }
@@ -1965,6 +2038,7 @@ function renderStats(){
     <h1>${t("stats.title")}</h1>
     <p class="subtitle">${t("stats.testsRegistered",{n:allHist.length})}</p>
     ${viewTabs}
+    ${renderBackupControls()}
     <div class="stats-controls">
       <div class="tabs">${tabs}</div>
       ${topicSelect}
@@ -2368,6 +2442,22 @@ function attachHandlers(){
         clearHistory();
         render();
       }
+    });
+  }
+
+  const exportBtn = document.getElementById("btn-export-data");
+  if(exportBtn){
+    exportBtn.addEventListener("click", exportBackupData);
+  }
+
+  const importBtn = document.getElementById("btn-import-data");
+  const importInput = document.getElementById("import-file-input");
+  if(importBtn && importInput){
+    importBtn.addEventListener("click", ()=>{ importInput.click(); });
+    importInput.addEventListener("change", (e)=>{
+      const file = e.target.files[0];
+      if(file) importBackupFile(file);
+      importInput.value = "";
     });
   }
 }
