@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.16.0";
+const APP_VERSION = "1.17.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.17.0", date: "2026-07-26", desc: {
+    es: "Corrige el contraste del botón \"Abandonar\" en la tarjeta de pregunta y hace que la barra de progreso muestre las respuestas correctas en verde (antes naranja).",
+    en: "Fixes the \"Abandon\" button contrast on the question card and makes the progress bar show correct answers in green (previously orange)."
+  }},
   { version: "1.16.0", date: "2026-07-26", desc: {
     es: "Añade número de versión de la app y un historial de versiones (cada commit) en \"Sobre la app\".",
     en: "Adds an app version number and a per-commit version history under \"About the app\"."

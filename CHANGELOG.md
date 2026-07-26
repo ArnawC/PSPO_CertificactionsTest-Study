@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.17.0 — 2026-07-26
+Corregeix el contrast del botó "Abandonar" dins la targeta de pregunta i fa que la barra de progrés mostri les respostes correctes en verd (abans taronja).
+
 ## v1.16.0 — 2026-07-26
 Afegeix número de versió de l'app i un historial de versions (cada commit) a "Sobre la app".
 

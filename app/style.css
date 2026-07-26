@@ -141,6 +141,8 @@ button, select, input{font-family:'Segoe UI', Georgia, serif;}
 .btn:disabled{opacity:.35; cursor:default;}
 .btn.secondary{background:transparent; border:1px solid var(--border); color:var(--text-light);}
 .btn.secondary:hover:not(:disabled){border-color:var(--text-mute);}
+.card .btn.secondary, .theory-box .btn.secondary{color:var(--ink); border-color:var(--card-border);}
+.card .btn.secondary:hover:not(:disabled), .theory-box .btn.secondary:hover:not(:disabled){border-color:var(--amber-dark);}
 .btn.amber{background:linear-gradient(160deg, var(--amber-soft), var(--amber)); color:#3a2606; font-weight:600; box-shadow:0 3px 12px var(--amber-glow);}
 .btn.amber:hover:not(:disabled){box-shadow:0 5px 18px var(--amber-glow);}
 .btn.small{padding:6px 13px; font-size:13px;}
@@ -164,7 +166,7 @@ button, select, input{font-family:'Segoe UI', Georgia, serif;}
 
 .track{display:flex; gap:4px; margin-bottom:18px;}
 .dot{flex:1; height:6px; border-radius:3px; background:var(--bg-panel-hi);}
-.dot.done{background:var(--amber);}
+.dot.done{background:var(--green-line);}
 .dot.wrong{background:var(--red-line);}
 
 .topbar-quiz{display:flex; justify-content:space-between; align-items:baseline; font-family:'Segoe UI', sans-serif; font-size:12px; letter-spacing:.05em; color:var(--text-mute); margin-bottom:8px; text-transform:uppercase;}
