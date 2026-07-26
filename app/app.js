@@ -1207,7 +1207,7 @@ function renderDashboard(){
     </div>
     <div style="display:flex; gap:12px; margin-bottom:30px;">
       <button class="btn amber" data-nav="test-config">${t("dashboard.startGeneral")}</button>
-      <button class="btn secondary" data-nav="test-config">${t("dashboard.startFinal")}</button>
+      <button class="btn secondary" data-nav="test-config" data-anchor="final-exam-section">${t("dashboard.startFinal")}</button>
     </div>
     <h1 style="font-size:18px;">${t("dashboard.progressByTopic")}</h1>
     <div class="card-list">
@@ -1341,7 +1341,7 @@ function renderTestConfig(){
       <button class="btn amber" id="btn-start-general" style="width:100%; margin-top:8px;">${t("action.startTest")}</button>
     </div>
 
-    <h2 style="font-size:19px; margin:34px 0 4px;">${t("finalConfig.title")}</h2>
+    <h2 id="final-exam-section" style="font-size:19px; margin:34px 0 4px;">${t("finalConfig.title")}</h2>
     <p class="subtitle">${t("finalConfig.subtitle",{n:EXAM_TOTAL_Q})}</p>
     <div class="config-box">
       <div class="config-row"><label>${t("finalConfig.questionsInTest")}</label><span class="max">${t("finalConfig.available",{n,total:pool.length})}</span></div>
@@ -1958,8 +1958,13 @@ function attachHandlers(){
     el.addEventListener("click", ()=>{
       const view = el.getAttribute("data-nav");
       const topic = el.getAttribute("data-topic");
+      const anchor = el.getAttribute("data-anchor");
       sidebarOpen = false;
       setView(view, topic ? {topicId:topic} : {});
+      if(anchor){
+        const target = document.getElementById(anchor);
+        if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
+      }
     });
   });
 
