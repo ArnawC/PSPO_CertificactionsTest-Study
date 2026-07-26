@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.23.0";
+const APP_VERSION = "1.24.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.24.0", date: "2026-07-26", desc: {
+    es: "Añade un README completo: funcionalidades, cómo usar la app (web/móvil/escritorio), idiomas, privacidad de datos y enlace a la web de GitHub Pages.",
+    en: "Adds a full README: features, how to use the app (web/mobile/desktop), languages, data privacy, and a link to the GitHub Pages site."
+  }},
   { version: "1.23.0", date: "2026-07-26", desc: {
     es: "Corrige la retroalimentación de preguntas de respuesta múltiple: las opciones correctas que NO marcaste ahora se distinguen (verde discontinuo + etiqueta \"correcta, no marcada\") de las que sí acertaste, en vez de mostrarse todas en verde sólido.",
     en: "Fixes multi-choice answer feedback: correct options you did NOT select are now visually distinguished (dashed green + a \"correct, not selected\" tag) from the ones you actually got right, instead of all showing solid green."
