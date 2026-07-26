@@ -1,0 +1,14 @@
+{
+  "name": "PSPO I Trainer",
+  "short_name": "PSPO I",
+  "description": "Entrenador para el examen PSPO I de Scrum.org",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#1b2230",
+  "theme_color": "#1b2230",
+  "icons": [
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

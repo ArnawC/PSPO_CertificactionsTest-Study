@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.22.0 — 2026-07-26
+Afegeix icona apple-touch-icon i manifest.json perquè "Afegir a pantalla d'inici" a iPhone detecti el logo correctament.
+
 ## v1.21.0 — 2026-07-26
 Afegeix un diagrama visual (cicle dels tres pilars) al temari d'Empirismo, després de la frase que explica com es reforcen en cadena.
 

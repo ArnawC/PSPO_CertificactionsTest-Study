@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.21.0";
+const APP_VERSION = "1.22.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.22.0", date: "2026-07-26", desc: {
+    es: "Añade icono apple-touch-icon y manifest.json para que \"Añadir a pantalla de inicio\" en iPhone detecte el logo correctamente.",
+    en: "Adds an apple-touch-icon and manifest.json so \"Add to Home Screen\" on iPhone correctly detects the app logo."
+  }},
   { version: "1.21.0", date: "2026-07-26", desc: {
     es: "Añade un diagrama visual (ciclo de los tres pilares) en el temario de Empirismo, tras la frase que explica cómo se refuerzan en cadena.",
     en: "Adds a visual diagram (the three-pillars cycle) to the Empiricism theory, right after the sentence explaining how they reinforce each other."
