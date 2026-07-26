@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.21.0 — 2026-07-26
+Afegeix un diagrama visual (cicle dels tres pilars) al temari d'Empirismo, després de la frase que explica com es reforcen en cadena.
+
 ## v1.20.0 — 2026-07-26
 Afegeix mida de lletra ajustable (Normal/Grande/Muy grande) i un nou mode Flashcards a Modos especiales, amb targetes terme/definició extretes del temari.
 

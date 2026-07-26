@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.20.0";
+const APP_VERSION = "1.21.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.21.0", date: "2026-07-26", desc: {
+    es: "Añade un diagrama visual (ciclo de los tres pilares) en el temario de Empirismo, tras la frase que explica cómo se refuerzan en cadena.",
+    en: "Adds a visual diagram (the three-pillars cycle) to the Empiricism theory, right after the sentence explaining how they reinforce each other."
+  }},
   { version: "1.20.0", date: "2026-07-26", desc: {
     es: "Añade tamaño de letra ajustable (Normal/Grande/Muy grande) y un nuevo modo Flashcards en Modos especiales, con tarjetas término/definición extraídas del temario.",
     en: "Adds adjustable font size (Normal/Large/Extra large) and a new Flashcards mode under Special modes, with term/definition cards pulled from the theory."
