@@ -53,6 +53,8 @@ const STRINGS = {
     "theory.listenTopic": "Escuchar este tema",
     "theory.listenAll": "Escuchar todo el temario",
     "theory.stopListening": "Detener lectura",
+    "theory.searchPlaceholder": "Buscar un concepto en el temario...",
+    "theory.searchNoResults": "No se han encontrado coincidencias.",
     "typeLabel.single": "Opción única",
     "typeLabel.multi": "Respuesta múltiple",
     "typeLabel.tf": "Verdadero / Falso",
@@ -82,6 +84,7 @@ const STRINGS = {
     "quiz.marked": "Marcada",
     "quiz.markReviewTitle": "Marcar para revisar (Duda Extrema)",
     "quiz.selectAll": "Selecciona todas las que correspondan",
+    "quiz.keyboardHint": "Atajos: 1-6 o A-F para elegir · Enter para comprobar/continuar",
     "quiz.correct": "Correcto.",
     "quiz.incorrect": "Incorrecto.",
     "quiz.examNote": "Nota de examen:",
@@ -115,6 +118,12 @@ const STRINGS = {
     "special.redemptionDesc": "Un test normal, de una sola vez, con todas las preguntas que actualmente tienes pendientes en el registro de errores.",
     "special.redemptionMeta": "{n} pregunta{s} disponible{s}",
     "special.redemptionStart": "Empezar redención ↗",
+    "special.spacedTitle": "Repaso espaciado",
+    "special.spacedDesc": "Repasa solo las preguntas falladas que ya tocan hoy, según cuánto las domines (repetición espaciada tipo SM-2).",
+    "special.spacedMeta": "{n} pregunta{s} para repasar hoy",
+    "special.spacedNoneDueMeta": "Sin repasos pendientes hoy · próximo: {date}",
+    "special.spacedEmptyMeta": "Aún no hay preguntas falladas",
+    "special.spacedStart": "Empezar repaso ↗",
     "special.tfTitle": "Verdadero / Falso masivo",
     "special.tfDesc": "Transforma cada opción de las preguntas de opción única y múltiple en una pregunta independiente de Verdadero/Falso. Procesa el triple de conceptos en menos tiempo.",
     "special.tfMeta": "{n} preguntas base · hasta {m} ítems V/F posibles",
@@ -222,6 +231,7 @@ const STRINGS = {
     "mode.general": "Test general",
     "mode.final": "Test final",
     "mode.redemption": "Test de redención",
+    "mode.spaced": "Repaso espaciado",
     "mode.tfmassive": "V/F masivo",
     "mode.trap": "Preguntas trampa",
     "days.all": "Todo",
@@ -320,6 +330,8 @@ const STRINGS = {
     "theory.listenTopic": "Listen to this topic",
     "theory.listenAll": "Listen to the entire theory",
     "theory.stopListening": "Stop listening",
+    "theory.searchPlaceholder": "Search a concept in the theory...",
+    "theory.searchNoResults": "No matches found.",
     "typeLabel.single": "Single choice",
     "typeLabel.multi": "Multiple choice",
     "typeLabel.tf": "True / False",
@@ -349,6 +361,7 @@ const STRINGS = {
     "quiz.marked": "Marked",
     "quiz.markReviewTitle": "Mark for review (Extreme Doubt)",
     "quiz.selectAll": "Select all that apply",
+    "quiz.keyboardHint": "Shortcuts: 1-6 or A-F to pick · Enter to check/continue",
     "quiz.correct": "Correct.",
     "quiz.incorrect": "Incorrect.",
     "quiz.examNote": "Exam note:",
@@ -382,6 +395,12 @@ const STRINGS = {
     "special.redemptionDesc": "A normal, one-pass test with every question currently pending in your error log.",
     "special.redemptionMeta": "{n} question{s} available",
     "special.redemptionStart": "Start redemption ↗",
+    "special.spacedTitle": "Spaced review",
+    "special.spacedDesc": "Review only the missed questions that are due today, based on how well you know them (SM-2-style spaced repetition).",
+    "special.spacedMeta": "{n} question{s} due today",
+    "special.spacedNoneDueMeta": "Nothing due today · next: {date}",
+    "special.spacedEmptyMeta": "No missed questions yet",
+    "special.spacedStart": "Start review ↗",
     "special.tfTitle": "Mass True / False",
     "special.tfDesc": "Turns each option of single- and multiple-choice questions into an independent True/False question. Process three times the concepts in less time.",
     "special.tfMeta": "{n} base questions · up to {m} possible T/F items",
@@ -489,6 +508,7 @@ const STRINGS = {
     "mode.general": "General test",
     "mode.final": "Final test",
     "mode.redemption": "Redemption test",
+    "mode.spaced": "Spaced review",
     "mode.tfmassive": "Mass T/F",
     "mode.trap": "Trap questions",
     "days.all": "All",
@@ -613,10 +633,47 @@ function recordAnswerResult(q, isCorrect){
     entry.masteredAt = null;
     entry.lastFailedAt = Date.now();
   }
+  updateSpacedRepetition(entry, isCorrect);
   saveErrorLog(log);
 }
 function activeErrors(){
   return loadErrorLog().filter(e=>!e.masteredAt);
+}
+
+// Repetició espaiada (SM-2 simplificat, qualitat binaria: correcte=5, incorrecte=2).
+function updateSpacedRepetition(entry, isCorrect){
+  const q = isCorrect ? 5 : 2;
+  let ef = entry.ef || 2.5;
+  ef = ef + (0.1 - (5-q)*(0.08+(5-q)*0.02));
+  if(ef < 1.3) ef = 1.3;
+  entry.ef = ef;
+  if(isCorrect){
+    entry.reps = (entry.reps||0) + 1;
+    if(entry.reps===1) entry.interval = 1;
+    else if(entry.reps===2) entry.interval = 6;
+    else entry.interval = Math.round((entry.interval||1) * ef);
+  } else {
+    entry.reps = 0;
+    entry.interval = 1;
+  }
+  entry.dueAt = Date.now() + entry.interval*24*60*60*1000;
+}
+function dueErrors(){
+  const now = Date.now();
+  return activeErrors().filter(e => (e.dueAt||0) <= now);
+}
+function nextDueDate(){
+  const active = activeErrors();
+  if(!active.length) return null;
+  return active.reduce((min,e)=> Math.min(min, e.dueAt||0), Infinity);
+}
+
+function startSpacedReviewMode(){
+  const due = dueErrors();
+  const pool = due.map(e=>({type:e.type, q:e.q, opts:e.opts, exp:e.exp, correct:e.correct, trap:e.trap, topicId:e.topicId, topicName:e.topicName}));
+  if(!pool.length){ alert(t("special.noErrorsAlert")); return; }
+  const questions = shuffle(pool).map(prepareQuestion);
+  startQuiz(questions, {mode:"spaced", label:t("mode.spaced")}, null);
 }
 
 // ---------------- SPECIAL MODES ----------------
@@ -677,6 +734,7 @@ function startTrapMode(){
 
 function renderSpecialModes(){
   const activeErr = activeErrors();
+  const due = dueErrors();
   const mcPool = getAllQuestionsPool().filter(q=>q.type!=="tf");
   const tfMax = mcPool.reduce((s,q)=>s+q.opts.length,0);
   const trapPool = detectTrapQuestions(getAllQuestionsPool());
@@ -698,6 +756,17 @@ function renderSpecialModes(){
         <p>${t("special.redemptionDesc")}</p>
         <div class="special-meta">${t("special.redemptionMeta",{n:activeErr.length, s:es(activeErr.length)})}</div>
         <button class="btn amber" data-action="start-redemption-mode" ${activeErr.length===0?"disabled":""}>${t("special.redemptionStart")}</button>
+      </div>
+
+      <div class="special-card">
+        <h3>${t("special.spacedTitle")}</h3>
+        <p>${t("special.spacedDesc")}</p>
+        <div class="special-meta">${
+          due.length>0 ? t("special.spacedMeta",{n:due.length, s:es(due.length)})
+          : activeErr.length>0 ? t("special.spacedNoneDueMeta",{date:new Date(nextDueDate()).toLocaleDateString()})
+          : t("special.spacedEmptyMeta")
+        }</div>
+        <button class="btn amber" data-action="start-spaced-mode" ${due.length===0?"disabled":""}>${t("special.spacedStart")}</button>
       </div>
 
       <div class="special-card">
@@ -807,7 +876,7 @@ function renderLoopQuiz(){
     }
     return `<button class="${cls}" data-loop-pick="${i}" ${loopQuiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}</button>`;
   }).join("");
-  let hint = q.type==="multi" ? `<div class="hint">${t("quiz.selectAll")}</div>` : "";
+  let hint = (q.type==="multi" ? `<div class="hint">${t("quiz.selectAll")}</div>` : "") + `<div class="hint">${t("quiz.keyboardHint")}</div>`;
   let feedbackHtml = "";
   if(loopQuiz.locked){
     feedbackHtml = `<div class="feedback ${loopQuiz.lastResult?'ok':'bad'}">
@@ -1217,6 +1286,7 @@ const ICON_MENU = '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" s
 
 let sidebarOpen = false;
 let versionsOpen = false;
+let theorySearchQuery = "";
 
 const NAV_ICONS = {
   "dashboard": '<path d="M2.5 8.5 8 3l5.5 5.5"/><path d="M3.8 7.2V13h8.4V7.2"/>',
@@ -1308,16 +1378,41 @@ function aggregateByTopic(hist){
 }
 
 // ---------------- THEORY ----------------
+function highlightMatch(text, query){
+  if(!query) return escapeHtml(text);
+  const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if(idx===-1) return escapeHtml(text);
+  return escapeHtml(text.slice(0,idx)) + "<mark>" + escapeHtml(text.slice(idx,idx+query.length)) + "</mark>" + escapeHtml(text.slice(idx+query.length));
+}
+
 function renderTheoryList(){
+  const query = theorySearchQuery.trim().toLowerCase();
+  const results = activeTopics.map(tp=>{
+    if(!query) return {tp, snippet:null};
+    const plain = stripHtml(tp.theory);
+    const nameMatch = tp.name.toLowerCase().includes(query);
+    const idx = plain.toLowerCase().indexOf(query);
+    if(!nameMatch && idx===-1) return null;
+    let snippet = null;
+    if(idx!==-1){
+      const start = Math.max(0, idx-40);
+      const end = Math.min(plain.length, idx+query.length+70);
+      snippet = (start>0?"…":"") + plain.slice(start,end).trim() + (end<plain.length?"…":"");
+    }
+    return {tp, snippet};
+  }).filter(Boolean);
+
   return `
     <h1>${t("theory.title")}</h1>
     <p class="subtitle">${t("theory.subtitle")}</p>
+    <input type="text" id="theory-search" class="search-input" style="margin-bottom:16px;" placeholder="${escapeAttr(t('theory.searchPlaceholder'))}" value="${escapeAttr(theorySearchQuery)}"/>
     <button class="btn amber" data-nav="theory-all" style="width:100%; padding:18px; font-size:16px; margin-bottom:26px;">${t("theory.viewAll")}</button>
     <div class="card-list">
-      ${activeTopics.map(tp=>`<div class="topic-card" data-nav="theory-detail" data-topic="${tp.id}">
+      ${results.length ? results.map(({tp,snippet})=>`<div class="topic-card" data-nav="theory-detail" data-topic="${tp.id}">
         <h3>${tp.name}</h3>
         <div class="meta">${topicQuestionCount(tp.id)} ${t("theory.practiceQuestions")}</div>
-      </div>`).join("")}
+        ${snippet ? `<div class="meta" style="margin-top:8px; font-style:italic;">${highlightMatch(snippet, query)}</div>` : ""}
+      </div>`).join("") : `<div class="empty-hint">${t("theory.searchNoResults")}</div>`}
     </div>
   `;
 }
@@ -1480,7 +1575,7 @@ function renderQuiz(){
     return `<button class="${cls}" data-pick="${i}" ${quiz.locked?"disabled":""}><b>${String.fromCharCode(65+i)}</b>${o}</button>`;
   }).join("");
 
-  let hint = q.type==="multi" ? `<div class="hint">${t("quiz.selectAll")}</div>` : "";
+  let hint = (q.type==="multi" ? `<div class="hint">${t("quiz.selectAll")}</div>` : "") + `<div class="hint">${t("quiz.keyboardHint")}</div>`;
   let feedbackHtml = "";
   if(quiz.locked){
     const isRight = quiz.results[quiz.idx];
@@ -2080,6 +2175,17 @@ function attachHandlers(){
     versionsToggle.addEventListener("click", ()=>{ versionsOpen = !versionsOpen; render(); });
   }
 
+  const theorySearchInput = document.getElementById("theory-search");
+  if(theorySearchInput){
+    theorySearchInput.addEventListener("input", (e)=>{
+      theorySearchQuery = e.target.value;
+      const caret = e.target.selectionStart;
+      render();
+      const el = document.getElementById("theory-search");
+      if(el){ el.focus(); el.setSelectionRange(caret, caret); }
+    });
+  }
+
   const sidebarOverlay = root.querySelector('[data-action="close-sidebar"]');
   if(sidebarOverlay){
     sidebarOverlay.addEventListener("click", ()=>{ sidebarOpen = false; render(); });
@@ -2185,6 +2291,9 @@ function attachHandlers(){
 
   const startRedemptionBtn = root.querySelector('[data-action="start-redemption-mode"]');
   if(startRedemptionBtn){ startRedemptionBtn.addEventListener("click", startRedemptionMode); }
+
+  const startSpacedBtn = root.querySelector('[data-action="start-spaced-mode"]');
+  if(startSpacedBtn){ startSpacedBtn.addEventListener("click", startSpacedReviewMode); }
 
   const startTfMassiveBtn = root.querySelector('[data-action="start-tfmassive-mode"]');
   if(startTfMassiveBtn){ startTfMassiveBtn.addEventListener("click", startTfMassiveMode); }
@@ -2471,5 +2580,36 @@ function readCounts(){
 }
 
 let lastConfig = null;
+
+// ---------------- KEYBOARD SHORTCUTS (quiz) ----------------
+const OPTION_KEY_INDEX = {"1":0,"2":1,"3":2,"4":3,"5":4,"6":5,"a":0,"b":1,"c":2,"d":3,"e":4,"f":5};
+function handleQuizKeydown(e){
+  if(state.view !== "quiz" && state.view !== "loop-quiz") return;
+  const tag = document.activeElement ? document.activeElement.tagName : "";
+  if(tag==="INPUT" || tag==="TEXTAREA" || tag==="SELECT") return;
+
+  const isQuiz = state.view === "quiz";
+  const current = isQuiz ? quiz.questions[quiz.idx] : loopQuiz.current;
+  if(!current) return;
+  const locked = isQuiz ? quiz.locked : loopQuiz.locked;
+
+  const idx = OPTION_KEY_INDEX[e.key.toLowerCase()];
+  if(idx !== undefined && idx < current.opts.length){
+    e.preventDefault();
+    if(!locked){
+      if(isQuiz) pickOption(idx); else pickLoopOption(idx);
+    }
+    return;
+  }
+
+  if(e.key === "Enter"){
+    const btn = document.getElementById(isQuiz ? "btn-quiz-next" : "btn-loop-next");
+    if(btn && !btn.disabled){
+      e.preventDefault();
+      btn.click();
+    }
+  }
+}
+document.addEventListener("keydown", handleQuizKeydown);
 
 render();

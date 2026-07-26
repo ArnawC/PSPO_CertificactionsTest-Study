@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.19.0 — 2026-07-26
+Afegeix repàs espaiat (SM-2) com a nou mode especial, dreceres de teclat al test (1-6/A-F i Enter) i cercador de conceptes al temari.
+
 ## v1.18.0 — 2026-07-26
 Afegeix botons de descarregar i importar còpia de seguretat (historial, preguntes pròpies i errors) a Historial i estadístiques.
 

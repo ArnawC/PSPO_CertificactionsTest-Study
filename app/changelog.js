@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.18.0";
+const APP_VERSION = "1.19.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.19.0", date: "2026-07-26", desc: {
+    es: "Añade repaso espaciado (SM-2) como nuevo modo especial, atajos de teclado en el test (1-6/A-F y Enter) y buscador de conceptos en el temario.",
+    en: "Adds spaced review (SM-2) as a new special mode, keyboard shortcuts in tests (1-6/A-F and Enter), and a concept search box in the theory section."
+  }},
   { version: "1.18.0", date: "2026-07-26", desc: {
     es: "Añade botones de descargar e importar copia de seguridad (historial, preguntas propias y errores) en Historial y estadísticas.",
     en: "Adds download/import backup buttons (history, custom questions, and errors) under History and statistics."
