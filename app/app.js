@@ -260,7 +260,13 @@ const STRINGS = {
         <li><b>Idioma (ES/EN)</b> conmutable desde el sidebar.</li>
         <li><b>Pomodoro:</b> temporizador de estudio ({focusMin} min de enfoque / {breakMin} min de descanso) integrado en el sidebar.</li>
       </ul>
-    `
+    `,
+    "info.showVersions": "Ver historial de versiones ↓",
+    "info.hideVersions": "Ocultar historial de versiones ↑",
+    "info.repoLink": "Ver repositorio en GitHub ↗",
+    "info.versionCol": "Versión",
+    "info.dateCol": "Fecha",
+    "info.descCol": "Descripción",
   },
   en: {
     "brand.subtitle": "Exam trainer",
@@ -514,7 +520,13 @@ const STRINGS = {
         <li><b>Language (ES/EN)</b> switchable from the sidebar.</li>
         <li><b>Pomodoro:</b> a study timer ({focusMin} min focus / {breakMin} min break) built into the sidebar.</li>
       </ul>
-    `
+    `,
+    "info.showVersions": "Show version history ↓",
+    "info.hideVersions": "Hide version history ↑",
+    "info.repoLink": "View repository on GitHub ↗",
+    "info.versionCol": "Version",
+    "info.dateCol": "Date",
+    "info.descCol": "Description",
   }
 };
 
@@ -1025,7 +1037,7 @@ function render(){
     <div class="sidebar ${sidebarOpen?'open':''}">
       <div class="brand">
         <img src="logo.svg" alt="logo"/>
-        <div class="name"><b>PSPO I</b>${t("brand.subtitle")}</div>
+        <div class="name"><b>PSPO I <span class="version-tag">v${APP_VERSION}</span></b>${t("brand.subtitle")}</div>
       </div>
       ${navItem("dashboard",t("nav.dashboard"))}
       ${navItem("theory-list",t("nav.theoryList"))}
@@ -1146,6 +1158,7 @@ const ICON_MOON = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" s
 const ICON_MENU = '<svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/></svg>';
 
 let sidebarOpen = false;
+let versionsOpen = false;
 
 const NAV_ICONS = {
   "dashboard": '<path d="M2.5 8.5 8 3l5.5 5.5"/><path d="M3.8 7.2V13h8.4V7.2"/>',
@@ -1549,8 +1562,23 @@ function renderInfo(){
   return `
     <h1>${t("info.title")}</h1>
     <p class="subtitle">${t("info.subtitle")}</p>
+    <div class="block-tag">v${APP_VERSION}</div>
     <div class="theory-box">
       ${t("info.html",{examQ:EXAM_TOTAL_Q, focusMin:pomodoro.focusMin, breakMin:pomodoro.breakMin})}
+    </div>
+    <div style="margin-top:20px;">
+      <button type="button" class="btn secondary small" data-action="toggle-versions">${versionsOpen ? t("info.hideVersions") : t("info.showVersions")}</button>
+      ${versionsOpen ? `
+        <div class="theory-box" style="margin-top:14px;">
+          <p><a href="${REPO_URL}" target="_blank" rel="noopener">${t("info.repoLink")}</a></p>
+          <table class="history">
+            <thead><tr><th>${t("info.versionCol")}</th><th>${t("info.dateCol")}</th><th>${t("info.descCol")}</th></tr></thead>
+            <tbody>
+              ${CHANGELOG.map(c=>`<tr><td>v${c.version}</td><td>${c.date}</td><td>${escapeHtml(c.desc[currentLang] || c.desc.es)}</td></tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+      ` : ""}
     </div>
   `;
 }
@@ -1971,6 +1999,11 @@ function attachHandlers(){
   const menuToggleBtn = root.querySelector('[data-action="toggle-sidebar"]');
   if(menuToggleBtn){
     menuToggleBtn.addEventListener("click", ()=>{ sidebarOpen = !sidebarOpen; render(); });
+  }
+
+  const versionsToggle = root.querySelector('[data-action="toggle-versions"]');
+  if(versionsToggle){
+    versionsToggle.addEventListener("click", ()=>{ versionsOpen = !versionsOpen; render(); });
   }
 
   const sidebarOverlay = root.querySelector('[data-action="close-sidebar"]');
