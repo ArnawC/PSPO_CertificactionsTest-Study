@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.27.0";
+const APP_VERSION = "1.28.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.28.0", date: "2026-07-27", desc: {
+    es: "Añade una \"chuleta rápida\" (resumen destacado en 4-6 puntos) a cada tema del temario, visible tanto en la vista de cada tema individual como en el temario completo, para repasar lo más importante de un vistazo antes de entrar en detalle. Cada chuleta se puede ocultar/mostrar con un botón, y la preferencia se recuerda por tema.",
+    en: "Adds a \"quick cheat sheet\" (a highlighted 4-6 point summary) to every theory topic, visible both in each individual topic view and in the complete theory view, to review the key points at a glance before diving into detail. Each cheat sheet can be hidden/shown with a button, and the preference is remembered per topic."
+  }},
   { version: "1.27.0", date: "2026-07-27", desc: {
     es: "Añade al temario (es/en) todo el contenido de la Guía Scrum 2020 que todavía no estaba literalmente: la definición formal de Scrum con el esquema en 4 pasos en el tema de Empirismo, el listado completo de las tres formas en que el Scrum Master sirve (al equipo, al Product Owner y a la organización) en el tema del Equipo Scrum, y un nuevo apartado de contexto histórico con los cambios entre la Guía 2017 y la 2020.",
     en: "Adds to the theory (es/en) all the content from the 2020 Scrum Guide that wasn't there verbatim yet: the formal Scrum definition with its 4-step nutshell in the Empiricism topic, the full list of the three ways the Scrum Master serves (the team, the Product Owner, and the organization) in the Scrum Team topic, and a new historical-context section covering the changes between the 2017 and 2020 Guides."

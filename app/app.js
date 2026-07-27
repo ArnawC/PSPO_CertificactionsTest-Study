@@ -4,6 +4,7 @@ const THEME_KEY = "pspo_i_trainer_theme_v1";
 const ERROR_KEY = "pspo_i_trainer_errors_v1";
 const LANG_KEY = "pspo_i_trainer_lang_v1";
 const FONT_SIZE_KEY = "pspo_i_trainer_fontsize_v1";
+const CHEATSHEET_HIDDEN_KEY = "pspo_i_trainer_cheatsheet_hidden_v1";
 const EXAM_TOTAL_Q = 80;
 const EXAM_TOTAL_SEC = 60 * 60;
 
@@ -61,6 +62,9 @@ const STRINGS = {
     "theory.stopListening": "Detener lectura",
     "theory.searchPlaceholder": "Buscar un concepto en el temario...",
     "theory.searchNoResults": "No se han encontrado coincidencias.",
+    "theory.cheatsheet": "Chuleta rápida",
+    "theory.cheatsheetHide": "Ocultar",
+    "theory.cheatsheetShow": "Mostrar",
     "typeLabel.single": "Opción única",
     "typeLabel.multi": "Respuesta múltiple",
     "typeLabel.tf": "Verdadero / Falso",
@@ -357,6 +361,9 @@ const STRINGS = {
     "theory.stopListening": "Stop listening",
     "theory.searchPlaceholder": "Search a concept in the theory...",
     "theory.searchNoResults": "No matches found.",
+    "theory.cheatsheet": "Quick cheat sheet",
+    "theory.cheatsheetHide": "Hide",
+    "theory.cheatsheetShow": "Show",
     "typeLabel.single": "Single choice",
     "typeLabel.multi": "Multiple choice",
     "typeLabel.tf": "True / False",
@@ -1105,6 +1112,21 @@ function fontSizeLabel(){
   return [t("fontsize.normal"), t("fontsize.large"), t("fontsize.xlarge")][fontSizeLevel];
 }
 
+// ---------------- CHEATSHEET VISIBILITY ----------------
+function loadHiddenCheatsheets(){
+  try{ return new Set(JSON.parse(localStorage.getItem(CHEATSHEET_HIDDEN_KEY) || "[]")); }catch(e){ return new Set(); }
+}
+let hiddenCheatsheets = loadHiddenCheatsheets();
+function saveHiddenCheatsheets(){
+  try{ localStorage.setItem(CHEATSHEET_HIDDEN_KEY, JSON.stringify([...hiddenCheatsheets])); }catch(e){}
+}
+function toggleCheatsheet(topicId){
+  if(hiddenCheatsheets.has(topicId)) hiddenCheatsheets.delete(topicId);
+  else hiddenCheatsheets.add(topicId);
+  saveHiddenCheatsheets();
+  render();
+}
+
 // ---------------- POMODORO ----------------
 let pomodoro = {
   running:false, phase:"focus", secondsLeft:25*60,
@@ -1592,6 +1614,18 @@ function renderTheoryList(){
   `;
 }
 
+function renderCheatsheet(tp){
+  if(!tp.cheatsheet) return "";
+  const hidden = hiddenCheatsheets.has(tp.id);
+  return `<div class="cheatsheet-box">
+    <div class="cheatsheet-head">
+      <h4>${t("theory.cheatsheet")}</h4>
+      <button type="button" class="icon-btn" data-action="toggle-cheatsheet" data-topic="${tp.id}">${hidden ? t("theory.cheatsheetShow") : t("theory.cheatsheetHide")}</button>
+    </div>
+    ${hidden ? "" : tp.cheatsheet}
+  </div>`;
+}
+
 function renderTheoryAll(){
   const speaking = theorySpeechKey === "all";
   return `
@@ -1600,6 +1634,7 @@ function renderTheoryAll(){
     <button type="button" class="icon-btn ${speaking?'active':''}" data-action="speak-theory-all" style="margin-bottom:20px;">${speaking?ICON_STOP:ICON_SPEAKER}${speaking?t("theory.stopListening"):t("theory.listenAll")}</button>
     ${activeTopics.map(tp=>`
       <h2 style="font-size:19px; margin:34px 0 12px;">${tp.name}</h2>
+      ${renderCheatsheet(tp)}
       <div class="theory-box">${tp.theory}</div>
     `).join("")}
   `;
@@ -1612,6 +1647,7 @@ function renderTheoryDetail(topicId){
     <button class="btn secondary small" data-nav="theory-list" style="margin-bottom:16px;">${t("theory.backToTopics")}</button>
     <h1>${tp.name}</h1>
     <button type="button" class="icon-btn ${speaking?'active':''}" data-action="speak-theory-topic" data-topic="${tp.id}" style="margin-bottom:16px;">${speaking?ICON_STOP:ICON_SPEAKER}${speaking?t("theory.stopListening"):t("theory.listenTopic")}</button>
+    ${renderCheatsheet(tp)}
     <div class="theory-box">${tp.theory}</div>
     <div style="margin-top:20px;">
       <button class="btn amber" data-action="start-topic-test" data-topic="${tp.id}">${t("theory.startTopicTest")}</button>
@@ -2618,6 +2654,10 @@ function attachHandlers(){
   if(langToggle){
     langToggle.addEventListener("click", toggleLang);
   }
+
+  root.querySelectorAll('[data-action="toggle-cheatsheet"]').forEach(el=>{
+    el.addEventListener("click", ()=> toggleCheatsheet(el.getAttribute("data-topic")));
+  });
 
   const pomodoroToggleBtn = root.querySelector('[data-action="pomodoro-toggle"]');
   if(pomodoroToggleBtn){

@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.28.0 — 2026-07-27
+Afegeix una "chuleta ràpida" (resum destacat en 4-6 punts) a cada tema del temari, visible tant a la vista de cada tema individual com al temari complet, per repassar el més important d'un cop d'ull abans d'entrar en detall. Cada chuleta es pot ocultar/mostrar amb un botó, i la preferència es recorda per a cada tema.
+
 ## v1.27.0 — 2026-07-27
 Afegeix al temari (es/en) tot el contingut de la Guia Scrum 2020 que encara no hi era literalment: la definició formal de Scrum amb l'esquema en 4 passos al tema d'Empirisme, el llistat complet de les tres maneres en què el Scrum Master serveix (a l'equip, al Product Owner i a l'organització) al tema de l'Equip Scrum, i un nou apartat de context històric amb els canvis entre la Guia 2017 i la 2020.
 
