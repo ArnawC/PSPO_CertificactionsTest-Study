@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.25.0 — 2026-07-26
+Afegeix 63 preguntes noves (revisades i verificades) a cada idioma, distribuïdes entre els temes existents, a partir d'un banc de preguntes extra proporcionat per l'usuari.
+
 ## v1.24.0 — 2026-07-26
 Afegeix un README complet: funcionalitats, com fer servir l'app (web/mòbil/escriptori), idiomes, privacitat de dades i enllaç a la web de GitHub Pages.
 

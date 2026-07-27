@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.24.0";
+const APP_VERSION = "1.25.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.25.0", date: "2026-07-26", desc: {
+    es: "Añade 63 preguntas nuevas (revisadas y verificadas) en cada idioma, repartidas entre los temas existentes, a partir de un banco de preguntas extra aportado por el usuario.",
+    en: "Adds 63 new questions (reviewed and verified) in each language, distributed across the existing topics, from an extra question bank provided by the user."
+  }},
   { version: "1.24.0", date: "2026-07-26", desc: {
     es: "Añade un README completo: funcionalidades, cómo usar la app (web/móvil/escritorio), idiomas, privacidad de datos y enlace a la web de GitHub Pages.",
     en: "Adds a full README: features, how to use the app (web/mobile/desktop), languages, data privacy, and a link to the GitHub Pages site."
