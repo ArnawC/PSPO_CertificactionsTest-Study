@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.26.0";
+const APP_VERSION = "1.27.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.27.0", date: "2026-07-27", desc: {
+    es: "Añade al temario (es/en) todo el contenido de la Guía Scrum 2020 que todavía no estaba literalmente: la definición formal de Scrum con el esquema en 4 pasos en el tema de Empirismo, el listado completo de las tres formas en que el Scrum Master sirve (al equipo, al Product Owner y a la organización) en el tema del Equipo Scrum, y un nuevo apartado de contexto histórico con los cambios entre la Guía 2017 y la 2020.",
+    en: "Adds to the theory (es/en) all the content from the 2020 Scrum Guide that wasn't there verbatim yet: the formal Scrum definition with its 4-step nutshell in the Empiricism topic, the full list of the three ways the Scrum Master serves (the team, the Product Owner, and the organization) in the Scrum Team topic, and a new historical-context section covering the changes between the 2017 and 2020 Guides."
+  }},
   { version: "1.26.0", date: "2026-07-26", desc: {
     es: "Verificadas las 170 preguntas existentes contra la Scrum Guide 2020 (sin errores encontrados) y añadidas 40 preguntas nuevas más, priorizando los temas con menos preguntas para equilibrar el banco (210 preguntas por idioma).",
     en: "Verified all 170 existing questions against the 2020 Scrum Guide (no errors found) and added 40 more new questions, prioritizing the topics with fewer questions to balance the bank (210 questions per language)."
