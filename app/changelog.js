@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.25.0";
+const APP_VERSION = "1.26.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.26.0", date: "2026-07-26", desc: {
+    es: "Verificadas las 170 preguntas existentes contra la Scrum Guide 2020 (sin errores encontrados) y añadidas 40 preguntas nuevas más, priorizando los temas con menos preguntas para equilibrar el banco (210 preguntas por idioma).",
+    en: "Verified all 170 existing questions against the 2020 Scrum Guide (no errors found) and added 40 more new questions, prioritizing the topics with fewer questions to balance the bank (210 questions per language)."
+  }},
   { version: "1.25.0", date: "2026-07-26", desc: {
     es: "Añade 63 preguntas nuevas (revisadas y verificadas) en cada idioma, repartidas entre los temas existentes, a partir de un banco de preguntas extra aportado por el usuario.",
     en: "Adds 63 new questions (reviewed and verified) in each language, distributed across the existing topics, from an extra question bank provided by the user."

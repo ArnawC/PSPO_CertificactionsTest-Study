@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.26.0 — 2026-07-26
+Verificades les 170 preguntes existents contra la Guia Scrum 2020 (cap error trobat) i afegides 40 preguntes noves més, prioritzant els temes amb menys preguntes per equilibrar el banc (210 preguntes per idioma).
+
 ## v1.25.0 — 2026-07-26
 Afegeix 63 preguntes noves (revisades i verificades) a cada idioma, distribuïdes entre els temes existents, a partir d'un banc de preguntes extra proporcionat per l'usuari.
 

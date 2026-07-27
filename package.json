@@ -1,7 +1,7 @@
 {
   "name": "pspo-i-trainer",
   "productName": "PSPO I Trainer",
-  "version": "1.25.0",
+  "version": "1.26.0",
   "description": "Entrenador per a l'examen PSPO I de Scrum.org",
   "main": "main.js",
   "scripts": {

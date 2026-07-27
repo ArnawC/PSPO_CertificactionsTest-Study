@@ -10,6 +10,46 @@ const TOPICS_ES = [
     "questions": [
       {
         "type": "single",
+        "q": "Según la Guía Scrum, ¿qué construyen los cinco valores de Scrum dentro del Scrum Team cuando se viven de verdad?",
+        "opts": [
+          "Confianza",
+          "Más velocidad",
+          "Documentación más detallada",
+          "Una jerarquía de reporte más clara"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la Guía afirma que cuando los valores de Scrum se viven de verdad, dan vida a los tres pilares del empirismo y generan confianza.",
+          "Incorrecto: los valores no se describen como un mecanismo para aumentar la velocidad.",
+          "Incorrecto: los valores no tienen relación con producir más documentación.",
+          "Incorrecto: Scrum evita explícitamente la jerarquía; los valores no crean una estructura de reporte."
+        ],
+        "trap": "Vivir los valores de Scrum no es solo un detalle bonito — la Guía los vincula directamente a construir la confianza que hace funcionar los tres pilares del empirismo."
+      },
+      {
+        "type": "single",
+        "q": "Completa la propia definición de la Guía Scrum: \"Scrum es un marco de trabajo ligero que ayuda a personas, equipos y organizaciones a generar ___ mediante soluciones adaptativas a problemas complejos\".",
+        "opts": [
+          "beneficio",
+          "documentación",
+          "valor",
+          "velocidad"
+        ],
+        "correct": [
+          2
+        ],
+        "exp": [
+          "Incorrecto: el beneficio es un posible resultado de negocio, pero no es la palabra que usa la definición de la Guía.",
+          "Incorrecto: la documentación no forma parte de la definición de Scrum de la Guía.",
+          "Correcto: esta es exactamente la palabra que usa la Guía Scrum en su propia definición de Scrum.",
+          "Incorrecto: la velocidad es una métrica del equipo, no forma parte de la definición del propósito de Scrum."
+        ],
+        "trap": "La definición de Scrum de la Guía gira en torno a generar valor, no beneficio, documentación ni velocidad — memoriza esta frase casi literalmente."
+      },
+      {
+        "type": "single",
         "q": "¿Qué afirmación describe mejor qué es Scrum, según la Guía Scrum?",
         "opts": [
           "Un proceso predictivo y definido que sigue los principios de la Gestión Científica",
@@ -318,6 +358,46 @@ const TOPICS_ES = [
     "name": "El Equipo Scrum y sus accountabilities",
     "theory": "<h3>Composición y estructura</h3><p>El Equipo Scrum (Scrum Team) es la unidad fundamental de Scrum. Está formado por <b>un Scrum Master</b>, <b>un Propietario del Producto</b> y los <b>Desarrolladores</b>. No existen sub-equipos ni jerarquías dentro del Equipo Scrum: es una única unidad cohesionada centrada en un mismo objetivo, el Product Goal.</p><p>El equipo es <b>multifuncional</b> (cross-functional): sus miembros poseen colectivamente todas las habilidades necesarias para crear valor cada Sprint, sin depender de personas externas al equipo. También es <b>autogestionado</b> (self-managing): internamente decide quién hace qué, cuándo y cómo, sin que nadie externo al equipo —ni siquiera el Scrum Master o el Propietario del Producto— les dicte cómo convertir el Product Backlog en Incrementos de valor.</p><p>La Guía recomienda equipos <b>pequeños</b>, en general de <b>10 personas o menos</b>: suficientemente reducidos para mantenerse ágiles y suficientemente grandes para completar trabajo significativo dentro de un Sprint. Si un Equipo Scrum crece demasiado, debe considerar reorganizarse en varios Equipos Scrum, cada uno centrado en el mismo producto, compartiendo el mismo Product Goal, el mismo Product Backlog y el mismo Propietario del Producto.</p><p>Todo el Equipo Scrum es responsable de crear, cada Sprint, un Incremento valioso y útil, así como de todas las actividades relacionadas con el producto: colaboración con interesados, verificación, mantenimiento, operación, experimentación, investigación y desarrollo, y cualquier otra cosa que se requiera.</p><h3>Desarrolladores</h3><p>Son las personas del Equipo Scrum comprometidas a crear cualquier aspecto de un Incremento utilizable en cada Sprint. Sus responsabilidades específicas incluyen:</p><ul><li>Crear el plan del Sprint: el Sprint Backlog.</li><li>Incorporar la calidad adhiriéndose a una Definition of Done.</li><li>Adaptar su plan cada día hacia el Sprint Goal.</li><li>Responsabilizarse mutuamente como profesionales.</li></ul><h3>Propietario del Producto</h3><p>Es responsable de <b>maximizar el valor del producto</b> resultante del trabajo del Equipo Scrum. Esto se logra principalmente mediante la gestión eficaz del Product Backlog, lo que incluye:</p><ul><li>Desarrollar y comunicar explícitamente el Product Goal.</li><li>Crear y comunicar con claridad los elementos del Product Backlog.</li><li><b>Ordenar</b> (no \"priorizar\") los elementos del Product Backlog.</li><li>Asegurar que el Product Backlog sea transparente, visible y comprendido.</li></ul><p>El Propietario del Producto puede delegar este trabajo a otros, pero sigue siendo el responsable último: <b>puede delegar el trabajo, pero nunca la responsabilidad</b>. Es <b>una persona, no un comité</b>; puede representar las necesidades de muchos interesados en el Product Backlog, pero quien quiera cambiar la prioridad de un elemento debe negociarlo con el Propietario del Producto. Para que tenga éxito, toda la organización debe respetar sus decisiones.</p><h3>Scrum Master</h3><p>Es responsable de <b>establecer Scrum tal como se define en la Guía</b>. Lo hace ayudando a todos —Equipo Scrum y organización— a entender la teoría y la práctica de Scrum. Es responsable de la eficacia del Equipo Scrum, ayudándolo a mejorar sus prácticas dentro del marco de Scrum.</p><p>Sirve al Equipo Scrum entrenándolo en autogestión y multifuncionalidad, ayudando a centrarse en crear Incrementos de alto valor, eliminando impedimentos y asegurando que todos los eventos se den, sean positivos, productivos y se mantengan dentro del timebox. Sirve al Propietario del Producto ayudándole a encontrar técnicas para definir el Product Goal y gestionar el Product Backlog, y facilitando la colaboración con interesados cuando se solicite. Sirve a la organización liderando, formando y guiando la adopción de Scrum. Es un <b>verdadero líder que sirve</b> (servant leader) al equipo y a la organización, sin autoridad jerárquica sobre nadie.</p><h3>Errores frecuentes en el examen</h3><ul><li>Confundir \"autogestionado\" (self-managing, terminología 2020) con \"auto-organizado\" (terminología 2017, ya descartada).</li><li>Pensar que el Scrum Master asigna tareas o gestiona al equipo: rompería la autogestión.</li><li>Creer que el Propietario del Producto puede ser un comité: siempre es una única persona.</li><li>Suponer que ordenar el Product Backlog es tarea de los Desarrolladores: es siempre del Propietario del Producto.</li><li>Imaginar sub-equipos (p. ej. un \"equipo de QA\") dentro del Equipo Scrum: la Guía lo descarta explícitamente.</li></ul>",
     "questions": [
+      {
+        "type": "single",
+        "q": "¿Qué término usa la Guía Scrum 2020 para el Product Owner, el Scrum Master y los Developers, en lugar de la palabra 'roles'?",
+        "opts": [
+          "Cargos",
+          "Responsabilidades (accountabilities)",
+          "Puestos",
+          "Rangos"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: 'cargos' no es el término que usa la Guía.",
+          "Correcto: la Guía 2020 usa deliberadamente 'responsabilidades' (accountabilities) en lugar de 'roles' para el Product Owner, el Scrum Master y los Developers.",
+          "Incorrecto: 'puestos' no es el término de la Guía.",
+          "Incorrecto: 'rangos' implicaría una jerarquía, algo que Scrum evita explícitamente."
+        ],
+        "trap": "Un cambio de vocabulario sutil pero real: la Guía presenta al Product Owner, al Scrum Master y a los Developers como 'responsabilidades' (accountabilities), no como 'roles' o rangos de una jerarquía."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué hace del Scrum Team una 'unidad cohesionada', según la Guía?",
+        "opts": [
+          "Que no tiene sub-equipos ni jerarquías y se centra en un único objetivo a la vez, el Objetivo del Producto",
+          "Que todos sus miembros dependen del mismo responsable jerárquico",
+          "Que usa una única herramienta compartida para rastrear todo su trabajo",
+          "Que todos sus miembros tienen habilidades técnicas idénticas"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la Guía describe el Scrum Team como una única unidad cohesionada, sin sub-equipos ni jerarquías, centrada en un único objetivo a la vez — el Objetivo del Producto.",
+          "Incorrecto: Scrum no describe ni exige una estructura jerárquica compartida.",
+          "Incorrecto: la herramienta usada es un detalle de implementación, no lo que la Guía señala como fuente de cohesión.",
+          "Incorrecto: la cross-funcionalidad significa que el equipo posee colectivamente las habilidades necesarias, no que cada miembro sea idéntico."
+        ],
+        "trap": "La cohesión en la Guía viene de no tener sub-equipos ni jerarquías internas y de compartir un único Objetivo del Producto — no de herramientas, líneas jerárquicas ni habilidades idénticas."
+      },
       {
         "type": "multi",
         "q": "¿Por qué insiste la Guía Scrum en que haya un único Product Owner por producto? (selecciona todos los que correspondan)",
@@ -953,6 +1033,83 @@ const TOPICS_ES = [
     "name": "Eventos de Scrum",
     "theory": "<h3>El Sprint: el contenedor de todo</h3><p>El Sprint es un contenedor de duración fija —<b>un mes o menos</b>— dentro del cual tienen lugar todos los demás eventos de Scrum: la Planificación de Sprint, el Scrum diario, la Revisión del Sprint y la Retrospectiva del Sprint. Un nuevo Sprint comienza <b>inmediatamente</b> después de que termine el anterior; no existe ningún hueco de preparación ni un \"Sprint 0\" — ese concepto no aparece en la Guía Scrum. Durante el Sprint no se realizan cambios que puedan poner en peligro el Sprint Goal, la calidad no se reduce, y el alcance puede aclararse y renegociarse con el Product Owner a medida que se aprende más. Solo el Product Owner tiene autoridad para cancelar un Sprint antes de que finalice.</p><h3>Planificación de Sprint (Sprint Planning)</h3><p>Da inicio al Sprint. Para un Sprint de un mes, su timebox máximo es de <b>8 horas</b> (en Sprints más cortos el evento suele ser más breve, aunque la Guía no fija una cifra exacta). El evento responde a tres preguntas: <b>por qué</b> es valioso este Sprint (el Sprint Goal), <b>qué</b> puede hacerse de entre el Product Backlog, y <b>cómo</b> se realizará el trabajo elegido. Participa todo el Scrum Team.</p><h3>Scrum diario (Daily Scrum)</h3><p>Evento de <b>15 minutos como máximo</b>, siempre — es la única cifra que no escala con la duración del Sprint. Es un evento interno de y para los Developers, pensado para inspeccionar el progreso hacia el Sprint Goal y adaptar el Sprint Backlog. Si el Product Owner o el Scrum Master trabajan activamente en elementos del Sprint Backlog, participan como Developers, no en su rol de gestión.</p><h3>Revisión del Sprint (Sprint Review)</h3><p>Timebox máximo de <b>4 horas</b> para un Sprint de un mes. El Scrum Team presenta los resultados de su trabajo a los interesados clave (stakeholders) y, juntos, revisan lo conseguido e inspeccionan el impacto sobre el Product Backlog y los próximos pasos. No es en absoluto una \"puerta\" de aprobación: un Increment puede entregarse a los interesados en cualquier momento antes de que finalice el Sprint.</p><h3>Retrospectiva del Sprint (Sprint Retrospective)</h3><p>Cierra el Sprint. Su timebox máximo es de <b>3 horas</b> para un Sprint de un mes. Su propósito es planificar formas de aumentar la calidad y la eficacia del equipo. Participa <b>todo el Scrum Team</b>, incluido el Product Owner, como un miembro más — ningún evento interno del equipo excluye al PO.</p><h3>Trampas frecuentes en el examen</h3><ul><li>Inventar un \"Sprint 0\": no existe en la Guía Scrum; el trabajo de preparación se realiza dentro de los Sprints normales.</li><li>Creer que el Scrum diario escala con la duración del Sprint: solo la Planificación, la Revisión y la Retrospectiva escalan; el Scrum diario siempre es de 15 minutos.</li><li>Confundir la Revisión del Sprint con una aprobación formal de release: es una sesión colaborativa de inspección y adaptación, no un \"gate\".</li><li>Excluir al Product Owner de eventos internos como el Scrum diario o la Retrospectiva: el PO participa en todos los eventos del Scrum Team.</li></ul>",
     "questions": [
+      {
+        "type": "multi",
+        "q": "¿Cuáles de los siguientes son temas apropiados para discutir en la Sprint Review sobre el entorno más amplio? (elige las dos mejores)",
+        "opts": [
+          "Cambios en el mercado o posibles usos del producto",
+          "Evaluaciones del desempeño individual de los Developers",
+          "El calendario, presupuesto, capacidades potenciales y condiciones de mercado para los próximos releases previstos",
+          "Asignar tareas concretas a los Developers para el siguiente Sprint"
+        ],
+        "correct": [
+          0,
+          2
+        ],
+        "exp": [
+          "Correcto: la Sprint Review es un lugar natural para discutir cómo puede haber cambiado el mercado o los posibles usos del producto.",
+          "Incorrecto: la Sprint Review no evalúa a Developers concretos; eso rompería la autogestión y la seguridad psicológica.",
+          "Correcto: la Guía describe discutir calendario, presupuesto, capacidades potenciales y mercado para los próximos releases previstos como parte de la Sprint Review.",
+          "Incorrecto: asignar tareas es una decisión interna de los Developers, no una actividad de la Sprint Review."
+        ],
+        "trap": "La Sprint Review mira hacia fuera — mercado, presupuesto, calendario, capacidades — nunca hacia dentro, al desempeño individual o a la asignación de tareas."
+      },
+      {
+        "type": "single",
+        "q": "¿Cuál es el propósito declarado de la Sprint Retrospective, según la Guía Scrum?",
+        "opts": [
+          "Asignar culpas por lo que haya salido mal durante el Sprint",
+          "Planificar formas de aumentar la calidad y la efectividad",
+          "Renegociar el Objetivo del Sprint que acaba de terminar",
+          "Presentar el Incremento para su aprobación por parte de los stakeholders"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: la Retrospective trata de mejorar, no de asignar culpas — debería ser un espacio seguro y constructivo.",
+          "Correcto: la Guía afirma que el propósito de la Sprint Retrospective es planificar formas de aumentar la calidad y la efectividad.",
+          "Incorrecto: el Objetivo del Sprint pertenece al Sprint que ya ha terminado quando ocurre la Retrospective; no se renegocia allí.",
+          "Incorrecto: presentar el Incremento para que los stakeholders lo inspeccionen es el propósito de la Sprint Review, no de la Retrospective."
+        ],
+        "trap": "No confundas el propósito de cara al futuro de la Retrospective (planificar mejoras) con el propósito centrado en el producto de la Sprint Review, ni con una sesión de reparto de culpas."
+      },
+      {
+        "type": "single",
+        "q": "Para un Sprint de dos semanas, ¿cuál es el timebox máximo apropiado para la Sprint Planning?",
+        "opts": [
+          "Sigue siendo 8 horas completas, ya que la Sprint Planning nunca se acorta",
+          "Exactamente 4 horas, según una cifra explícita de la Guía para Sprints de dos semanas",
+          "Proporcionalmente menor a 8 horas, aunque la Guía no da una cifra exacta para Sprints de menos de un mes",
+          "No hay Sprint Planning para Sprints más cortos de un mes"
+        ],
+        "correct": [
+          2
+        ],
+        "exp": [
+          "Incorrecto: 8 horas es el máximo específicamente para un Sprint de un mes; los Sprints más cortos suelen tener un evento más corto.",
+          "Incorrecto: la Guía no da una cifra exacta como 4 horas para Sprints de dos semanas.",
+          "Correcto: la Sprint Planning, la Sprint Review y la Sprint Retrospective suelen ser más cortas en Sprints más cortos, pero la Guía no especifica un número exacto de horas por debajo de los máximos de un mes.",
+          "Incorrecto: todo Sprint, sea cual sea su duración, empieza con una Sprint Planning."
+        ],
+        "trap": "La Guía solo da máximos exactos para un Sprint de un mes (8h/4h/3h); para Sprints más cortos dice que estos eventos son 'normalmente más cortos' sin dar una cifra precisa — no la inventes."
+      },
+      {
+        "type": "tf",
+        "q": "La Sprint Planning, la Sprint Review y la Sprint Retrospective son eventos con timebox cuya duración máxima se acorta en Sprints de menos de un mes, a diferencia del Daily Scrum.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: Planning, Review y Retrospective suelen acortarse en Sprints más cortos, mientras que el Daily Scrum se mantiene fijo en 15 minutos independientemente de la duración del Sprint.",
+          "Incorrecto: esta afirmación refleja fielmente cómo se comportan estos cuatro timeboxes en relación con la duración del Sprint."
+        ],
+        "trap": "El Daily Scrum es el único evento cuyo timebox nunca cambia con la duración del Sprint; los otros tres eventos sí se acortan en Sprints más breves."
+      },
       {
         "type": "single",
         "q": "Durante la Sprint Retrospective, el Scrum Team identifica varias mejoras de proceso de alta prioridad. ¿Cuál es la afirmación más precisa sobre lo que ocurre a continuación?",
@@ -1632,6 +1789,22 @@ const TOPICS_ES = [
     "theory": "<h3>Qué son los artefactos de Scrum</h3><p>Los artefactos de Scrum representan trabajo o valor y están diseñados para maximizar la transparencia de la información clave que el Equipo Scrum y los interesados necesitan conocer. Son tres: el <b>trabajo pendiente del producto (Product Backlog)</b>, el <b>trabajo pendiente del Sprint (Sprint Backlog)</b> y el <b>Incremento</b>. Cada artefacto lleva asociado un <b>compromiso</b> que aporta información adicional y permite medir el progreso: el Product Backlog tiene el <b>Objetivo del Producto</b>, el Sprint Backlog tiene el <b>Objetivo del Sprint</b>, y el Incremento tiene la <b>Definición de Hecho</b>.</p><h3>Product Backlog y Objetivo del Producto</h3><p>El Product Backlog es una lista <b>emergente y ordenada</b> (nunca \"priorizada\") de todo lo que se necesita para mejorar el producto; es la única fuente de trabajo que emprende el Equipo Scrum. Nunca está completa: evoluciona junto con el producto y su entorno. El <b>Objetivo del Producto</b> describe un estado futuro del producto que puede servir como diana para que el Equipo Scrum planifique: es un objetivo a <b>largo plazo</b>, y debe cumplirse (o abandonarse formalmente) antes de que el equipo asuma el siguiente. El propio Product Backlog es la representación emergente de ese Objetivo del Producto.</p><h3>Sprint Backlog y Objetivo del Sprint</h3><p>El Sprint Backlog es un plan hecho <b>por y para los Developers</b>: combina el Objetivo del Sprint (el porqué), los elementos del Product Backlog seleccionados para el Sprint (el qué) y un plan de acción para entregar el Incremento (el cómo). Es una imagen en tiempo real, altamente visible, del trabajo que los Developers planean realizar, y se actualiza a lo largo de todo el Sprint según se va aprendiendo más; solo los Developers pueden modificar su Sprint Backlog durante el Sprint. El <b>Objetivo del Sprint</b> es el único objetivo del Sprint, se crea durante el Sprint Planning como aportación a los elementos seleccionados, y da coherencia y foco, animando al equipo a trabajar junto en lugar de en iniciativas separadas. El Objetivo del Sprint ofrece cierta flexibilidad respecto al trabajo exacto necesario para conseguirlo: los Developers pueden renegociar el alcance con el Product Owner si descubren que el trabajo es distinto de lo esperado, pero el Objetivo del Sprint en sí no cambia.</p><h3>Incremento y Definición de Hecho</h3><p>El Incremento es un escalón concreto y verificado hacia el Objetivo del Producto; cada Incremento se suma a los anteriores y se verifica a fondo para asegurar que todos funcionan juntos. Se pueden crear varios Incrementos dentro de un mismo Sprint, y un Incremento puede entregarse a los interesados antes de que termine el Sprint (el Sprint Review nunca debe considerarse la única barrera para liberar valor). Un elemento del Product Backlog solo pasa a formar parte del Incremento cuando cumple la <b>Definición de Hecho</b>, el compromiso asociado a este artefacto que aporta transparencia compartida sobre qué significa \"terminado\". (Este tema se trata en profundidad en el apartado dedicado a la Definición de Hecho.)</p><h3>Errores habituales en el examen</h3><ul><li>Confundir un artefacto con su compromiso: el Product Backlog no \"es\" el Objetivo del Producto, lo tiene asociado; lo mismo ocurre con Sprint Backlog/Objetivo del Sprint e Incremento/Definición de Hecho.</li><li>Creer que el Product Backlog puede llegar a estar \"completo\" o ser una lista fija: siempre es emergente y ordenado, nunca priorizado ni cerrado.</li><li>Pensar que solo puede existir un Incremento por Sprint, o que el Sprint Review es el único momento para entregar valor: ambas ideas son incorrectas según la Guía.</li><li>Creer que el Product Owner (u otra persona externa) puede modificar el Sprint Backlog durante el Sprint: solo los Developers pueden hacerlo.</li><li>Confundir el Objetivo del Sprint con la simple suma de los elementos seleccionados: el Objetivo del Sprint es un compromiso de coherencia y propósito, no una lista de tareas.</li></ul>",
     "questions": [
       {
+        "type": "tf",
+        "q": "Un Incremento es un escalón concreto hacia el Objetivo del Producto.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la Guía describe cada Incremento como un escalón concreto hacia el Objetivo del Producto.",
+          "Incorrecto: esta afirmación coincide con la propia descripción que da la Guía de qué es un Incremento."
+        ],
+        "trap": "Recuerda la cadena: los elementos del Product Backlog → cumplen la Definición de Hecho → pasan a formar parte de un Incremento → cada Incremento es un escalón hacia el Objetivo del Producto."
+      },
+      {
         "type": "single",
         "q": "Una nueva Product Owner se pregunta si el trabajo de estabilidad, rendimiento, documentación y correcciones debe estar en el Product Backlog junto a las funcionalidades de cara al usuario. ¿Cuál es la mejor respuesta?",
         "opts": [
@@ -1919,6 +2092,26 @@ const TOPICS_ES = [
     "theory": "<h3>Qué es</h3><p>La Definición de Hecho (Definition of Done, DoD) es una descripción formal del estado que debe alcanzar el Incremento para cumplir las medidas de calidad requeridas por el producto. Es el <b>compromiso asociado al Incremento</b>, igual que el Objetivo de Producto lo es del Product Backlog y el Objetivo de Sprint lo es del Sprint Backlog.</p><h3>Cuándo 'nace' un Incremento</h3><p>En el instante en que un elemento del Product Backlog cumple la Definición de Hecho, nace un Incremento. Cada nuevo Incremento se suma a todos los anteriores y se verifica minuciosamente, garantizando que todos los Incrementos funcionen juntos.</p><h3>Qué ocurre si un elemento no cumple la DoD</h3><ul><li>Si un elemento del Product Backlog no cumple la Definición de Hecho, no puede liberarse, y ni siquiera puede presentarse en la Revisión de Sprint (Sprint Review).</li><li>En su lugar, vuelve al Product Backlog para su consideración futura.</li></ul><h3>Origen de la DoD: estándar organizativo o creada por el equipo</h3><ul><li>Si la Definición de Hecho para un incremento forma parte de los estándares de la organización, todos los Scrum Teams deben seguirla como mínimo.</li><li>Si no existe un estándar organizativo, el Scrum Team debe crear una Definición de Hecho apropiada para el producto.</li><li>Los Developers están obligados a ajustarse a la Definición de Hecho.</li><li>Si varios Scrum Teams trabajan juntos en un mismo producto, deben definir y cumplir mutuamente la misma Definición de Hecho.</li></ul><h3>Relación con la transparencia</h3><p>La Definición de Hecho crea transparencia porque proporciona a todos una comprensión compartida de qué trabajo se ha completado como parte del Incremento. Un elemento que no cumple la DoD no puede presentarse como terminado ante nadie, ni dentro ni fuera del equipo.</p><h3>Trampa frecuente</h3><p>No confundas la Definición de Hecho con los 'criterios de aceptación' de un elemento concreto del Product Backlog: los criterios de aceptación son específicos de un ítem, mientras que la DoD es un estándar de calidad transversal aplicado a todo el Incremento. Tampoco es negociable con el Product Owner ni con los stakeholders, ni puede relajarse puntualmente en un Sprint por conveniencia: es un mínimo de calidad estable, aunque puede mejorarse con el tiempo.</p>",
     "questions": [
       {
+        "type": "single",
+        "q": "¿Puede cambiar con el tiempo la Definición de Hecho de un Scrum Team?",
+        "opts": [
+          "No, queda fijada de forma permanente en cuanto el Scrum Team la crea por primera vez",
+          "Sí, puede fortalecerse a medida que el Scrum Team madura y adquiere más conocimiento, aunque no puede relajarse por conveniencia",
+          "Sí, pero solo el Product Owner puede cambiarla, y solo una vez al año",
+          "No, solo la organización puede cambiarla, nunca el Scrum Team"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: la Definición de Hecho no queda congelada de forma permanente; puede evolucionar.",
+          "Correcto: un Scrum Team puede fortalecer su Definición de Hecho con el tiempo, a medida que adquiere conocimiento y se vuelven alcanzables estándares de calidad más altos, pero nunca debe relajarse solo para cumplir una fecha límite.",
+          "Incorrecto: cambiar la DoD no es una decisión exclusiva del Product Owner, ni está limitada a una vez al año.",
+          "Incorrecto: el propio Scrum Team puede evolucionar su Definición de Hecho cuando no existe un estándar organizativo más estricto impuesto sobre ella."
+        ],
+        "trap": "La Definición de Hecho puede volverse más exigente con el tiempo a medida que el equipo madura — lo que nunca puede hacer es relajarse solo para cumplir una fecha límite o complacer a un stakeholder."
+      },
+      {
         "type": "tf",
         "q": "Solo los Developers pueden influir en la Definición de Hecho; nadie más tiene voz en ella.",
         "opts": [
@@ -2185,6 +2378,94 @@ const TOPICS_ES = [
     "questions": [
       {
         "type": "tf",
+        "q": "La autogestión no significa que el Scrum Team pueda decidir saltarse el trabajo necesario para cumplir su propia Definición de Hecho.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la autogestión cubre quién hace el trabajo, cuándo y cómo — no da al equipo licencia para saltarse el trabajo necesario para cumplir realmente su Definición de Hecho.",
+          "Incorrecto: esta afirmación es correcta; la autogestión nunca prevalece sobre la Definición de Hecho."
+        ],
+        "trap": "La autogestión trata de la toma de decisiones interna sobre cómo se hace el trabajo — no es una vía de escape para saltarse el estándar de calidad al que el propio equipo se ha comprometido."
+      },
+      {
+        "type": "single",
+        "q": "Un nuevo Scrum Master observa que dos Developers discrepan a menudo sobre un enfoque técnico. ¿Cuál es la acción más apropiada, respetando la autogestión?",
+        "opts": [
+          "Decidir él mismo el enfoque técnico, para resolver la discrepancia rápidamente",
+          "Dejar que los Developers resuelvan la discrepancia por sí mismos, ofreciendo facilitación solo si se lo piden o si se convierte en un impedimento persistente",
+          "Escalar la discrepancia al Product Owner para que dé un veredicto técnico",
+          "Asignar a cada Developer a una parte del trabajo distinta y sin solapamiento para evitar más conflicto"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: decidir el enfoque técnico por los Developers anularía su autogestión.",
+          "Correcto: el Scrum Master respeta la autogestión de los Developers, interviniendo con facilitación solo si se lo piden o si la discrepancia se convierte en un impedimento genuino.",
+          "Incorrecto: las decisiones de implementación técnica no son responsabilidad del Product Owner.",
+          "Incorrecto: dividir el trabajo de forma permanente para evitar el conflicto podría crear sub-equipos informales, algo que la Guía descarta, y no resuelve realmente la discrepancia de fondo."
+        ],
+        "trap": "La respuesta por defecto de un Scrum Master ante discrepancias técnicas internas es dejar que los Developers autogestionados lo resuelvan, interviniendo solo como facilitador si de verdad hace falta."
+      },
+      {
+        "type": "single",
+        "q": "¿Significa la autogestión que un Scrum Team puede decidir funcionar sin Scrum Master?",
+        "opts": [
+          "Sí, si los Developers se sienten lo bastante seguros sin uno",
+          "No — todo Scrum Team requiere un Product Owner, un Scrum Master y Developers; la autogestión trata de cómo se hace el trabajo, no de si existen estas responsabilidades",
+          "Sí, pero solo si el Product Owner asume personalmente las funciones de Scrum Master",
+          "Sí, una vez que el equipo tiene suficiente experiencia con Scrum"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: el nivel de confianza no cambia el requisito de la Guía de que existan las tres responsabilidades.",
+          "Correcto: la autogestión determina quién hace qué, cuándo y cómo dentro del Scrum Team — no permite al equipo eliminar una de las tres responsabilidades que exige Scrum.",
+          "Incorrecto: el Product Owner y el Scrum Master son responsabilidades distintas; que una persona combine ambas no se describe como una forma de 'eliminar' al Scrum Master.",
+          "Incorrecto: el nivel de experiencia no elimina el requisito de tener un Scrum Master."
+        ],
+        "trap": "La autogestión trata de la toma de decisiones interna dentro de la estructura existente de Product Owner, Scrum Master y Developers — no es un mecanismo para eliminar una de esas tres responsabilidades obligatorias."
+      },
+      {
+        "type": "tf",
+        "q": "La autogestión de un Scrum Team puede llegar a incluir decidir sus propios acuerdos de trabajo, como estándares de código o normas de colaboración, siempre que el equipo siga cumpliendo su Definición de Hecho y el resto de requisitos de Scrum.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: decidir acuerdos de trabajo internos como estándares de código o normas de colaboración es exactamente el tipo de decisión sobre el 'cómo' que cubre la autogestión, siempre que se sigan cumpliendo los requisitos reales de Scrum (como la Definición de Hecho).",
+          "Incorrecto: esta afirmación describe correctamente algo que sí cubre la autogestión."
+        ],
+        "trap": "La autogestión no trata solo de lo que no permite (como saltarse eventos) — también cubre de forma positiva decisiones reales como los acuerdos de trabajo y las normas internas."
+      },
+      {
+        "type": "tf",
+        "q": "Los miembros del Scrum Team pueden tener habilidades especializadas y áreas de enfoque, pero la responsabilidad pertenece al Scrum Team en su conjunto.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la Guía permite explícitamente la especialización individual, manteniendo la responsabilidad global en todo el Scrum Team, no en un especialista concreto.",
+          "Incorrecto: esta afirmación coincide con la propia descripción de la Guía sobre la especialización dentro de un equipo autogestionado y cross-funcional."
+        ],
+        "trap": "Las personas pueden especializarse, pero eso nunca crea compartimentos de responsabilidad individual — el Scrum Team completo sigue siendo responsable en conjunto."
+      },
+      {
+        "type": "tf",
         "q": "La autogestión significa que el Scrum Team puede decidir por sí mismo qué eventos de Scrum necesita realmente y saltarse el resto.",
         "opts": [
           "Verdadero",
@@ -2371,6 +2652,102 @@ const TOPICS_ES = [
     "name": "Forecasting y planificación de releases",
     "theory": "<h3>Prácticas mencionadas por la Guía</h3><p>La Guía Scrum no impone ninguna técnica concreta de pronóstico. Simplemente reconoce que existen <b>diversas prácticas para pronosticar el progreso</b>, como los <b>burn-down charts, burn-up charts o los diagramas de flujo acumulado (cumulative flow)</b>. Se citan a título de ejemplo, no como requisito del marco.</p><h3>El límite de estas herramientas</h3><p>La propia Guía advierte que, aunque estas prácticas han demostrado ser útiles, <b>no sustituyen la importancia del empirismo</b>. Ningún gráfico por sí solo garantiza buenas decisiones si no está respaldado por inspección y adaptación reales.</p><h3>Por qué el futuro no se puede predecir con certeza</h3><p>En entornos complejos —el terreno de juego de Scrum— <b>no se sabe de antemano qué va a ocurrir</b>. La Guía es explícita: solo lo que ya ha sucedido puede utilizarse para tomar decisiones de cara al futuro. Por eso el pronóstico en Scrum se apoya en datos reales y pasados (rendimiento histórico), no en estimaciones especulativas hechas antes de empezar.</p><h3>El Sprint como motor de previsibilidad</h3><p>La Guía no describe un proceso formal de \"release planning\", pero sí explica cómo Scrum logra previsibilidad: mediante los Sprints. Al tener una duración fija de un mes o menos, los Sprints garantizan que el progreso hacia el Product Goal se inspeccione y adapte, como mínimo, una vez al mes. Cuando el horizonte de un Sprint es demasiado largo, el Sprint Goal puede invalidarse, la complejidad puede aumentar y el riesgo puede crecer; por eso los Sprints más cortos generan más ciclos de aprendizaje y limitan el riesgo de coste y esfuerzo a un marco temporal más pequeño.</p><h3>El pronóstico dentro del Sprint</h3><p>Durante la Sprint Planning son los propios Developers quienes elaboran su pronóstico de cuánto trabajo pueden completar en el Sprint. Ese pronóstico gana fiabilidad cuando conocen su rendimiento pasado, su capacidad real para el Sprint que viene y su Definition of Done — no depende de aprobaciones externas, presupuestos o planes impuestos por otros.</p><h3>Trampas frecuentes en el examen</h3><ul><li>Confundir las \"prácticas citadas como ejemplo\" (burn-down, burn-up, cumulative flow) con \"técnicas obligatorias\": la Guía no exige ninguna.</li><li>Presentar un pronóstico de release como una fecha de compromiso fija, en vez de como una probabilidad basada en datos históricos.</li><li>Pensar que un gráfico sustituye la inspección empírica: la Guía dice explícitamente que no.</li><li>Creer que los Sprints más largos dan más seguridad: la Guía asocia, en realidad, los horizontes largos con más riesgo y con la posible invalidación del Sprint Goal.</li></ul>",
     "questions": [
+      {
+        "type": "single",
+        "q": "¿Qué métrica general de Agile (no definida en la propia Guía Scrum) describe el tiempo medio que tarda un único elemento del Product Backlog en pasar de iniciado a 'Terminado'?",
+        "opts": [
+          "Tiempo de ciclo (cycle time)",
+          "Velocidad",
+          "Tasa de consumo (burn rate)",
+          "Duración del Sprint"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: el 'tiempo de ciclo' es el término general de Agile habitual para cuánto tarda un único elemento de principio a fin, útil junto a las prácticas que menciona la Guía.",
+          "Incorrecto: la velocidad mide cuánto trabajo completa un equipo por Sprint, no cuánto tarda un elemento.",
+          "Incorrecto: la 'tasa de consumo' normalmente se refiere al gasto, no al tiempo de finalización de un elemento.",
+          "Incorrecto: la duración del Sprint es un timebox fijo, no una medida de cuánto tarda un elemento concreto."
+        ],
+        "trap": "El tiempo de ciclo (cuánto tarda un elemento) y la velocidad (cuánto trabajo se hace por Sprint) están relacionados pero son métricas generales de Agile distintas — ninguna de las dos la define la propia Guía Scrum."
+      },
+      {
+        "type": "tf",
+        "q": "Según la Guía Scrum, un burn-down chart es obligatorio en cada Sprint para rastrear el trabajo restante.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto.",
+          "Correcto: la Guía solo menciona los burn-down charts como un ejemplo de práctica útil; nunca exige ninguna herramienta de previsión concreta."
+        ],
+        "trap": "Los burn-down charts son populares y útiles, pero la Guía Scrum nunca los exige — son solo un ejemplo entre varios."
+      },
+      {
+        "type": "single",
+        "q": "¿Por qué la velocidad histórica por sí sola puede ser una forma engañosa de prever cuánto alcance futuro se terminará?",
+        "opts": [
+          "Porque la velocidad fluctúa con los cambios de equipo, el tamaño de los elementos y la comprensión que evoluciona, así que basar la previsión en inspeccionar el progreso real cada Sprint es más fiable",
+          "Porque la velocidad es siempre exactamente la misma para todos los Scrum Teams en todos los Sprints",
+          "Porque la Guía Scrum prohíbe calcular la velocidad",
+          "Porque solo el Product Owner tiene permitido conocer la velocidad del equipo"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la velocidad varía de forma natural según cambia la composición del equipo, el tamaño de los elementos y la comprensión, así que el enfoque empírico de la Guía se apoya en la inspección continua en lugar de tratar una cifra de velocidad pasada como una garantía.",
+          "Incorrecto: la velocidad no es una constante fija y universal — varía según el equipo y con el tiempo.",
+          "Incorrecto: la Guía no prohíbe calcular la velocidad; simplemente no la exige ni la define como práctica obligatoria.",
+          "Incorrecto: no existe ninguna regla que limite el conocimiento de la velocidad solo al Product Owner."
+        ],
+        "trap": "La velocidad puede ser un dato útil, pero tratar una única cifra histórica como una garantía ignora cuánto puede variar — la previsión real se apoya en la inspección empírica continua, no en una fórmula fija."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué papel juega la Sprint Review a la hora de ajustar las expectativas a más largo plazo sobre qué se podría entregar y cuándo?",
+        "opts": [
+          "Es el momento en que el Scrum Team y los stakeholders inspeccionan el progreso real y el Product Backlog actual, actualizando las expectativas sobre el trabajo futuro con base en evidencia real",
+          "No tiene ninguna relación con la previsión; la previsión se gestiona por completo fuera de cualquier evento de Scrum",
+          "Fija una fecha de release definitiva que no se puede revisar después",
+          "Se usa únicamente para calcular la cifra exacta de velocidad del equipo"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la Sprint Review es precisamente el momento en que se inspeccionan juntos el progreso real y el estado actual del Product Backlog, lo cual mantiene las expectativas a largo plazo ancladas en evidencia.",
+          "Incorrecto: la Sprint Review es una entrada natural y recurrente para la previsión, no algo desconectado de ella.",
+          "Incorrecto: nada en la Sprint Review fija una fecha de release definitiva e inmodificable; el enfoque empírico de Scrum mantiene las cosas adaptables.",
+          "Incorrecto: la Sprint Review no es un ejercicio formal de cálculo de velocidad; es una inspección más amplia del Incremento y de la dirección futura del producto."
+        ],
+        "trap": "La Sprint Review es uno de los puntos clave de inspección recurrente de Scrum que mantiene las previsiones a largo plazo ancladas en evidencia real y actual — no es un compromiso de release fijo y de una sola vez."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué característica del propio Sprint es central para cómo Scrum habilita la previsibilidad, según la Guía?",
+        "opts": [
+          "Su duración máxima fija de un mes o menos",
+          "El uso de una herramienta de previsión concreta elegida por el Product Owner",
+          "Un objetivo de velocidad obligatorio acordado de antemano",
+          "Un plan de release detallado e inmutable creado antes del primer Sprint"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: como la duración del Sprint está limitada a un mes o menos, el progreso hacia el Objetivo del Producto se inspecciona y adapta al menos con esa frecuencia, lo cual es la base de la previsibilidad de Scrum.",
+          "Incorrecto: la Guía no exige ninguna herramienta concreta; la previsibilidad viene de la cadencia fija del Sprint, no de una técnica de previsión particular.",
+          "Incorrecto: no existe un objetivo de velocidad obligatorio y pactado de antemano en Scrum.",
+          "Incorrecto: Scrum no se apoya en un plan de release detallado y fijo redactado antes de empezar a trabajar; eso contradiría su enfoque empírico."
+        ],
+        "trap": "La previsibilidad en Scrum viene de la duración fija y limitada del Sprint, que obliga a una inspección regular — no de ninguna herramienta de gráficos concreta, un objetivo de velocidad ni un plan de release previo."
+      },
       {
         "type": "single",
         "q": "El Product Owner no está disponible y no puede responder a las preguntas de los Developers antes de la Sprint Planning, dejándolos inseguros sobre su previsión. ¿Qué deberían hacer los Developers?",
@@ -2564,6 +2941,98 @@ const TOPICS_ES = [
     "questions": [
       {
         "type": "single",
+        "q": "En la gestión de producto moderna (conocimiento general, no un término definido en la Guía Scrum), ¿cuál es la diferencia entre un 'output' (resultado producido) y un 'outcome' (resultado de impacto)?",
+        "opts": [
+          "Un output es algo que el equipo construyó o lanzó; un outcome es el cambio real en el comportamiento de usuarios o del negocio que resulta de ello",
+          "Son simplemente dos palabras distintas para exactamente lo mismo",
+          "Un output solo se aplica a software, mientras que un outcome solo se aplica a productos hardware",
+          "Un output se mide en dinero, mientras que un outcome se mide solo en puntos de historia"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: un output es lo que se produce (una funcionalidad, un release); un outcome es el cambio real de comportamiento o valor que resulta de ello — un buen Product Owner se centra sobre todo en los outcomes.",
+          "Incorrecto: los dos términos describen cosas significativamente distintas en gestión de producto, no son sinónimos.",
+          "Incorrecto: esta distinción no tiene nada que ver con software frente a hardware.",
+          "Incorrecto: ninguno de los dos términos se define por esas unidades de medida concretas."
+        ],
+        "trap": "Lanzar funcionalidades (outputs) no significa automáticamente que el producto esté entregando valor real (outcomes) — una trampa habitual para Product Owners que solo miden el volumen de output."
+      },
+      {
+        "type": "tf",
+        "q": "Lanzar un gran número de funcionalidades (outputs) garantiza que un producto está entregando valor real (outcomes).",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto.",
+          "Correcto: un alto volumen de funcionalidades lanzadas no garantiza valor real — algunas funcionalidades pueden quedar sin usar o no llegar a cambiar en absoluto el comportamiento de usuarios o del negocio."
+        ],
+        "trap": "El volumen de output no es prueba del valor entregado — un Product Owner debería seguir los outcomes reales, no solo cuánto se ha lanzado."
+      },
+      {
+        "type": "single",
+        "q": "¿A qué suele referirse el término 'Producto Mínimo Viable (MVP)' en gestión de producto (un término general, no definido en la propia Guía Scrum)?",
+        "opts": [
+          "La versión final y completa de un producto lista para un release formal de fin de proyecto",
+          "La versión más pequeña de un producto que se puede lanzar para empezar a generar aprendizaje validado sobre las necesidades reales de los usuarios",
+          "Un prototipo que nunca se muestra realmente a usuarios reales",
+          "Todo el Product Backlog del producto completo, planificado de antemano"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: un MVP deliberadamente no es la versión final con todas las funcionalidades; es un punto de partida mínimo.",
+          "Correcto: un MVP se entiende habitualmente como lo más pequeño que se puede poner delante de usuarios reales para empezar a aprender si las suposiciones sobre el valor son correctas.",
+          "Incorrecto: un MVP está pensado específicamente para exponerse a usuarios reales y recoger feedback, no para esconderse.",
+          "Incorrecto: un MVP no es un backlog completo y totalmente planificado de antemano; eso contradiría su propósito mínimo y centrado en el aprendizaje."
+        ],
+        "trap": "MVP no es sinónimo de 'un producto pequeño e inacabado que nadie ve' — su razón de ser es poner una versión mínima pero real delante de los usuarios para validar suposiciones."
+      },
+      {
+        "type": "single",
+        "q": "¿Por qué describe la Guía Scrum el Objetivo del Producto como algo contra lo que el Scrum Team debería 'planificar', en lugar de algo garantizado a entregarse exactamente como se concibió al principio?",
+        "opts": [
+          "Porque a medida que el equipo aprende más mediante el empirismo, su comprensión de cómo alcanzar mejor ese estado futuro puede evolucionar",
+          "Porque el Objetivo del Producto es opcional y puede simplemente ignorarse una vez fijado",
+          "Porque el Objetivo del Producto cambia cada Sprint",
+          "Porque solo el Scrum Master puede determinar qué significa realmente el Objetivo del Producto"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: el Objetivo del Producto da una dirección a largo plazo, pero cómo llegar exactamente hasta él puede evolucionar a medida que se acumula aprendizaje empírico — es un objetivo contra el que planificar, no una promesa rígida y totalmente especificada.",
+          "Incorrecto: el Objetivo del Producto no es opcional; es el compromiso a largo plazo asociado al Product Backlog.",
+          "Incorrecto: el Objetivo del Producto está pensado para ser un objetivo estable a largo plazo, no algo que cambie cada Sprint (eso se parecería más a un Objetivo del Sprint).",
+          "Incorrecto: todo el Scrum Team, especialmente el Product Owner, se implica en el Objetivo del Producto — no es una decisión exclusiva del Scrum Master."
+        ],
+        "trap": "El Objetivo del Producto da una dirección a largo plazo dejando espacio para que el camino evolucione — no lo confundas con una promesa de entrega fija e inmutable, ni con el Objetivo del Sprint, mucho más efímero."
+      },
+      {
+        "type": "tf",
+        "q": "Según la definición de la Guía Scrum, un producto puede ser una herramienta interna sin clientes externos.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la definición de producto de la Guía es lo bastante amplia como para incluir algo más abstracto, como una plataforma o proceso interno, no solo bienes o servicios vendidos externamente.",
+          "Incorrecto: la Guía no restringe 'producto' a cosas con clientes externos."
+        ],
+        "trap": "No asumas que un 'producto' debe venderse externamente — la definición de la Guía permite explícitamente plataformas, servicios o procesos internos con solo stakeholders y usuarios internos."
+      },
+      {
+        "type": "single",
         "q": "¿Cómo suele afectar la deuda técnica al valor que un Product Owner puede obtener de un producto con el tiempo?",
         "opts": [
           "No tiene ningún efecto real en la entrega de valor, solo en la comodidad de los Developers",
@@ -2753,6 +3222,99 @@ const TOPICS_ES = [
     "name": "Gestión del Product Backlog",
     "theory": "<h3>Un Product Backlog nunca está completo</h3><p>El Product Backlog es la única fuente de trabajo para el Scrum Team. Es una lista <b>emergente</b> y <b>ordenada</b>: solo recoge lo que se conoce y entiende en un momento dado, así que evoluciona a medida que el producto y su entorno cambian. Mientras un producto exista, su Product Backlog también existe: nunca está \"terminado\" ni es un documento cerrado desde el principio.</p><h3>Refinamiento (refinement)</h3><p>El refinamiento es el acto de descomponer y definir con más detalle los elementos del Product Backlog en piezas más pequeñas y precisas. Es una actividad <b>continua</b> que añade detalles como descripción, orden y tamaño; estos atributos varían según el dominio de trabajo. Los propios Developers realizan el refinamiento, ya que son quienes finalmente entregarán el trabajo; el Product Owner puede influir en ellos ayudándoles a entender y seleccionar los elementos que aportan más valor.</p><h3>Elementos \"Ready\" (listos)</h3><p>Un elemento del Product Backlog se considera listo para ser seleccionado en un Sprint Planning cuando, gracias al refinamiento, ha alcanzado un grado de transparencia y claridad suficiente. \"Ready\" no significa que exista una estimación exacta en horas ni una aprobación formal por escrito: es simplemente el nivel de comprensión compartido que permite a los Developers razonar sobre el trabajo con confianza.</p><h3>Ordenar, no priorizar</h3><p>La Guía Scrum utiliza el verbo <b>ordenar</b> (order) para describir cómo se organiza el Product Backlog, nunca \"priorizar\". Ordenar los elementos del Product Backlog es una de las accountabilities explícitas del Product Owner.</p><h3>El tamaño (sizing) es de los Developers</h3><p>Los Developers que realizarán el trabajo son quienes tienen la responsabilidad de estimar el tamaño de los elementos del Product Backlog. El Product Owner puede influir en esa estimación ayudando a los Developers a comprender y seleccionar entre distintas alternativas o compromisos (trade-offs), pero la decisión final de tamaño corresponde siempre a quienes ejecutarán el trabajo.</p><h3>Accountabilities del Product Owner sobre el Product Backlog</h3><ul><li>Desarrollar y comunicar explícitamente el Product Goal.</li><li>Crear y comunicar con claridad los elementos del Product Backlog.</li><li>Ordenar los elementos del Product Backlog.</li><li>Asegurar que el Product Backlog sea transparente, visible y comprendido por todos.</li></ul><p>El Product Owner puede delegar parte de este trabajo en otros, pero sigue siendo el responsable último.</p><h3>Errores frecuentes en el examen</h3><p>Cuidado con estas trampas típicas: (1) usar \"priorizar\"/\"prioridad\" en lugar de \"ordenar\"/\"orden\"; (2) pensar que el refinamiento es un evento formal con timebox fijo — no lo es, es una actividad continua; (3) creer que el Product Owner decide el tamaño de los elementos — esa decisión es de los Developers; (4) suponer que existe un porcentaje fijo de tiempo (como \"el 10%\") que la Guía Scrum exige dedicar al refinamiento — la Guía no especifica ningún porcentaje; (5) imaginar un \"Sprint 0\" dedicado exclusivamente a preparar el backlog antes de empezar — ese concepto no aparece en la Guía Scrum, que asume que el refinamiento ocurre de forma continua a lo largo del desarrollo del producto.</p>",
     "questions": [
+      {
+        "type": "single",
+        "q": "¿A qué suele referirse el acrónimo 'INVEST' al escribir buenos elementos de Product Backlog (una práctica general de Agile, no definida en la propia Guía Scrum)?",
+        "opts": [
+          "Un conjunto de cualidades deseables: Independiente, Negociable, Valioso, Estimable, Pequeño, Comprobable (Testable)",
+          "Una fórmula fija para calcular puntos de historia",
+          "El orden en que el Product Owner debe presentar los elementos a los stakeholders",
+          "Un evento obligatorio de la Guía Scrum para planificar la inversión del Product Backlog"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: INVEST es un acrónimo mnemotécnico muy usado en Agile en general para las cualidades que hacen bueno un elemento del Product Backlog, aunque la propia Guía Scrum no lo defina ni lo exija.",
+          "Incorrecto: INVEST no es una fórmula para calcular ninguna estimación numérica.",
+          "Incorrecto: INVEST no tiene nada que ver con un orden de presentación.",
+          "Incorrecto: no existe ningún evento de la Guía Scrum con este nombre; INVEST es una práctica general de Agile, no un concepto de la Guía Scrum en absoluto."
+        ],
+        "trap": "INVEST es vocabulario habitual de Agile para las cualidades de un buen elemento del backlog, pero es práctica general, no algo que la propia Guía Scrum defina o exija."
+      },
+      {
+        "type": "tf",
+        "q": "La Guía Scrum exige que el Product Owner escriba personalmente cada elemento del Product Backlog sin ninguna ayuda de nadie más.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto.",
+          "Correcto: el Product Owner puede recibir ayuda para crear y refinar los elementos del Product Backlog — por ejemplo de los Developers — mientras sigue siendo responsable del resultado."
+        ],
+        "trap": "Recibir ayuda para redactar o refinar elementos del Product Backlog está bien — lo que no se puede delegar es la responsabilidad del Product Owner sobre el Product Backlog."
+      },
+      {
+        "type": "single",
+        "q": "¿Cuál es un riesgo práctico de NO refinar el Product Backlog de forma continua?",
+        "opts": [
+          "Los elementos seleccionados para un Sprint pueden carecer de suficiente claridad para que los Developers hagan su previsión con confianza",
+          "El Product Backlog se autoeliminaría",
+          "La Definición de Hecho dejaría de aplicarse a cualquier Incremento",
+          "El Scrum Master estaría obligado a cancelar el siguiente Sprint"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: sin un refinamiento continuo, los elementos pueden llegar a la Sprint Planning demasiado ambiguos, dificultando que los Developers hagan una previsión con confianza.",
+          "Incorrecto: un Product Backlog no desaparece por sí solo; no es una consecuencia real.",
+          "Incorrecto: la Definición de Hecho sigue aplicándose a cualquier Incremento sin importar lo bien refinado que estuviera el Product Backlog.",
+          "Incorrecto: un mal refinamiento no obliga a cancelar el Sprint; la consecuencia real es una Sprint Planning más difícil y con menos confianza."
+        ],
+        "trap": "El coste práctico de saltarse el refinamiento continuo no es una infracción dramática de ninguna regla — es simplemente una Sprint Planning en la que a los Developers les cuesta prever con confianza."
+      },
+      {
+        "type": "multi",
+        "q": "¿Qué atributos se suelen añadir a los elementos del Product Backlog durante el refinamiento? (elige los dos mejores)",
+        "opts": [
+          "Descripción",
+          "Una clasificación de prioridad fija aprobada por los stakeholders",
+          "Orden",
+          "Tamaño"
+        ],
+        "correct": [
+          0,
+          3
+        ],
+        "exp": [
+          "Correcto: la descripción es uno de los atributos que la Guía menciona como añadidos habitualmente durante el refinamiento.",
+          "Incorrecto: la Guía nunca habla de una 'clasificación de prioridad'; usa 'orden', decidido por el Product Owner, no una prioridad fija aprobada por los stakeholders.",
+          "Incorrecto en este contexto: el orden lo establece el Product Owner de forma global, no algo que se añada elemento por elemento durante el refinamiento del mismo modo que la descripción o el tamaño.",
+          "Correcto: el tamaño es uno de los atributos que la Guía menciona como añadidos habitualmente durante el refinamiento."
+        ],
+        "trap": "La Guía habla de 'orden' (la responsabilidad continua del Product Owner), no de una 'clasificación de prioridad fija' aprobada por los stakeholders — una diferencia de vocabulario sutil pero importante."
+      },
+      {
+        "type": "tf",
+        "q": "Los elementos del Product Backlog pueden llevar distintos atributos según el dominio de trabajo, como una descripción, un orden o un tamaño.",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la Guía señala que los atributos de los elementos del Product Backlog suelen variar según el dominio de trabajo.",
+          "Incorrecto: esto coincide con la propia descripción de la Guía sobre cómo pueden diferir los atributos de los elementos del Product Backlog según el contexto."
+        ],
+        "trap": "No hay una plantilla fija única de qué atributos debe tener un elemento del Product Backlog — varían según el dominio de trabajo concreto."
+      },
       {
         "type": "tf",
         "q": "El Product Backlog debería evolucionar a medida que cambian el producto y su entorno, en lugar de seguir estrictamente el plan original del Product Owner.",
@@ -2965,6 +3527,106 @@ const TOPICS_ES = [
     "theory": "<h3>Maximizar el valor: el eje de la estrategia del PO</h3><p>La Guía Scrum (2020) establece que el <b>Product Owner es responsable de maximizar el valor del producto</b> resultante del trabajo del Scrum Team. Esta responsabilidad no se limita a ordenar el Product Backlog sprint a sprint: implica sostener una visión de negocio que conecte cada decisión con el valor que el producto genera a medio y largo plazo, expresado a través del <b>Product Goal</b>.</p><h3>El coste no es solo \"coste de desarrollo\"</h3><p>Una estrategia de negocio sólida no mira únicamente el esfuerzo de construir una funcionalidad. En la práctica habitual de gestión de producto se considera el <b>Coste Total de Propiedad (Total Cost of Ownership, TCO)</b>: además de programarlo, hay que mantenerlo, darle soporte, formar a los usuarios y, en ocasiones, retirarlo. Un elemento \"barato\" de construir puede resultar caro de mantener durante años; el Propietario del Producto valora ese equilibrio al decidir qué entra en el Product Backlog. (Este concepto de TCO es una práctica general de gestión de producto, no un término definido en la Guía Scrum.)</p><h3>Empirismo también en la estrategia</h3><p>Scrum se apoya en tres pilares del empirismo: transparencia, inspección y adaptación. El Product Owner aplica estos mismos principios a la estrategia de negocio: en lugar de basar decisiones en opiniones o suposiciones, busca <b>datos reales</b> — uso del producto, feedback de mercado, resultados de sprints anteriores — para comprobar si el rumbo actual sigue siendo el correcto. El <b>Sprint Review</b> es precisamente un punto de inspección donde el Scrum Team y los stakeholders revisan el Incremento y el entorno (mercado, tecnología, presupuesto...) para decidir los próximos pasos.</p><h3>Responsable pase lo que pase</h3><p>Según la Guía, el Product Owner es <b>una única persona</b>, no un comité, y aunque puede delegar parte del trabajo de ordenar o refinar el Product Backlog en otras personas, <b>sigue siendo responsable</b> del resultado. Esto es clave en estrategia de negocio: aunque el PO se apoye en analistas de mercado, stakeholders o el propio equipo para obtener información, la decisión final y la rendición de cuentas sobre el valor entregado recaen en él o ella.</p><h3>Errores habituales en el examen</h3><ul><li>Pensar que TCO, ROI o las métricas de valor son citas literales de la Guía Scrum — no lo son; son prácticas estándar de gestión de producto compatibles con Scrum.</li><li>Creer que delegar el trabajo de ordenación del backlog exime al PO de responsabilidad — la Guía es explícita: sigue siendo responsable.</li><li>Suponer que \"maximizar el valor\" significa \"hacer lo que pide el stakeholder más ruidoso\" — el PO decide en base al conjunto de datos disponibles, no a la petición aislada más reciente.</li><li>Confundir \"coste de desarrollo\" con \"coste total\" — ignorar mantenimiento y soporte es un error típico de estrategia.</li></ul>",
     "questions": [
       {
+        "type": "single",
+        "q": "Un elemento del Product Backlog ya ha consumido presupuesto significativo, pero nuevos datos de mercado sugieren que ya no aportará demasiado valor. ¿Qué debería hacer un Product Owner, según un buen criterio de estrategia de negocio (conocimiento general de gestión de producto, más allá de la Guía Scrum)?",
+        "opts": [
+          "Seguir invirtiendo en él por los recursos ya gastados",
+          "Reevaluarlo según su valor futuro esperado, independientemente de lo ya invertido",
+          "Pedir al Scrum Master que decida si continuar",
+          "Esperar a la próxima Sprint Review antes de considerar cualquier cambio"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: seguir invirtiendo solo por el dinero ya gastado es la 'falacia del coste hundido' — el coste pasado no debería determinar una decisión futura.",
+          "Correcto: una buena toma de decisiones evalúa el trabajo restante por su valor futuro esperado, no por cuánto se ha gastado ya en él.",
+          "Incorrecto: este tipo de juicio de valor es responsabilidad del Product Owner, no del Scrum Master.",
+          "Incorrecto: el Product Owner puede y debe actuar sobre nueva evidencia en cuanto esté disponible, no solo en la próxima Review."
+        ],
+        "trap": "La 'falacia del coste hundido' — continuar algo solo por el dinero o esfuerzo ya invertido — es una trampa clásica de estrategia de negocio que el examen puede plantear indirectamente."
+      },
+      {
+        "type": "single",
+        "q": "¿Qué concepto económico general de Agile/Lean describe el coste creciente de NO entregar antes un elemento valioso (más allá de la propia Guía Scrum)?",
+        "opts": [
+          "Coste de la demora (Cost of Delay)",
+          "Coste total de propiedad (TCO)",
+          "Coste hundido",
+          "Velocidad"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: el 'coste de la demora' describe cómo posponer un elemento valioso puede tener un coste económico real, lo que puede ayudar a un Product Owner a razonar sobre el orden del Backlog.",
+          "Incorrecto: el Coste Total de Propiedad trata del coste completo del ciclo de vida de construir y mantener algo, un concepto distinto.",
+          "Incorrecto: el 'coste hundido' se refiere al dinero ya gastado que no debería influir en decisiones futuras — la idea contraria.",
+          "Incorrecto: la velocidad mide el rendimiento de un equipo, no el coste económico de retrasar una decisión."
+        ],
+        "trap": "No confundas el Coste de la Demora (el coste de esperar para entregar algo valioso) con el Coste Total de Propiedad (el coste de construirlo y mantenerlo) — responden a preguntas de negocio distintas."
+      },
+      {
+        "type": "single",
+        "q": "¿Por qué el enfoque empírico de Scrum (construir un pequeño incremento, inspeccionarlo, adaptar) tiende a reducir el riesgo de negocio en comparación con comprometerse de antemano a un business case grande y detallado?",
+        "opts": [
+          "Porque valida suposiciones reales con evidencia real, pronto y a menudo, en lugar de apostarlo todo a proyecciones a largo plazo sin verificar",
+          "Porque elimina por completo la necesidad de cualquier análisis de negocio",
+          "Porque garantiza exactamente los ingresos proyectados al inicio del proyecto",
+          "Porque excluye a los stakeholders hasta el final, para evitar distracciones"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: entregar e inspeccionar Incrementos reales con regularidad hace que las suposiciones erróneas se detecten y corrijan pronto, en lugar de descubrirse solo después de una enorme inversión previa.",
+          "Incorrecto: Scrum no elimina la necesidad de pensamiento de negocio; cambia cuándo y cómo se validan las suposiciones.",
+          "Incorrecto: nada en Scrum garantiza un resultado de ingresos concreto; reduce el riesgo, no elimina la incertidumbre.",
+          "Incorrecto: los stakeholders se implican regularmente, especialmente en la Sprint Review — justo lo contrario de excluirlos hasta el final."
+        ],
+        "trap": "El empirismo reduce el riesgo de negocio validando suposiciones pronto y a menudo con evidencia real — no elimina la incertidumbre ni garantiza un resultado financiero concreto."
+      },
+      {
+        "type": "single",
+        "q": "En términos generales de negocio (más allá de la Guía Scrum), ¿qué significa el 'coste de oportunidad' cuando un Product Owner ordena el Product Backlog?",
+        "opts": [
+          "El valor al que se renuncia por no elegir construir la siguiente mejor alternativa en su lugar",
+          "El dinero literal gastado en desarrollar un elemento",
+          "El coste de formar a un nuevo Product Owner",
+          "La tarifa por hora del Scrum Master"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: el coste de oportunidad es el valor al que se renuncia al elegir una opción en vez de la siguiente mejor alternativa — toda decisión de orden lo lleva implícito.",
+          "Incorrecto: eso describe el coste de desarrollo, un concepto distinto y más literal.",
+          "Incorrecto: el coste de incorporación no tiene relación con el coste de oportunidad.",
+          "Incorrecto: esta es una opción distractora sin relación con el coste de oportunidad."
+        ],
+        "trap": "El coste de oportunidad no trata del dinero gastado directamente en un elemento — trata del valor de lo que se podría haber construido en su lugar."
+      },
+      {
+        "type": "single",
+        "q": "Un Product Owner está comparando varios elementos candidatos del Product Backlog con un beneficio estimado similar. ¿Qué factores adicionales, más allá del valor estimado bruto, sugeriría considerar una buena estrategia de negocio (conocimiento general de gestión de producto)?",
+        "opts": [
+          "Solo el número de puntos de historia estimados por los Developers",
+          "La urgencia o coste de la demora, y la reducción de riesgo, junto al valor esperado",
+          "Cuál elemento prefiere personalmente el Scrum Master",
+          "El que se pidió primero, sin importar nada más"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: los puntos de historia estiman el esfuerzo, no el panorama económico completo detrás de una decisión de orden.",
+          "Correcto: sopesar la urgencia (coste de la demora) y la reducción de riesgo junto al valor esperado da un panorama económico más completo que solo la estimación de valor.",
+          "Incorrecto: la preferencia personal del Scrum Master no tiene ningún papel en el orden del Product Backlog.",
+          "Incorrecto: el simple orden de llegada ignora por completo el valor, el riesgo y la urgencia."
+        ],
+        "trap": "Las decisiones de orden bien fundamentadas sopesan más que una sola estimación de valor — la urgencia y la reducción de riesgo también importan, pero la preferencia personal o el orden de llegada nunca deberían hacerlo."
+      },
+      {
         "type": "multi",
         "q": "Según las prácticas generales de gestión de producto que complementan la Guía Scrum, ¿cómo se suele medir el éxito de un producto? (elige las dos mejores)",
         "opts": [
@@ -3140,6 +3802,103 @@ const TOPICS_ES = [
     "name": "Stakeholders y clientes",
     "theory": "<h3>¿Quiénes son las partes interesadas?</h3><p>Las <b>partes interesadas</b> (stakeholders) son personas externas al Scrum Team —clientes, usuarios, patrocinadores, directivos u otras— con interés en el producto o afectadas por él. No forman parte del Scrum Team, pero su perspectiva es clave para maximizar el valor que el producto genera.</p><h3>El Product Owner: una sola persona, nunca un comité</h3><p>El Product Owner puede <b>representar las necesidades de muchas partes interesadas</b> dentro del Product Backlog, pero sigue siendo <b>una única persona</b> responsable de él, no un comité. Quien quiera cambiar el contenido o el orden del Product Backlog debe intentar convencer al Product Owner; nadie más está autorizado para indicar a los Developers que trabajen a partir de un conjunto distinto de requisitos.</p><h3>La Revisión del Sprint: trabajo conjunto, no una presentación</h3><p>La <b>Revisión del Sprint</b> es el evento en el que el Scrum Team y las partes interesadas colaboran e inspeccionan el resultado del Sprint para decidir qué hacer a continuación. No es una presentación de estado en un solo sentido ni una demo de aprobación: es una sesión de trabajo donde se revisa qué ha cambiado en el mercado o en el entorno y se ajusta el Product Backlog en consecuencia. Tampoco debe entenderse como una puerta que el valor deba cruzar para poder liberarse: cualquier elemento que cumpla la Definition of Done puede publicarse en cualquier momento, sin esperar al final del Sprint ni a la Revisión.</p><h3>Partes interesadas en otros eventos</h3><p>Aunque su papel principal se da en la Revisión del Sprint, las partes interesadas también pueden ser invitadas a la <b>Sprint Planning</b> cuando el Scrum Team lo considere útil, para dar consejo o aportar contexto. Aun así, planificar el Sprint sigue siendo trabajo del Scrum Team: son los Developers, junto con el Product Owner, quienes deciden qué se construirá.</p><h3>El Scrum Master y las partes interesadas</h3><p>El Scrum Master sirve a la organización liderando, entrenando y facilitando la adopción de Scrum, lo que incluye <b>eliminar barreras</b> entre las partes interesadas y el Scrum Team y facilitar su colaboración cuando se solicita o resulta necesario. Esta labor de apoyo no implica sustituir al Product Owner en la negociación de prioridades.</p><h3>Errores frecuentes en el examen</h3><ul><li>Pensar que las partes interesadas forman parte del Scrum Team: no es así, siguen siendo externas aunque colaboren estrechamente.</li><li>Creer que el Product Owner puede convertirse en un comité para \"representar mejor\" a muchos stakeholders: la Guía Scrum es explícita en que sigue siendo una sola persona.</li><li>Tratar la Revisión del Sprint como una demo formal de aprobación o como el único momento en que se puede liberar valor.</li><li>Suponer que las partes interesadas nunca pueden estar en la Sprint Planning: pueden ser invitadas si el Scrum Team lo decide.</li></ul>",
     "questions": [
+      {
+        "type": "single",
+        "q": "Dos stakeholders distintos piden prioridades contradictorias para el Product Backlog. ¿Quién resuelve este conflicto?",
+        "opts": [
+          "Los Developers, ya que ellos harán el trabajo de implementación",
+          "El Product Owner, según qué petición aporte más valor hacia el Objetivo del Producto",
+          "El stakeholder con el cargo más alto",
+          "El Scrum Master, mediando un acuerdo entre ambas peticiones"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: resolver prioridades en conflicto no es responsabilidad de los Developers.",
+          "Correcto: el Product Owner es la única persona responsable que decide, sopesando las peticiones contradictorias según el valor que aportan hacia el Objetivo del Producto.",
+          "Incorrecto: el cargo no es el factor decisivo en Scrum; el Product Owner decide según el valor, no según el rango organizativo.",
+          "Incorrecto: el Scrum Master no negocia decisiones del Product Backlog entre stakeholders; ese es el papel del Product Owner."
+        ],
+        "trap": "Cuando los stakeholders no están de acuerdo, el criterio de desempate es siempre el juicio del Product Owner sobre el valor — no el cargo, ni un acuerdo mediado por el Scrum Master."
+      },
+      {
+        "type": "tf",
+        "q": "Recoger feedback regular directamente de usuarios y clientes reales, no solo de los stakeholders internos, es una entrada valiosa para las decisiones del Product Owner (conocimiento general de gestión de producto).",
+        "opts": [
+          "Verdadero",
+          "Falso"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: el feedback directo de usuarios y clientes reales, no solo de stakeholders internos, da al Product Owner una imagen más completa y fundamentada del valor real.",
+          "Incorrecto: apoyarse solo en las opiniones de stakeholders internos, ignorando el feedback directo de usuarios/clientes, daría una imagen incompleta del valor."
+        ],
+        "trap": "Los stakeholders internos aportan contexto útil, pero no sustituyen el feedback directo de las personas que realmente usan el producto."
+      },
+      {
+        "type": "single",
+        "q": "Un stakeholder que representa a un cliente importante insiste en que su petición concreta debe construirse a continuación, y amenaza con escalarlo a la dirección. ¿Cuál es la respuesta más apropiada del Product Owner?",
+        "opts": [
+          "Reordenar de inmediato el Product Backlog para satisfacer la petición y evitar la escalada",
+          "Evaluar la petición por sus méritos — valor, coste y riesgo — igual que cualquier otro elemento del Product Backlog, y explicar el razonamiento con transparencia",
+          "Decirles a los Developers que metan el elemento en el Sprint actual en secreto, sin ajustar nada más",
+          "Negarse a hablar de la petición hasta la próxima Sprint Review programada"
+        ],
+        "correct": [
+          1
+        ],
+        "exp": [
+          "Incorrecto: ceder automáticamente a la presión o a una amenaza de escalada socava la toma de decisiones basada en el valor.",
+          "Correcto: el Product Owner evalúa cada petición con el mismo criterio de valor/coste/riesgo y comunica ese razonamiento abiertamente, en lugar de reaccionar solo a la presión.",
+          "Incorrecto: cambiar en secreto el trabajo comprometido del Sprint socava la transparencia y la propia previsión de los Developers.",
+          "Incorrecto: negarse incluso a hablar de la petición hasta un evento programado no es necesario; el Product Owner puede atenderla en cualquier momento, decidiendo igualmente según el valor y no la presión."
+        ],
+        "trap": "La presión de escalada de un stakeholder importante no anula la priorización basada en el valor — pero tampoco debería responderse con silencio total; el razonamiento transparente es el camino intermedio sano."
+      },
+      {
+        "type": "multi",
+        "q": "¿Cuáles dos de las siguientes son razones válidas para que un Scrum Team invite a stakeholders concretos a una Sprint Review?",
+        "opts": [
+          "Tienen experiencia o contexto relevante para inspeccionar el Incremento",
+          "Aprobarán o rechazarán formalmente si puede haber release",
+          "Pueden ofrecer feedback directo que ayude a decidir cómo ajustar el Product Backlog",
+          "Asignarán tareas concretas a los Developers para el siguiente Sprint"
+        ],
+        "correct": [
+          0,
+          2
+        ],
+        "exp": [
+          "Correcto: invitar a stakeholders con experiencia o contexto relevante hace que la inspección del Incremento sea más significativa.",
+          "Incorrecto: la Sprint Review no es una puerta de aprobación formal para el release; eso lo determina la Definición de Hecho, no la firma de los stakeholders.",
+          "Correcto: su feedback está pensado para orientar cómo evoluciona el Product Backlog, que es el propósito central de la Sprint Review.",
+          "Incorrecto: asignar tareas a los Developers nunca es papel de un stakeholder; eso lo autogestionan los propios Developers."
+        ],
+        "trap": "Se invita a los stakeholders para que aporten información que dé forma al Product Backlog, nunca para aprobar formalmente un release ni para asignar trabajo a los Developers."
+      },
+      {
+        "type": "single",
+        "q": "Un stakeholder no está satisfecho con el Incremento mostrado en la Sprint Review. ¿Cuál es el siguiente paso más apropiado, según cómo la Guía enmarca la Sprint Review?",
+        "opts": [
+          "El Scrum Team y los stakeholders colaboran para ajustar el Product Backlog en base a este feedback",
+          "El stakeholder da instrucciones directas a los Developers sobre qué construir a continuación",
+          "El Product Owner debe dimitir como responsable de la decisión",
+          "El Incremento se marca retroactivamente como que no cumple la Definición de Hecho"
+        ],
+        "correct": [
+          0
+        ],
+        "exp": [
+          "Correcto: la Sprint Review es una sesión de trabajo en la que un feedback así lleva a ajustar de forma colaborativa el Product Backlog de cara al futuro.",
+          "Incorrecto: los stakeholders no dirigen directamente el trabajo de los Developers; cualquier cambio resultante pasa por el Product Owner y el Product Backlog.",
+          "Incorrecto: la insatisfacción de un stakeholder no elimina la responsabilidad del Product Owner.",
+          "Incorrecto: la Definición de Hecho es un estándar de calidad que se comprueba antes de que el trabajo cuente como parte del Incremento; no se revoca retroactivamente por la opinión de un stakeholder sobre el valor."
+        ],
+        "trap": "El feedback de los stakeholders en la Sprint Review se traduce en un Product Backlog actualizado mediante colaboración — no permite que un stakeholder se salte al Product Owner ni deshaga retroactivamente la Definición de Hecho."
+      },
       {
         "type": "single",
         "q": "Si un stakeholder quiere cambiar el orden o el contenido del Product Backlog, ¿qué debería hacer?",
