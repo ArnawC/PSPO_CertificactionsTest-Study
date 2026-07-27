@@ -1,9 +1,13 @@
 // Font: es manté sincronitzat manualment amb /CHANGELOG.md (arrel del repo, en català).
 // Cada commit incrementa APP_VERSION i afegeix una entrada aquí (la més nova primer),
 // amb la descripció traduïda a es/en perquè es mostri en l'idioma actiu de la interfície.
-const APP_VERSION = "1.28.0";
+const APP_VERSION = "1.29.0";
 const REPO_URL = "https://github.com/ArnawC/PSPO_CertificactionsTest-Study";
 const CHANGELOG = [
+  { version: "1.29.0", date: "2026-07-27", desc: {
+    es: "Añade un apartado de \"Descargas\" en la página del Temario (bajo una línea divisoria), con un selector de tema y botones para descargar en PDF: el tema solo, la chuleta + tema, todas las chuletas, todo el temario, o chuletas + temario completo. La descarga se obtiene mediante el diálogo de impresión del navegador (\"Guardar como PDF\").",
+    en: "Adds a \"Downloads\" section to the Theory page (below a divider), with a topic selector and buttons to download PDFs: the topic alone, cheat sheet + topic, all cheat sheets, the entire theory, or cheat sheets + entire theory. The download is produced via the browser's print dialog (\"Save as PDF\")."
+  }},
   { version: "1.28.0", date: "2026-07-27", desc: {
     es: "Añade una \"chuleta rápida\" (resumen destacado en 4-6 puntos) a cada tema del temario, visible tanto en la vista de cada tema individual como en el temario completo, para repasar lo más importante de un vistazo antes de entrar en detalle. Cada chuleta se puede ocultar/mostrar con un botón, y la preferencia se recuerda por tema.",
     en: "Adds a \"quick cheat sheet\" (a highlighted 4-6 point summary) to every theory topic, visible both in each individual topic view and in the complete theory view, to review the key points at a glance before diving into detail. Each cheat sheet can be hidden/shown with a button, and the preference is remembered per topic."

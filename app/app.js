@@ -65,6 +65,14 @@ const STRINGS = {
     "theory.cheatsheet": "Chuleta rápida",
     "theory.cheatsheetHide": "Ocultar",
     "theory.cheatsheetShow": "Mostrar",
+    "theory.downloads.title": "Descargas",
+    "theory.downloads.subtitle": "Genera un PDF (se abre el diálogo de impresión: elige \"Guardar como PDF\").",
+    "theory.downloads.topicLabel": "Tema:",
+    "theory.downloads.topicOnly": "Descargar este tema (PDF)",
+    "theory.downloads.topicCheatsheet": "Descargar chuleta + tema (PDF)",
+    "theory.downloads.allCheatsheets": "Descargar todas las chuletas (PDF)",
+    "theory.downloads.allTheory": "Descargar todo el temario (PDF)",
+    "theory.downloads.allCheatsheetTheory": "Descargar chuletas + temario completo (PDF)",
     "typeLabel.single": "Opción única",
     "typeLabel.multi": "Respuesta múltiple",
     "typeLabel.tf": "Verdadero / Falso",
@@ -364,6 +372,14 @@ const STRINGS = {
     "theory.cheatsheet": "Quick cheat sheet",
     "theory.cheatsheetHide": "Hide",
     "theory.cheatsheetShow": "Show",
+    "theory.downloads.title": "Downloads",
+    "theory.downloads.subtitle": "Generates a PDF (opens the print dialog: choose \"Save as PDF\").",
+    "theory.downloads.topicLabel": "Topic:",
+    "theory.downloads.topicOnly": "Download this topic (PDF)",
+    "theory.downloads.topicCheatsheet": "Download cheat sheet + topic (PDF)",
+    "theory.downloads.allCheatsheets": "Download all cheat sheets (PDF)",
+    "theory.downloads.allTheory": "Download the entire theory (PDF)",
+    "theory.downloads.allCheatsheetTheory": "Download cheat sheets + entire theory (PDF)",
     "typeLabel.single": "Single choice",
     "typeLabel.multi": "Multiple choice",
     "typeLabel.tf": "True / False",
@@ -1482,6 +1498,7 @@ const ICON_FONTSIZE = '<svg width="16" height="16" viewBox="0 0 16 16" fill="non
 let sidebarOpen = false;
 let versionsOpen = false;
 let theorySearchQuery = "";
+let downloadTopicId = null;
 
 const NAV_ICONS = {
   "dashboard": '<path d="M2.5 8.5 8 3l5.5 5.5"/><path d="M3.8 7.2V13h8.4V7.2"/>',
@@ -1611,6 +1628,26 @@ function renderTheoryList(){
         ${snippet ? `<div class="meta" style="margin-top:8px; font-style:italic;">${highlightMatch(snippet, query)}</div>` : ""}
       </div>`).join("") : `<div class="empty-hint">${t("theory.searchNoResults")}</div>`}
     </div>
+    <hr class="divider"/>
+    <div class="downloads-box">
+      <h2>${t("theory.downloads.title")}</h2>
+      <p class="subtitle">${t("theory.downloads.subtitle")}</p>
+      <div class="downloads-row">
+        <label class="downloads-topic-label" for="download-topic-select">${t("theory.downloads.topicLabel")}</label>
+        <select id="download-topic-select" class="stats-select">
+          ${activeTopics.map(tp=>`<option value="${tp.id}" ${(downloadTopicId||activeTopics[0].id)===tp.id?"selected":""}>${tp.name}</option>`).join("")}
+        </select>
+      </div>
+      <div class="downloads-row">
+        <button class="btn secondary small" data-action="download-pdf" data-kind="topic">${t("theory.downloads.topicOnly")}</button>
+        <button class="btn secondary small" data-action="download-pdf" data-kind="topic-cheatsheet">${t("theory.downloads.topicCheatsheet")}</button>
+      </div>
+      <div class="downloads-row">
+        <button class="btn amber small" data-action="download-pdf" data-kind="all-cheatsheets">${t("theory.downloads.allCheatsheets")}</button>
+        <button class="btn amber small" data-action="download-pdf" data-kind="all-theory">${t("theory.downloads.allTheory")}</button>
+        <button class="btn amber small" data-action="download-pdf" data-kind="all-cheatsheet-theory">${t("theory.downloads.allCheatsheetTheory")}</button>
+      </div>
+    </div>
   `;
 }
 
@@ -1653,6 +1690,36 @@ function renderTheoryDetail(topicId){
       <button class="btn amber" data-action="start-topic-test" data-topic="${tp.id}">${t("theory.startTopicTest")}</button>
     </div>
   `;
+}
+
+// ---------------- PDF DOWNLOADS ----------------
+function cheatsheetBlockHtml(tp){
+  return tp.cheatsheet ? `<div class="cheatsheet-box"><h4>${t("theory.cheatsheet")}</h4>${tp.cheatsheet}</div>` : "";
+}
+
+function buildPdfHtml(kind, topicId){
+  const tp = activeTopics.find(x=>x.id===topicId) || activeTopics[0];
+  switch(kind){
+    case "topic":
+      return `<h1>${tp.name}</h1><div class="theory-box">${tp.theory}</div>`;
+    case "topic-cheatsheet":
+      return `<h1>${tp.name}</h1>${cheatsheetBlockHtml(tp)}<div class="theory-box">${tp.theory}</div>`;
+    case "all-cheatsheets":
+      return `<h1>${t("theory.downloads.allCheatsheets")}</h1>${activeTopics.map(t2=>`<h2>${t2.name}</h2>${cheatsheetBlockHtml(t2)}`).join("")}`;
+    case "all-theory":
+      return `<h1>${t("theory.viewAllTitle")}</h1>${activeTopics.map(t2=>`<h2>${t2.name}</h2><div class="theory-box">${t2.theory}</div>`).join("")}`;
+    case "all-cheatsheet-theory":
+      return `<h1>${t("theory.viewAllTitle")}</h1>${activeTopics.map(t2=>`<h2>${t2.name}</h2>${cheatsheetBlockHtml(t2)}<div class="theory-box">${t2.theory}</div>`).join("")}`;
+    default:
+      return "";
+  }
+}
+
+function downloadTheoryPdf(kind, topicId){
+  const printArea = document.getElementById("print-area");
+  if(!printArea) return;
+  printArea.innerHTML = buildPdfHtml(kind, topicId);
+  window.print();
 }
 
 // ---------------- TEST PER TEMA — CONFIG ----------------
@@ -2657,6 +2724,18 @@ function attachHandlers(){
 
   root.querySelectorAll('[data-action="toggle-cheatsheet"]').forEach(el=>{
     el.addEventListener("click", ()=> toggleCheatsheet(el.getAttribute("data-topic")));
+  });
+
+  const downloadTopicSelect = document.getElementById("download-topic-select");
+  if(downloadTopicSelect){
+    downloadTopicSelect.addEventListener("change", (e)=>{ downloadTopicId = e.target.value; });
+  }
+  root.querySelectorAll('[data-action="download-pdf"]').forEach(el=>{
+    el.addEventListener("click", ()=>{
+      const kind = el.getAttribute("data-kind");
+      const topicId = downloadTopicId || (downloadTopicSelect ? downloadTopicSelect.value : activeTopics[0].id);
+      downloadTheoryPdf(kind, topicId);
+    });
   });
 
   const pomodoroToggleBtn = root.querySelector('[data-action="pomodoro-toggle"]');

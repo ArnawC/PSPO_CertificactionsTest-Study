@@ -13,6 +13,9 @@ fitxer amb la versió incrementada, la data i una descripció breu del canvi
 entrada a l'inici de l'array `CHANGELOG` a `app/changelog.js`, actualitzant
 també `APP_VERSION` allà i el camp `version` de `package.json`.
 
+## v1.29.0 — 2026-07-27
+Afegeix un apartat de "Descargas" a la pàgina del Temario (sota una línia divisòria), amb un selector de tema i botons per descarregar en PDF: el tema sol, la chuleta + tema, totes les chuletas, tot el temari, o chuletas + temari complet. La descàrrega s'obté mitjançant el diàleg d'impressió del navegador ("Guardar como PDF").
+
 ## v1.28.0 — 2026-07-27
 Afegeix una "chuleta ràpida" (resum destacat en 4-6 punts) a cada tema del temari, visible tant a la vista de cada tema individual com al temari complet, per repassar el més important d'un cop d'ull abans d'entrar en detall. Cada chuleta es pot ocultar/mostrar amb un botó, i la preferència es recorda per a cada tema.
 
